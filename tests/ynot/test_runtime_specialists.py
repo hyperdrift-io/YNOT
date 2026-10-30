@@ -73,6 +73,17 @@ def test_policy_rejected_before_worker_invocation(changes):
     assert supervisor.created == []
 
 
+def test_one_call_specialist_is_rejected_before_creation():
+    supervisor = Supervisor(DummyLM([specialise(call_limit=1)]), {"reader": DummyLM(answer())}, {})
+    allowance = Allowance()
+    with dspy.context(adapter=dspy.ChatAdapter(use_json_adapter_fallback=False)):
+        with pytest.raises(dspy.AdapterParseError, match="call_limit"):
+            supervisor("Find evidence", allowance=allowance)
+    assert supervisor.created == []
+    assert allowance.used_model_calls == 1  # Only the supervisor's planning call.
+    assert not allowance.exhausted
+
+
 def test_unavailable_model_replans_with_checkpoint():
     planner = DummyLM([specialise(), specialise(model_alias="busy"), specialise(), stop()])
     supervisor = Supervisor(

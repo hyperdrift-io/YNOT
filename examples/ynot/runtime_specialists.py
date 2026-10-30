@@ -41,7 +41,7 @@ class WorkerSpec(BaseModel):
     model_alias: str
     tools: list[str]
     output: Literal["finding", "opportunity"] = "finding"
-    call_limit: int = Field(ge=1, le=4)
+    call_limit: int = Field(ge=2, le=4)
 
 
 class NextStep(dspy.Signature):
