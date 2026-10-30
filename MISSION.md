@@ -4,6 +4,8 @@ Give founders the delivery capacity to turn a business problem into a working im
 
 YNOT is an Orchestra offering. It appoints an accountable supervisor that recruits and configures the smallest capable team, adapts to available capacity and follows the work through to verified completion. Hyperdrift is building it and will validate it internally first.
 
+DSPy is the technical foundation: YNOT aims to make supervised agent work programmable, evaluable and adaptable. We judge the fork against upstream DSPy on the same job, model access, tools and resource allowance. Better completion, recovery or cost must justify the extra coordination.
+
 ## First application: get a customer to their first useful result
 
 A founder of a software business asks:
