@@ -1,34 +1,29 @@
 # YNOT — mission
 
-Give founders the delivery capacity to turn a business problem into a working improvement, without managing every specialist and handoff.
+Give founders the capacity to advance a business goal by assembling and adapting the expertise needed to deliver it, without managing every agent, tool and handoff.
 
-YNOT is an Orchestra offering. It appoints an accountable supervisor that recruits and configures the smallest capable team, adapts to available capacity and follows the work through to verified completion. Hyperdrift is building it and will validate it internally first.
+YNOT is an Orchestra offering built on DSPy. The supervisor remains accountable for the mission, evidence, resource use and result. Hyperdrift is developing it and will validate it internally first.
 
-DSPy is the technical foundation: YNOT aims to make supervised agent work programmable, evaluable and adaptable. We judge the fork against upstream DSPy on the same job, model access, tools and resource allowance. Better completion, recovery or cost must justify the extra coordination.
+## First service: find one customer worth pursuing
 
-## First application: get a customer to their first useful result
+A founder provides their offer, website and an example of a good customer. YNOT investigates a credible opportunity and returns a commercial judgement: who appears to fit, the supporting evidence, any supported reason to approach now, what remains unknown and a useful way to start the conversation.
 
-A founder of a software business asks:
+The founder can then commission help pursuing that opportunity through Orchestra. An account found, a message drafted, a conversation started and a customer won are different outcomes. Record each honestly.
 
-> People start a trial but get stuck before completing their first job. Find the obstruction and fix it.
+Use strong existing projects. Apollo can supply prospect research and sales capabilities; other approved tools can supply additional evidence. Traction retains the commercial relationship. YNOT should build the smallest missing capability that helps those services complete the founder's job.
 
-This is an illustrative commission, not a claim about an existing customer's conversion problem. It gives the organisation a concrete outcome: a person can complete a useful task they could not complete before.
+## The capability that must earn its place
 
-The supervisor examines the available customer evidence, reproduces the journey and chooses one supported obstruction. It commissions the smallest coherent improvement, brings in specialist help when needed, and obtains a separate check of the result. If a worker becomes unavailable, another suitable worker continues from the retained evidence and task state. The founder receives the working improvement, its cost, remaining uncertainty and the next result to measure.
+The supervisor can configure a specialist during a running mission when the evidence reveals a need. It sets the specialist's purpose, context, allowed capabilities, model and completion check, then runs it within the remaining allocation. Findings can change the approach or call for different expertise. A replacement continues from the retained evidence when capacity changes.
 
-The mission stays with the work. Completing tickets, producing reports and recruiting agents count only where they help the person finish their job. Revenue and retention effects are measured after release; they are not inferred from a passing test.
+For example, a broad prospect match may leave a question about product fit. YNOT can configure a specialist to investigate that question, retain or reject the opportunity on the evidence, and prepare the next useful step. This is the behaviour to demonstrate, not a claim that an operating network already exists.
 
-## What tonight must prove
+Dynamic delegation is an established capability in the ecosystem. Our proposed distinction is its application: an inspectable, adaptable way to complete a business mission using the best available services. Better quality, continuity, coordination or cost must substantiate that distinction.
 
-Name one existing application and the specific customer journey before dispatching implementation work. Establish its real baseline and a supported obstruction before choosing a change. If the evidence does not support an obstruction, narrow the investigation or return that finding rather than manufacture a fix.
+## What we build and measure first
 
-Deliver one bounded run: an explicit outcome and resource allowance, a supervisor, one active worker, a working improvement and separate-runner verification. Introduce a second worker when expertise or availability justifies it. A controlled unavailability case must show the handoff preserves the evidence, scope and remaining allocation; label that control as simulated.
+Run one bounded mission on Orchestra's own offer. Start with one active worker and add expertise when justified. Demonstrate a specialist configured after an evidence gap appears, real execution of that configuration and continuation from its findings. Label scripted responses and simulated availability changes as controls.
 
-Review the actual change, run the relevant checks and commit directly to the authorised main branch. Use the application's established release path and verify the served result when released. Record code completion, release and customer benefit separately.
+Compare with a competent existing workflow using the same services, initial evidence and resource allowance. Evaluate factual support, fit, uncertainty, usefulness and cost. A founder must judge whether the opportunity deserves a conversation; public signals alone do not establish buying intent.
 
-## How we judge the work
-
-The person can now complete the supported journey. The founder's coordination effort, delivery cost, elapsed time and unresolved findings are visible. The supervisor must justify the coordination it adds against the simpler one-worker approach.
-
-Choose the smallest complete way to help. Add an agent, abstraction or dependency when the task supplies a reason. Flag scope drift and speculative edge cases by their evidence and cost. Keep consequential failures in view even when uncommon. Stop when the next useful result cannot be reached within the mandate.
-
+The first implementation should reuse existing tools and DSPy APIs. Add an abstraction, agent or dependency only when the job supplies a reason. Keep private evidence scoped to its owner, preserve attribution and make later corrections visible. Stop when the next useful result cannot be reached within the mandate.
