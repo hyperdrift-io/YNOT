@@ -219,7 +219,8 @@ class ServiceAdviser:
         def service_evidence(service: str, question: str) -> str:
             """Research a service against the founder's requirements using approved evidence."""
             try:
-                packet = EvidencePacket.model_validate(self.research(service, question))
+                packet = EvidencePacket.model_validate(self.research(service, question)).model_copy(deep=True)
+                # Own the accepted snapshot: callbacks may return mutable cached model instances.
                 # Validate the complete candidate ledger before accepting the new packet.
                 compare(need, packet)
                 combined = _combine(packets + [packet])

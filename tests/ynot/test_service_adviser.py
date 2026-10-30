@@ -228,3 +228,50 @@ def test_old_price_cannot_replace_newer_over_budget_evidence():
     result = compare(need(monthly_budget=100), _combine([newer, older]))
     assert result["status"] == "no_fit"
     assert result["candidates"][0]["monthly_cost"] == 200
+
+
+def test_callback_cannot_mutate_previously_accepted_evidence():
+    import dspy
+    from dspy.utils.dummies import DummyLM
+
+    shared = packet(assessment(status="fails"))
+
+    def research(service, question):
+        if service == "A":
+            return shared
+        shared.assessments[0].findings[0].status = "meets"
+        shared.sources[0].excerpt = "Rewritten after acceptance"
+        return packet(assessment("B", status="fails", source_id="b"), sources=[source("b", "B")])
+
+    steps, answers = [], []
+    for service in ("A", "B"):
+        spec = {
+            "purpose": f"Assess {service}",
+            "evidence_gap": "Need API evidence",
+            "instructions": f"Inspect {service}",
+            "model_alias": "research",
+            "tools": ["service_evidence"],
+            "output": "finding",
+            "call_limit": 3,
+        }
+        steps.append({"action": "specialise", "reason": "Need evidence", "spec": spec})
+        answers.extend(
+            [
+                {
+                    "next_thought": "Read",
+                    "next_tool_name": "service_evidence",
+                    "next_tool_args": {"service": service, "question": "API?"},
+                },
+                {"next_thought": "Evidence recorded", "next_tool_name": "finish", "next_tool_args": {}},
+                {"plan": "Keep evidence", "finding": f"Assessed {service}."},
+            ]
+        )
+    steps.append({"action": "stop", "reason": "Comparison complete", "spec": None})
+    adviser = ServiceAdviser(DummyLM(steps), {"research": DummyLM(answers)}, research)
+    with dspy.context(adapter=dspy.ChatAdapter()):
+        result = adviser(need())
+    assert shared.assessments[0].findings[0].status == "meets"
+    assert result["status"] == "no_fit"
+    assert result["recommended_service"] is None
+    assert result["candidates"][0]["findings"][0]["status"] == "fails"
+    assert result["sources"][0]["excerpt"] == "Fictional evidence"

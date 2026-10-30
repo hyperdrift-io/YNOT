@@ -24,7 +24,7 @@ For a live run, construct `ServiceAdviser(planner_lm, {"research": worker_lm}, a
 
 ## What decides the recommendation
 
-The model configures and runs research specialists. A host-owned ledger records approved research callback results. Worker prose cannot turn a missing or mismatched source into accepted evidence.
+The model configures and runs research specialists. A host-owned ledger deep-copies accepted research callback results, so a later change to a callback’s cached model instance cannot rewrite earlier evidence. Worker prose cannot turn a missing or mismatched source into accepted evidence.
 
 Every factual verdict must cite an existing source for the same service and criterion. Unknown or missing hard requirements prevent an unconditional trial recommendation; a known failed requirement excludes the service. A declared budget also requires a sourced cost in the same currency. Unknown price is never treated as zero. Sources use immutable evidence-snapshot IDs: new content or check dates require a new ID. Later dated evidence can revise a finding; contradictory findings at the latest checked date remain unresolved even when one assertion is repeated. An older price cannot overwrite a newer price. A newer check date supplies an ordering rule, not proof that the claim is true. Earlier account/setup uncertainties remain visible across research steps.
 
