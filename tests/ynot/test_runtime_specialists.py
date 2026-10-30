@@ -147,3 +147,36 @@ def test_scripted_demo_uses_tools_and_has_explicit_limits():
     assert result["status"] == "stopped"
     assert result["usage"] == {"model_calls": 8, "tool_calls": 1}
     assert "Illustrative" in result["checkpoint"][-1]["opportunity"]
+
+
+def test_planner_sees_remaining_tool_calls_after_research():
+    requests, called = [], []
+    replies = DummyLM([specialise(tools=["read"], call_limit=3), stop("Evidence complete")])
+
+    class RecordingPlanner:
+        def complete(self, request):
+            requests.append(request)
+            return replies(request, cache=False)
+
+    def read(query: str) -> str:
+        called.append(query)
+        return "Public evidence"
+
+    worker = DummyLM(
+        [
+            {"next_thought": "Read source", "next_tool_name": "read", "next_tool_args": {"query": "q"}},
+            {"next_thought": "Have source", "next_tool_name": "finish", "next_tool_args": {}},
+            {"plan": "Retain source", "finding": "Public evidence"},
+        ]
+    )
+    planner = dspy.BaseLM("dummy", engine=RecordingPlanner(), cache=False)
+    supervisor = Supervisor(planner, {"reader": worker}, {"read": read})
+    allowance = Allowance(tool_calls=1)
+    with dspy.context(adapter=dspy.ChatAdapter()):
+        result = supervisor("Find evidence", allowance=allowance)
+    assert result.status == "stopped"
+    assert called == ["q"] and allowance.used_tool_calls == 1
+    first = requests[0].messages[-1].parts[0].text
+    second = requests[1].messages[-1].parts[0].text
+    assert "[[ ## remaining_tools ## ]]\n1" in first
+    assert "[[ ## remaining_tools ## ]]\n0" in second

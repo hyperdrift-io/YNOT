@@ -24,6 +24,23 @@ A case contains `need`, `sources` and `assessments`, matching the Pydantic recor
 
 For a live run, construct `ServiceAdviser(planner_lm, {"research": worker_lm}, approved_research_callback)` and pass a `FounderNeed`. The callback receives a service and research question and returns an `EvidencePacket`. It is caller-approved code, not sandboxed by this example. Reuse a narrow service API where it supplies the capability. Credentials, account access, provider costs and downstream actions remain the caller's responsibility; this example activates none of them.
 
+## Use an existing Codex CLI login
+
+The optional [live adapter](live_codex.py) runs the planner and research through Codex CLI. It uses the CLI's existing authentication and configured default model; it never reads credentials or opens an account.
+
+```bash
+PYTHONPATH=. python -m examples.ynot.live_codex \
+  --brief need.json --output-dir /tmp/ynot-live-run \
+  --domains developers.openai.com,learn.chatgpt.com,exa.ai \
+  --access-note "Codex available; other vendor access unconfirmed."
+```
+
+Supply official domains relevant to the need. The inference processes have tools disabled; research processes receive public-web search. Both use a read-only sandbox, no shell, apps, hooks or subagents, and ignore user configuration. This is a local demonstration adapter, not public-agent admission.
+
+The host limits the run to 24 CLI invocations, 120 seconds per invocation and 12 minutes overall. DSPy separately limits supervisor/worker calls and research callbacks. Web-action limits are prompted, not enforced inside the CLI. Token usage includes repeated CLI startup context; completed CLI turns do not reveal every underlying provider call or retry. These controls do not cap monetary charges.
+
+The output directory retains prompts, JSONL events, accepted evidence, usage and the decision. A timeout preserves partial public events. Stderr is excluded. Use public inputs only. Source URLs must appear as explicit attempted-open targets or page-result URLs within an open action, and belong to the approved domains. Every evidence service label must exactly match the requested service; aliases are rejected. This proves an attempted page action, not successful retrieval or factual truth; inspect the source content before acting on its claims.
+
 ## What decides the recommendation
 
 The model configures and runs research specialists. A host-owned ledger deep-copies accepted research callback results, so a later change to a callback’s cached model instance cannot rewrite earlier evidence. Worker prose cannot turn a missing or mismatched source into accepted evidence.
