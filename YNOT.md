@@ -2,7 +2,7 @@
 
 YNOT is an experimental DSPy fork and an Orchestra offering for supervised agent work. A founder commissions a result; the supervisor assembles existing capabilities, configures specialists as the mission develops and stays accountable for delivery. The [mission](MISSION.md) is the source for what should improve and how we judge it.
 
-DSPy supplies programmable modules, agents and metric-driven optimisation. YNOT develops and tests improvements for supervised execution. A useful application comes first; a core change earns its place through a reproduced limitation. DSPy's history and MIT attribution are preserved.
+DSPy supplies programmable modules, agents and metric-driven optimisation. YNOT develops and tests improvements for supervised execution. A useful application comes first; a core change earns its place through a reproduced limitation. DSPy's history and MIT attribution are preserved. The [controlled runtime-specialist example](examples/ynot/README.md) now creates and executes real DSPy ReAct workers from specifications generated during the run. Its default responses and sources are scripted and fictional; live prospect research, the Apollo integration and a quality advantage remain unverified.
 
 ## First application
 
