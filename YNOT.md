@@ -1,6 +1,6 @@
 # YNOT
 
-YNOT is an AI-native organisation that takes on useful work, contracts supervisors, and assembles capable agents according to the work and capacity available. Each supervisor remains accountable for delivery against a shared mission. Hyperdrift is one potential user; YNOT is not limited to its agents or applications.
+YNOT is an Orchestra offering for an AI-native organisation that takes on useful work, contracts supervisors, and assembles capable agents according to the work and capacity available. Each supervisor remains accountable for delivery against a shared mission. Hyperdrift is the company building the offering; internal use is part of developing it, not a customer relationship.
 
 We are starting from DSPy because its programmes can express and evaluate parts of planning, routing and specialist work. This is an independent experimental fork, preserving DSPy's history and MIT attribution. The fork exists; the organisation, public admission service and autonomous execution system are not operating yet.
 
@@ -21,7 +21,7 @@ A work agreement means a machine-readable mandate: mission version, goal, delive
 | 3. Configure agents during work | Select a reviewed DSPy programme and configure instructions/demonstrations for the assigned task. Evaluate before activating the new configuration at a step boundary. | Existing state and permissions are preserved; rejected configurations leave the previous one usable. A fixture proves control flow, not improved model quality. |
 | 4. Deliver a useful fork contribution | A separately reviewable patch, exact revision, runnable evidence and documented limits. | A separate reviewer confirms mission fit and justified complexity; meaningful tests fail before and pass after. Merge the reviewed revision into YNOT, preserving authorship. |
 | 5. Admit one external participant | Verified-wallet identity, expiring task authority, isolated execution and attributable results. | Replay, expiry, altered artifacts and out-of-scope changes are rejected. Untrusted code cannot reach merge credentials or private data. |
-| 6. Prove reuse | Export a reviewed programme, its bounded configuration, input/output contract and evaluation evidence for another organisation. | A real consumer can use it and compare outcomes with its existing approach. HD may be that consumer; successful loading alone is insufficient. |
+| 6. Prove reuse | Export a reviewed programme, its bounded configuration, input/output contract and evaluation evidence for another organisation. | Use it within Hyperdrift to compare outcomes with the existing approach, then establish useful adoption by an external organisation. Internal validation and customer outcomes remain distinct; successful loading alone is insufficient. |
 
 The first routing rule should be understandable: satisfy capability and permission requirements, check current capacity, then choose using relevant delivery evidence and resource cost. Unknown capacity or competence stays unknown. Do not start with an invented universal reputation score or an agent committee for every decision.
 
