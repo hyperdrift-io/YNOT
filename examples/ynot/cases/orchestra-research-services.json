@@ -1,0 +1,235 @@
+{
+  "need": {
+    "outcome": "For Orchestra’s B2B offer, research one candidate organisation and explain fit with inspectable public-source evidence, using a programmatic capability YNOT can invoke.",
+    "criteria": [
+      {
+        "id": "programmable_interface",
+        "description": "A documented interface can be called by a YNOT adapter for research.",
+        "required": true
+      },
+      {
+        "id": "evidence_links",
+        "description": "The proposed research output can retain inspectable links to source material.",
+        "required": true
+      },
+      {
+        "id": "research_only_execution",
+        "description": "The proposed adapter can confine execution to research, without CRM writes or outbound communication.",
+        "required": true
+      },
+      {
+        "id": "b2b_enrichment",
+        "description": "Provides B2B company/prospect data or enrichment beyond general web retrieval.",
+        "required": false
+      },
+      {
+        "id": "continuable_tasks",
+        "description": "A research task can retain state and accept follow-up instructions.",
+        "required": false
+      }
+    ],
+    "monthly_budget": null,
+    "currency": "GBP"
+  },
+  "sources": [
+    {
+      "id": "apollo_assistant_overview",
+      "service": "Apollo",
+      "url": "https://docs.apollo.io/reference/use%20the%20ai%20assistant",
+      "excerpt": "Documentation: assistant endpoints handle prospecting and research. Tasks retain conversation context. Assistant actions inherit the acting user’s permissions; restricting API endpoints does not restrict those actions.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "apollo_assistant_tasks",
+      "service": "Apollo",
+      "url": "https://docs.apollo.io/reference/run-an-assistant-task",
+      "excerpt": "Documentation: POST /api/v1/agents/task starts, polls or continues a task. A successful submission is not completion. A running task ignores a new instruction rather than queueing it.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "clay_table_api",
+      "service": "Clay",
+      "url": "https://university.clay.com/docs/table-management-settings",
+      "excerpt": "Documentation: Enterprise workspaces can enable selected tables for the public read/query API. Table and column auto-run settings control automatic enrichment after rows change.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "clay_webhook",
+      "service": "Clay",
+      "url": "https://university.clay.com/docs/webhook-integration-guide",
+      "excerpt": "Documentation: an HTTP POST can submit JSON to a Clay webhook-backed table. Authentication is configurable; submissions enter the configured table workflow.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "clay_pricing",
+      "service": "Clay",
+      "url": "https://www.clay.com/pricing",
+      "excerpt": "Documentation: Claygent supports web research; the platform offers data enrichment and workflow execution. Actions and data credits meter different work. Clay API access appears in Enterprise plan information.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "exa_search",
+      "service": "Exa",
+      "url": "https://exa.ai/docs/reference/search",
+      "excerpt": "Documentation: POST /search accepts a query and returns result URLs and optional text/highlights. A company category is supported, but cannot combine with published-date filters.",
+      "checked_at": "2026-10-30"
+    },
+    {
+      "id": "exa_answer",
+      "service": "Exa",
+      "url": "https://exa.ai/docs/reference/answer",
+      "excerpt": "Documentation: POST /answer generates an answer from search results and returns citations. It supports a JSON output schema and reports estimated request cost. Authentication requires an API key.",
+      "checked_at": "2026-10-30"
+    }
+  ],
+  "assessments": [
+    {
+      "service": "Apollo",
+      "findings": [
+        {
+          "criterion_id": "programmable_interface",
+          "status": "meets",
+          "source_id": "apollo_assistant_tasks",
+          "detail": "A documented task endpoint is suitable for an adapter; workspace endpoint access is not yet checked."
+        },
+        {
+          "criterion_id": "evidence_links",
+          "status": "unknown",
+          "source_id": "apollo_assistant_tasks",
+          "detail": "The documented task response exposes text messages. This page does not guarantee primary-source citation fields in the research output."
+        },
+        {
+          "criterion_id": "research_only_execution",
+          "status": "unknown",
+          "source_id": "apollo_assistant_overview",
+          "detail": "Endpoint restriction alone is insufficient. A restricted acting identity or explicit narrower research operations must be established."
+        },
+        {
+          "criterion_id": "b2b_enrichment",
+          "status": "meets",
+          "source_id": "apollo_assistant_overview",
+          "detail": "Prospecting and research are explicit assistant use cases; actual account data coverage remains untested."
+        },
+        {
+          "criterion_id": "continuable_tasks",
+          "status": "meets",
+          "source_id": "apollo_assistant_tasks",
+          "detail": "Existing task IDs support follow-up after completion or a request for input; mid-run instructions are ignored."
+        }
+      ],
+      "monthly_cost": null,
+      "currency": null,
+      "cost_source_id": null,
+      "trial": "After confirming account permissions and an approved credit cap, use one explicit research operation on one known company. Check returned evidence links and verify that no CRM or outbound action occurred.",
+      "tradeoffs": [
+        "A purpose-built sales capability may reduce setup for B2B prospect work.",
+        "The general assistant has a broader authority surface than a narrow search adapter."
+      ],
+      "unknowns": [
+        "Existing Apollo account and endpoint entitlement.",
+        "Permission configuration sufficient to confine the selected operation to research.",
+        "Evidence-link completeness, coverage and quality on a representative company.",
+        "Cost of the chosen operation and available credits."
+      ]
+    },
+    {
+      "service": "Clay",
+      "findings": [
+        {
+          "criterion_id": "programmable_interface",
+          "status": "meets",
+          "source_id": "clay_table_api",
+          "detail": "Enterprise read/query access is documented for enabled tables; webhook input is another configured-workflow path, not equivalent to a general research API."
+        },
+        {
+          "criterion_id": "evidence_links",
+          "status": "unknown",
+          "source_id": "clay_pricing",
+          "detail": "Web research is documented, but the inspected pages do not establish a stable source-citation output contract for the proposed table."
+        },
+        {
+          "criterion_id": "research_only_execution",
+          "status": "unknown",
+          "source_id": "clay_table_api",
+          "detail": "Reading an existing table can be narrow; fresh research depends on the table/workflow configuration, whose downstream effects have not been inspected."
+        },
+        {
+          "criterion_id": "b2b_enrichment",
+          "status": "meets",
+          "source_id": "clay_pricing",
+          "detail": "The platform documents data enrichment and Claygent research, potentially useful when multiple providers or an existing Clay workflow are needed."
+        },
+        {
+          "criterion_id": "continuable_tasks",
+          "status": "unknown",
+          "source_id": "clay_webhook",
+          "detail": "Persistent table workflows are documented. They do not establish the conversational task contract being assessed here."
+        }
+      ],
+      "monthly_cost": null,
+      "currency": null,
+      "cost_source_id": null,
+      "trial": "If an authorised Clay workspace already exists, inspect its plan and workflow first. Use an isolated table with auto-run disabled, then manually research one sample row and inspect source fields and charges.",
+      "tradeoffs": [
+        "Useful orchestration and multi-provider enrichment may already solve much of the job.",
+        "A table/workflow and plan entitlement add setup when only one public research call is required."
+      ],
+      "unknowns": [
+        "Existing workspace, plan and enabled-table entitlement.",
+        "Exact research workflow, downstream actions and source fields.",
+        "Representative total action/data-credit usage.",
+        "Whether the existing Clay workflow removes the need for extra YNOT coordination."
+      ]
+    },
+    {
+      "service": "Exa",
+      "findings": [
+        {
+          "criterion_id": "programmable_interface",
+          "status": "meets",
+          "source_id": "exa_search",
+          "detail": "A direct search endpoint is documented for a query-to-results adapter."
+        },
+        {
+          "criterion_id": "evidence_links",
+          "status": "meets",
+          "source_id": "exa_answer",
+          "detail": "The answer response documents a citations array containing source URLs."
+        },
+        {
+          "criterion_id": "research_only_execution",
+          "status": "meets",
+          "source_id": "exa_search",
+          "detail": "A trusted adapter exposing only search/answer calls has a narrow research function; this is an integration design, not an account permission audit."
+        },
+        {
+          "criterion_id": "b2b_enrichment",
+          "status": "unknown",
+          "source_id": "exa_search",
+          "detail": "Company-oriented web search is documented. The inspected endpoint does not establish equivalent curated B2B enrichment or contact coverage."
+        },
+        {
+          "criterion_id": "continuable_tasks",
+          "status": "unknown",
+          "source_id": "exa_answer",
+          "detail": "The inspected answer endpoint is request/response. No conversation continuation behaviour was verified for this proposed integration."
+        }
+      ],
+      "monthly_cost": null,
+      "currency": null,
+      "cost_source_id": null,
+      "trial": "After access and a small spend cap are approved, run one fixed public-company query through the narrow search/answer adapter. Inspect every cited source and record actual usage and gaps.",
+      "tradeoffs": [
+        "The documented source-linked output is a close fit for a small public-evidence probe.",
+        "Sales-specific coverage and an acceptable cost are not established by this documentation check.",
+        "Company-category search does not support published-date filters; timing claims need dated source inspection or an appropriate separate query."
+      ],
+      "unknowns": [
+        "Existing Exa access and allowed spend.",
+        "Performance on the founder’s actual ideal-customer description.",
+        "Required data-processing location, retention and contractual fit.",
+        "Cost and usefulness per accepted opportunity."
+      ]
+    }
+  ]
+}

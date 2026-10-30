@@ -15,8 +15,10 @@ The demonstration creates and executes two real DSPy ReAct specialists during on
 Use `--json` for the full decision record, findings, sources and execution trace. A caller can compare an evidence packet without any model calls:
 
 ```bash
-PYTHONPATH=. python -m examples.ynot.service_adviser --case case.json
+PYTHONPATH=. python -m examples.ynot.service_adviser --case examples/ynot/cases/orchestra-research-services.json
 ```
+
+The included real case compares Apollo, Clay and Exa against Orchestra's public-research need using seven official sources checked on 30 October 2026. Budget, account access and data-handling requirements remain unresolved. It suggests Exa as a conditional trial among the reviewed interfaces; this is neither a global vendor ranking nor proof of live service quality. The case is a saved documentation review and makes no model or provider calls. Inspect current sources again before adopting or paying for a service.
 
 A case contains `need`, `sources` and `assessments`, matching the Pydantic records in `service_adviser.py`. Alternatively supply `--brief need.json --evidence evidence.json`. This path evaluates saved evidence; it does not run agents or refresh a market survey. The printed brief is deliberately shorter than the complete JSON record.
 
