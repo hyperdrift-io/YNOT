@@ -299,7 +299,7 @@ def main():
         with dspy.context(adapter=dspy.ChatAdapter()):
             report = adviser(need, allowance=Allowance(model_calls=16, tool_calls=4))
         report["live_host"] = {
-            "engine": "existing Codex CLI login; configured default model",
+            "engine": "existing Codex CLI login; CLI default model",
             "calls": host.calls,
             "access_note": args.access_note,
             "limits": "CLI invocations and wall time; not money",

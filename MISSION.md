@@ -10,7 +10,7 @@ A founder brings the outcome they need, the systems they already use and the con
 
 A missing hard requirement stays unknown. A service that violates a hard constraint is not a match. When the evidence cannot support a choice, return a focused question or a no-fit finding. Documented capability, an exercised integration and a useful customer result are different states.
 
-The first internal case is choosing a research capability for Orchestra: compare Apollo, Clay and Exa against source-linked research, programmatic access and an appropriate authority boundary. Budget, existing accounts and data requirements remain unknown until supplied. This comparison supports those projects rather than replacing their capabilities.
+The first internal case is choosing a research capability for Orchestra. A saved comparison reviewed Apollo, Clay and Exa; the first live run used existing Codex access for public research. The corrected adviser returned a conditional trial, and a representative research mission completed with a no-fit finding. Broader account costs, private-data suitability and repeatable quality remain unverified. These comparisons support existing projects rather than replacing their capabilities.
 
 The founder can commission help testing or adopting the choice through Orchestra. The value is a service that works for their job, with less wasted setup and coordination. A recommendation alone does not establish that result.
 

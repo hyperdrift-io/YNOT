@@ -26,7 +26,7 @@ For a live run, construct `ServiceAdviser(planner_lm, {"research": worker_lm}, a
 
 ## Use an existing Codex CLI login
 
-The optional [live adapter](live_codex.py) runs the planner and research through Codex CLI. It uses the CLI's existing authentication and configured default model; it never reads credentials or opens an account.
+The optional [live adapter](live_codex.py) runs the planner and research through Codex CLI. It uses the CLI's existing authentication and CLI default model; it never reads credentials or opens an account.
 
 ```bash
 PYTHONPATH=. python -m examples.ynot.live_codex \
@@ -40,6 +40,14 @@ Supply official domains relevant to the need. The inference processes have tools
 The host limits the run to 24 CLI invocations, 120 seconds per invocation and 12 minutes overall. DSPy separately limits supervisor/worker calls and research callbacks. Web-action limits are prompted, not enforced inside the CLI. Token usage includes repeated CLI startup context; completed CLI turns do not reveal every underlying provider call or retry. These controls do not cap monetary charges.
 
 The output directory retains prompts, JSONL events, accepted evidence, usage and the decision. A timeout preserves partial public events. Stderr is excluded. Use public inputs only. Source URLs must appear as explicit attempted-open targets or page-result URLs within an open action, and belong to the approved domains. Every evidence service label must exactly match the requested service; aliases are rejected. This proves an attempted page action, not successful retrieval or factual truth; inspect the source content before acting on its claims.
+
+## First live observation
+
+An internal Orchestra run on 30 October 2026 used the existing ChatGPT-authenticated Codex CLI. The first selection exhausted its tool allowance after invalid duplicate findings and inconsistent service labels. The ledger retained uncertainty. The corrected run completed with one specialist, four supervisor/worker inference invocations and one live research invocation, returning a conditional Codex trial.
+
+A separate public-research trial also completed with one dynamically configured specialist and a no-fit decision: existing capabilities weakened the proposed opportunity. The host supplied the briefs, chose the exercised capability for that trial after the first selection stalled, checked the sources independently and launched the corrected selection with those observations. This was supervised live work, not one unattended selection-to-execution transaction.
+
+The run exposed missing context between selection and execution and substantial repeated-context usage. A shared founder brief and a comparison with a simple direct workflow are the next useful checks. No matched baseline, qualified lead, client result, commercial adoption or advantage over upstream DSPy was established. The checked implementation has 59 passing tests and one optional skip.
 
 ## What decides the recommendation
 
