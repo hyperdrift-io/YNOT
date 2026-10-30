@@ -1,6 +1,8 @@
 # Specialists configured during a run
 
-Run from the checkout root:
+The [service adviser](SERVICE-ADVISER.md) applies this runtime to a founder’s requirements and source-linked service evidence. It provides a short decision brief, JSON output and a reversible-trial recommendation.
+
+Run the runtime control from the checkout root:
 
 ```bash
 PYTHONPATH=. python -m examples.ynot.runtime_specialists
