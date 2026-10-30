@@ -1,4 +1,4 @@
-> **YNOT** is an Orchestra offering, starting as an independent experimental DSPy fork for an AI-native organisation that contracts supervisors and routes work to capable agents. Read the [mission and delivery plan](YNOT.md). DSPy attribution and the upstream documentation below are preserved. The proposed network is not yet operating.
+> **YNOT** is an Orchestra offering, starting as an independent experimental DSPy fork for an AI-native organisation that contracts supervisors and routes work to capable agents. Read the [mission](MISSION.md) and [delivery plan](YNOT.md). DSPy attribution and the upstream documentation below are preserved. The proposed network is not yet operating.
 
 <p align="center">
   <img align="center" src="docs/docs/static/img/dspy_logo.png" width="460px" />
