@@ -97,6 +97,8 @@ class CodexHost:
     timeout: float = 120
     mission_seconds: float = 720
     executable: str = "codex"
+    model: str | None = None
+    reasoning_effort: str | None = None
     started: float = field(default_factory=time.monotonic)
     calls: list = field(default_factory=list)
 
@@ -111,7 +113,13 @@ class CodexHost:
         if len(self.calls) >= self.max_invocations or remaining <= 0:
             raise LiveRunError("Live host allowance exhausted.")
         number = len(self.calls) + 1
-        record = {"invocation": number, "kind": "research" if research else "inference", "status": "started"}
+        record = {
+            "invocation": number,
+            "kind": "research" if research else "inference",
+            "status": "started",
+            "requested_model": self.model,
+            "requested_reasoning_effort": self.reasoning_effort,
+        }
         self.calls.append(record)
         command = [
             self.executable,
@@ -129,6 +137,10 @@ class CodexHost:
         ]
         for feature in ("shell_tool", "apps", "multi_agent", "hooks", "view_image", "browser_use", "computer_use"):
             command.extend(["-c", f"features.{feature}=false"])
+        if self.model:
+            command.extend(["--model", self.model])
+        if self.reasoning_effort:
+            command.extend(["-c", f"model_reasoning_effort={json.dumps(self.reasoning_effort)}"])
         if schema is not None:
             schema_path = self.output_dir / f"{number:02d}-schema.json"
             schema_path.write_text(json.dumps(schema))
@@ -291,12 +303,14 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--domains", required=True, help="Comma-separated approved official-source domains")
     parser.add_argument("--access-note", default="")
+    parser.add_argument("--model", help="Pin the requested Codex model for reproducible comparisons")
+    parser.add_argument("--reasoning-effort", help="Pin the requested reasoning effort")
     parser.add_argument(
         "--direct-service", help="Assess this known candidate directly, without supervisor/worker calls"
     )
     args = parser.parse_args()
     need = FounderNeed.model_validate_json(args.brief.read_text())
-    host = CodexHost(args.output_dir.resolve())
+    host = CodexHost(args.output_dir.resolve(), model=args.model, reasoning_effort=args.reasoning_effort)
     (host.output_dir / "founder-need.json").write_text(need.model_dump_json(indent=2))
     research = CodexResearch(host, need, args.domains.split(","), access_note=args.access_note)
     lm = dspy.BaseLM("custom/codex-cli-default", engine=CodexEngine(host), cache=False, num_retries=0)
@@ -308,7 +322,9 @@ def main():
             with dspy.context(adapter=dspy.ChatAdapter()):
                 report = adviser(need, allowance=Allowance(model_calls=16, tool_calls=4))
         report["live_host"] = {
-            "engine": "existing Codex CLI login; CLI default model",
+            "engine": "existing Codex CLI login",
+            "requested_model": args.model,
+            "requested_reasoning_effort": args.reasoning_effort,
             "calls": host.calls,
             "access_note": args.access_note,
             "limits": "CLI invocations and wall time; not money",

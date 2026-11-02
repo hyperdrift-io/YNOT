@@ -122,6 +122,7 @@ def test_demo_creates_and_executes_specialists_and_retains_findings():
     assert "Need a restricted alternative" in events[2]["spec"]["evidence_gap"]
     assert len(result["execution"]["checkpoint"]) == 2
     assert result["execution"]["usage"] == {"model_calls": 9, "tool_calls": 2}
+    assert [step["action"] for step in result["execution"]["decisions"]] == ["specialise", "specialise", "stop"]
     assert all("invalid" in s["url"] for s in result["sources"])
 
 

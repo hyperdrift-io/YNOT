@@ -18,10 +18,13 @@ There was no matched direct-workflow baseline or customer outcome.
 The context fix and [live comparison](2026-11-02-comparison.md) are complete.
 Both paths retained the supplied offer and returned `needs_evidence`. Direct
 research used one invocation and 46.227 seconds; supervision used five and
-116.719 seconds. Keep the direct path for a known-service follow-up. The next
-product decision is whether a real founder job requires changing expertise;
-only that would justify another supervision comparison. No general advantage or
-commercial result has been established.
+116.719 seconds. Keep the direct path for a known-service follow-up. A later private founder case exposed an early-stop defect. The
+[completion correction and broader comparison](2026-11-02-stopping.md) retain
+actual worker termination and source observations, allow bounded continuation,
+and test the original regression plus two independently prepared cases. The
+correction recovered a specific lead in the regression; the independent cases
+showed no material quality advantage. No general superiority or commercial
+result has been established.
 
 Base: YNOT `origin/main` at `879366b02258ecb89f71295a84d0fbb417a9578b`, fetched
 2 November. Main and the two older implementation worktrees were clean; both
@@ -33,3 +36,9 @@ to the existing `ynot-service-comparison` roadmap task. Native session bound.
 No prospect contact, purchase, article publication or deployment is included.
 The existing article plan remains review-held; wallet admission follows a
 concrete need for external participation.
+
+The current preparation is `orchestra-ecosystem-trust/7c13d04ab4c541ff8367a8d4cbe4c912`.
+Use the simpler direct route for the small research tasks tested. A future
+supervised trial needs a real reason to delegate or change expertise; neither
+additional workers nor using the full allowance is an objective. Private case
+records and reproduction files remain in the owning checkout's ignored `local/`.

@@ -74,3 +74,7 @@ Run the focused checks:
 ```bash
 PYTHONPATH=. python -m pytest tests/ynot/test_service_adviser.py tests/ynot/test_runtime_specialists.py -q
 ```
+
+For a comparison, pin `--model` and `--reasoning-effort` on both live CLI paths.
+The host records the requested settings; omission retains the CLI defaults.
+Requested settings do not prove the provider’s resolved model revision.

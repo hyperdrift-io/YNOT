@@ -243,3 +243,14 @@ def test_research_rejects_service_aliases(tmp_path, monkeypatch, mismatched):
         research("Exa", "API?")
     assert not research.packets
     assert '"snapshot_prefix": "cli-01-"' in calls[0][1]
+
+
+def test_requested_model_and_effort_are_pinned_and_recorded(tmp_path, monkeypatch):
+    calls = fake_run(monkeypatch, events())
+    host = CodexHost(tmp_path, model="test-model", reasoning_effort="medium")
+    host.invoke("A bounded comparison")
+    command = calls[0][0]
+    assert command[command.index("--model") + 1] == "test-model"
+    assert 'model_reasoning_effort="medium"' in command
+    assert host.calls[0]["requested_model"] == "test-model"
+    assert host.calls[0]["requested_reasoning_effort"] == "medium"

@@ -278,6 +278,7 @@ class ServiceAdviser:
             "status": run.status,
             "reason": run.reason,
             "events": run.events,
+            "decisions": run.decisions,
             "checkpoint": run.checkpoint,
             "usage": {"model_calls": allowance.used_model_calls, "tool_calls": allowance.used_tool_calls},
         }
