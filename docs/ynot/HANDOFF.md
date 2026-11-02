@@ -55,5 +55,15 @@ observed capability or handoff the active worker cannot adequately supply;
 neither additional workers nor using the full allowance is an objective. The
 Deputy pilot decision and unsent operator draft are in
 `local/deputy-eval-20261102/PILOT-DECISION.md`; actual operator validation remains
-outstanding. Private case records and reproduction files remain in the owning
-checkout's ignored `local/`.
+outstanding. Yann subsequently rejected Deputy as a commercial example because
+it had no traction. Retain the comparison as engineering evidence and stop
+using its pilot draft as the proposed prospect offer.
+
+The next [commercial hypothesis](../../YNOT.md#commercial-hypothesis-agents-configured-for-the-customers-job)
+is configuring and provisioning agents for a SaaS customer's actual job. The
+prototype's bounded worker configuration is implemented; persistent deployment,
+scoped connection provisioning and lifecycle operation remain proposed. Confirm
+a prospect-relevant workflow before expanding the platform. No new build,
+customer commitment or contact has been authorised by this discussion. Private
+case records and reproduction files remain in the owning checkout's ignored
+`local/`.

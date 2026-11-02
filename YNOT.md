@@ -10,6 +10,16 @@ DSPy supplies programmable modules, agents and metric-driven optimisation. YNOT 
 
 The first internal case compares research services for Orchestra using official evidence about Apollo, Clay and Exa. Its budget, account access and data-handling requirements are not invented. Hyperdrift builds and validates the offering; it is not a customer. Prospect research remains one example of a need the adviser can assess, rather than the application YNOT must rebuild.
 
+### Commercial hypothesis: agents configured for the customer's job
+
+On 2 November, Yann rejected Deputy as the commercial example because it had no traction. Keep that comparison as engineering evidence; it does not justify a Deputy sales push or further product work.
+
+The proposed direction is a tool for SaaS teams to configure and provision agents as customer work requires them. The intended benefit is less engineering and operating effort to support useful customer workflows. A job supplies the context and approved capabilities; subsequent evidence can justify a changed configuration. A working agent still needs a measured advantage over the existing assistant or workflow.
+
+The current prototype generates configurations and creates bounded workers from approved model and tool registries. Persistent customer agents, isolated execution, scoped connection provisioning and lifecycle operation are proposed work, not delivered capabilities. Provisioning must make a usable agent available with its required access and resources; generating a role description is insufficient.
+
+The next commercial step is to identify a workflow a relevant prospect actually wants, then demonstrate the smallest useful completion with their existing product. A synthetic scenario can illustrate the proposed experience, but cannot establish demand. This is a direction to discuss, not an approved platform build, launch or customer commitment.
+
 ## Complement the ecosystem
 
 | Existing capability | Reuse | YNOT's contribution to test |
