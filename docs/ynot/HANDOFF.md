@@ -37,8 +37,23 @@ No prospect contact, purchase, article publication or deployment is included.
 The existing article plan remains review-held; wallet admission follows a
 concrete need for external participation.
 
-The current preparation is `orchestra-ecosystem-trust/7c13d04ab4c541ff8367a8d4cbe4c912`.
-Use the simpler direct route for the small research tasks tested. A future
-supervised trial needs a real reason to delegate or change expertise; neither
-additional workers nor using the full allowance is an objective. Private case
-records and reproduction files remain in the owning checkout's ignored `local/`.
+The stopping correction preparation is complete:
+`orchestra-ecosystem-trust/7c13d04ab4c541ff8367a8d4cbe4c912`.
+
+The [real Deputy pilot comparison](2026-11-02-deputy.md) extends the test beyond
+service research. Both approaches narrowed the existing offer after inspecting
+and probing its implementation. Blind review found a practical tie. YNOT ran
+one additional summer-time probe, used one worker which explicitly finished,
+and made no replacement or continuation. It took 13 calls and 262 seconds;
+direct took 12 and 237, while using more input tokens. The extra reproduction
+did not change the pilot decision. This is preparation
+`orchestra/ae76bb01c0b74db2a09960c19f5ff775`.
+
+Use direct investigation for the bounded tasks tested. Crossing subject areas
+does not itself justify a new worker. A future supervised trial needs an
+observed capability or handoff the active worker cannot adequately supply;
+neither additional workers nor using the full allowance is an objective. The
+Deputy pilot decision and unsent operator draft are in
+`local/deputy-eval-20261102/PILOT-DECISION.md`; actual operator validation remains
+outstanding. Private case records and reproduction files remain in the owning
+checkout's ignored `local/`.
