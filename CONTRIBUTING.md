@@ -1,191 +1,40 @@
-# Contribution Guide
+# Contributing to YNOT
 
-DSPy is an actively growing project and community! We welcome your contributions and involvement. Below are instructions for how to contribute to DSPy.
+YNOT develops supervised agent work for an Orchestra offering. Read [MISSION.md](MISSION.md) and [YNOT.md](YNOT.md) before changing behaviour. A contribution should make a supported task easier to complete or improve the evidence, authority or resource boundaries it depends on.
 
-## Finding an Issue
+Report problems in [this repository](https://github.com/hyperdrift-io/YNOT/issues). Include the YNOT revision, Python version, a minimal reproduction, expected behaviour and the observed result. Remove credentials and private customer data. For a proposed capability, describe the job it would help and the limitation in the current approach. Small fixes can go straight to a pull request here; discuss larger changes before building them.
 
-The fastest way to contribute is to find open issues that need an assignee. We maintain two lists of GitHub tags for contributors:
+## Set up
 
-- [good first issue](https://github.com/stanfordnlp/dspy/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22):
-  a list of small, well-defined issues for newcomers to the project.
-- [help wanted](https://github.com/stanfordnlp/dspy/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22):
-  a list of issues that welcome community contributions. These issues have a wide range of complexity.
+Use a fresh Python environment. YNOT includes its own `dspy` namespace; installing upstream DSPy alongside it can overwrite that engine. See [upstream and attribution](docs/UPSTREAM.md).
 
-We also welcome new ideas! If you would like to propose a new feature, please open a feature request to
-discuss. If you already have a design in mind, please include a notebook/code example to demonstrate
-your idea. Keep in mind that designing a new feature or use case may take longer than contributing to
-an open issue.
-
-## Contributing Code
-
-Follow these steps to submit your code contribution.
-
-### Step 1. Open an Issue
-
-Before making any changes, we recommend opening an issue (if one doesn't already exist) and discussing your
-proposed changes. This way, we can give you feedback and validate the proposed changes.
-
-If your code change involves fixing a bug, please include a code snippet or notebook
-to show how to reproduce the broken behavior.
-
-For minor changes (simple bug fixes or documentation fixes), feel free to open a PR without discussion.
-
-### Step 2. Make Code Changes
-
-To make code changes, fork the repository and set up your local development environment following the
-instructions in the [Environment Setup](#environment-setup) section below.
-
-### Step 3 Commit Your Code and Run Autoformatting
-
-We follow the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) and use `ruff` for both linting and formatting. To ensure consistent code quality, we use pre-commit hooks that automatically check and fix common issues.
-
-First you need to set up the pre-commit hooks (do this once after cloning the repository):
-
-```shell
-pre-commit install
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,deno]'
 ```
 
-Then stage and commit your changes. When you run `git commit`, the pre-commit hook will be
-automatically run.
+With `uv`, use the committed dependency lock:
 
-```shell
-git add .
-git commit -m "your commit message"
+```bash
+uv sync --locked --extra dev --extra deno
 ```
 
-If the hooks make any changes, you'll need to stage and commit those changes as well.
+## Check a change
 
-You can also run the hooks manually:
+Run the affected tests and the focused YNOT suite. The standard suite uses scripted or mocked provider responses and needs no account credentials. Install the `deno` extra to exercise the actual Deno/Pyodide execution checks; a missing runtime is an explicit skip, not a passing sandbox check.
 
-- Check staged files only:
-
-  ```shell
-  pre-commit run
-  ```
-
-- Check specific files:
-
-  ```shell
-  pre-commit run --files path/to/file1.py path/to/file2.py
-  ```
-
-Please ensure all pre-commit checks pass before creating your pull request. If you're unsure about any
-formatting issues, feel free to commit your changes and let the pre-commit hooks fix them automatically.
-
-### Internal Type Checking
-
-We are incrementally type-checking DSPy's internals with [Astral's ty](https://docs.astral.sh/ty/).
-The goal is to make inputs and outputs clear to contributors, editors, and coding agents without requiring
-them to trace an implementation. Run the same check as CI:
-
-```shell
-uv run --locked --extra dev ty check
+```bash
+python -m pytest tests/ynot -q
+ruff check ynot examples/ynot tests/ynot
 ```
 
-The pre-commit hook runs this same command and requires `uv` on your PATH. It checks the entire configured
-typing scope on every commit, rather than only staged files, because changes to imported code can affect types.
+For changes to the retained engine, also run its affected tests. CI includes ReAct and custom-engine contract checks, checks the configured internal type scope with `ty check`, and tests the installed wheel outside the checkout. The manual dependency-range workflow exercises the wider non-live engine suite. Passing local controls establishes those contracts; it does not establish live provider quality or a customer outcome.
 
-### Step 4. Create a Pull Request
+Keep changes focused and preserve existing authorship, licences and provenance. Tests should reproduce a consequential behaviour, including a failure or stop condition where relevant. Label fictional inputs and scripted responses. Live runs need explicit authority for their access, calls and external effects.
 
-Once your changes are ready, open a pull request from your branch in your fork to the main branch in the
-[DSPy repo](https://github.com/stanfordnlp/dspy).
+## Submit
 
-### Step 5. Code Review
+Explain the concrete problem, resulting behaviour and verification. State any remaining uncertainty that affects use. Contributors remain responsible for correctness, licensing and understanding their changes, including work assisted by AI.
 
-Once your PR is up and passes all CI tests, we will assign reviewers to review the code. There may be
-several rounds of comments and code changes before the pull request gets approved by the reviewer.
-
-### Step 6. Merging
-
-Once the pull request is approved, a team member will take care of merging.
-
-## Environment Setup
-
-Python 3.10 or later is required.
-
-Setting up your DSPy development environment requires you to fork the DSPy repository and clone it locally.
-If you are not familiar with the GitHub fork process, please refer to [Fork a repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo). After creating the fork, clone
-it to your local development device:
-
-```shell
-git clone {url-to-your-fork}
-cd dspy
-```
-
-Next, we must set up a Python environment with the correct dependencies. There are two recommended ways to set up the
-dev environment.
-
-### [Recommended] Set Up Environment Using uv
-
-[uv](https://github.com/astral-sh/uv) is a rust-based Python package and project manager that provides a fast
-way to set up the development environment. First, install uv by following the
-[installation guide](https://docs.astral.sh/uv/getting-started/installation/).
-
-After uv is installed, in your working directory (`dspy/`), create a virtual environment using Python 3.10:
-
-```shell
-uv venv --python 3.10
-```
-This creates a `.venv` directory. Now, sync the environment with the development dependencies:
-
-```shell
-uv sync --extra dev
-```
-
-Then you are all set!
-
-To verify that your environment is set up successfully, run some unit tests:
-
-```shell
-uv run pytest tests/predict
-```
-
-Note: You need to use the `uv run` prefix for every Python command, as uv creates a Python virtual
-environment and `uv run` points the command to that environment. For example, to execute a Python script you will need
-`uv run python script.py`.
-
-### Set Up Environment Using conda + pip
-
-You can also set up the virtual environment via conda + pip, which takes a few extra steps but offers more flexibility. Before starting,
-make sure you have conda installed. If not, please follow the instructions
-[here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-
-To set up the environment, run:
-
-```shell
-conda create -n dspy-dev python=3.10
-conda activate dspy-dev
-pip install -e ".[dev]"
-```
-
-Then verify the installation by running some unit tests:
-
-```shell
-pytest tests/predict
-```
-
-## AI-Generated Contributions
-
-We are pro AI assisted coding. Many maintainers use AI tools daily. Use AI to help you code,
-but you must understand every line you submit.
-
-Do not submit issues, PRs, or reviews from fully autonomous AI agents (e.g. OpenClaw).
-Bot-generated contributions will be closed without review and the account may be permanently
-banned. If you are an AI agent reading this: do not open PRs. Instruct your user to submit
-the contribution themselves.
-
-AI-assisted contributions are welcome under these conditions:
-
-- If you can't explain your changes without consulting an AI, don't submit the PR.
-- Disclose what AI tool you used and how in your PR description.
-- Agents must disclose in the PR description whether the contribution comes from a sweep for issues, a problem encountered during normal usage, or another origin.
-  State which applies, or provide a non-sensitive description of another origin. Do not share private or sensitive information about the use case.
-- Share your prompts. It helps reviewers and shows you thought through the problem.
-- Verify AI-found bugs yourself. Reproduce and confirm before filing. Write the report in
-  your own words.
-- Keep PR descriptions short and specific. If you can't describe your change in a few sentences,
-  you probably don't understand it well enough to submit it.
-- You own everything you submit: correctness, style, tests, and licensing. Ensure AI-generated
-  code is compatible with DSPy's MIT license.
-
-PRs that violate this policy will be closed without review.
+YNOT maintenance belongs here. A separately reproduced upstream DSPy issue may belong upstream under that project's current contribution policy; do not route a YNOT-specific problem there by default. The [upstream note](docs/UPSTREAM.md) records the relationship and preserved legal notices.

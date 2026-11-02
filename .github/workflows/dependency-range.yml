@@ -1,15 +1,7 @@
-name: Dependency Range
+name: Manual engine dependency range
 
 on:
-  schedule:
-    - cron: "17 9 * * 1"
   workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - pyproject.toml
-      - uv.lock
-      - .github/workflows/dependency-range.yml
 
 permissions: {}
 
@@ -21,6 +13,7 @@ jobs:
   dependency-range:
     name: Dependencies (${{ matrix.profile }})
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
     strategy:

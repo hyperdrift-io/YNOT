@@ -3,21 +3,16 @@ requires = ["setuptools>=77.0.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
-# Do not add spaces around the '=' sign for any of the fields
-# preceded by a marker comment as it affects the publish workflow.
-#replace_package_name_marker
-name="dspy"
-#replace_package_version_marker
-version="3.4.1"
-description = "The framework for programming—rather than prompting—language models."
+name = "ynot-ai"
+version = "0.1.0a1"
+description = "Build, qualify and reuse executable agent capabilities under host-owned contracts."
 readme = "README.md"
-authors = [{ name = "Omar Khattab", email = "okhattab@stanford.edu" }]
+authors = [{ name = "Hyperdrift", email = "yann@hyperdrift.io" }]
 license = {file = "LICENSE"}
 requires-python = ">=3.10, <3.16"
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3"
 ]
 dependencies = [
@@ -29,7 +24,8 @@ dependencies = [
     "certifi>=2026.10.19",  # distrust the compromised emSign CA
     "pydantic>=2.11.0",
     "pyyaml>=6.0.1",
-    "jsonschema>=4.0.0",
+    "jsonschema>=4.18",
+    "referencing>=0.28.4",
     "diskcache>=5.6.0",
     "json-repair>=0.54.2",
     "anyio",
@@ -75,18 +71,13 @@ test_extras = [
     "numpy>=1.26.0",
 ]
 
-[dependency-groups]
-dev = [
-    "dspy-interpreters @ git+https://github.com/cmpnd-ai/dspy-interpreters",
-]
-
 [tool.uv]
 # Also used by setup-uv when selecting the CI installer.
 required-version = ">=0.13.4"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["dspy", "dspy.*"]
+include = ["ynot", "ynot.*", "dspy", "dspy.*"]
 exclude = ["tests", "tests.*"]
 
 [tool.setuptools.package-data]
@@ -96,7 +87,9 @@ dspy = ["primitives/*.js"]
 "dspy._vendor.lm15" = ["py.typed"]
 
 [project.urls]
-homepage = "https://github.com/stanfordnlp/dspy"
+Homepage = "https://github.com/hyperdrift-io/YNOT"
+Repository = "https://github.com/hyperdrift-io/YNOT"
+Issues = "https://github.com/hyperdrift-io/YNOT/issues"
 
 [tool.coverage.run]
 branch = true
@@ -147,7 +140,7 @@ unsound-return-statement = "error"
 unused-ignore-comment = "error"
 
 [tool.ruff]
-include = ["dspy/**/*.py", "tests/**/*.py"]
+include = ["ynot/**/*.py", "examples/ynot/**/*.py", "dspy/**/*.py", "tests/**/*.py"]
 exclude = [
   "dspy/__metadata__.py",
   "dspy/_vendor/**",  # vendored lm15, linted in its own repository
@@ -199,7 +192,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.isort]
-known-first-party = ["dspy"]
+known-first-party = ["ynot", "dspy"]
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"

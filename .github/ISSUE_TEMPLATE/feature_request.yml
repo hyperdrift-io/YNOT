@@ -1,33 +1,17 @@
-name: Feature Request
-description: Suggest a new feature or improvement
-title: "[Feature] "
-labels: enhancement
+name: YNOT capability request
+description: Describe a job YNOT could help complete
+title: "[Capability] "
+labels: [enhancement]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## 🚀 Feature Request
-        Please fill out the following details.
-
   - type: textarea
-    id: description
+    id: job
     attributes:
-      label: "What feature would you like to see?"
-      description: "Describe the feature clearly."
+      label: What are you trying to complete?
+      description: Describe the outcome, current approach and constraint that makes it difficult. Keep private customer details out of the report.
     validations:
       required: true
-
-  - type: checkboxes
-    id: contribute
-    attributes:
-      label: "Would you like to contribute?"
-      options:
-        - label: Yes, I'd like to help implement this.
-        - label: No, I just want to request it.
-
   - type: textarea
-    id: additional-info
+    id: proposal
     attributes:
-      label: "Additional Context"
-      description: "Any links, references, or extra details?"
-      placeholder: "Example: This feature exists in XYZ tool."
+      label: Proposed change and evidence
+      description: Explain how the change would help and how you would check that it works. Include a small example if available.

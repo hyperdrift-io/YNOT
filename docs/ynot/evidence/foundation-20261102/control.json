@@ -1,0 +1,125 @@
+{
+  "mode": "scripted_control",
+  "model": null,
+  "reasoning": null,
+  "order": [
+    "ynot"
+  ],
+  "results": [
+    {
+      "arm": "ynot",
+      "mode": "scripted_control",
+      "attempts": 2,
+      "accepted": true,
+      "attempt_feedback": [
+        {
+          "passed": false,
+          "cases": [
+            {
+              "index": 0,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 1,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 2,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 3,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 4,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 5,
+              "passed": false,
+              "reason": "unexpected_output"
+            },
+            {
+              "index": 6,
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "passed": true,
+          "cases": [
+            {
+              "index": 0,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 1,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 2,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 3,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 4,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 5,
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "index": 6,
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        }
+      ],
+      "qualification_passes": 7,
+      "qualification_cases": 7,
+      "qualification_executions": 14,
+      "source_sha256": "22c7b474c7f2bffa37e94a9ad9199fcd8c04a8873cb1b88419e4152cc90c9ca1",
+      "contract_sha256": "2f4e0b0bf34b58958e288a1a97daf3bb28cc30b03db89fa7b3dcf6e4288bc2d2",
+      "qualification_seconds": 26.033,
+      "total_seconds": 34.068,
+      "reuse": {
+        "heldout_passes": 4,
+        "heldout_cases": 4,
+        "executions": 4,
+        "model_calls": 0,
+        "failures": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "model_calls": 0,
+      "usage": [],
+      "capability_id": "de4d34e6a2c5748d91bd2ceaba3ad3476603346a844d3d83dacaa4ddbe7c55e7",
+      "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576",
+      "revocation_control": {
+        "revocation_blocked": true,
+        "executions": 0
+      }
+    }
+  ]
+}

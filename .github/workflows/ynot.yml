@@ -1,0 +1,81 @@
+name: YNOT checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  LITELLM_LOCAL_MODEL_COST_MAP: "True"
+
+jobs:
+  workflow-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: raven-actions/actionlint@3d39aea434753780c3b3d4a1a31c854b4dbf49d7 # v2.2.0
+
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - name: Install locked development dependencies
+        run: uv sync --locked --extra dev --extra deno
+      - name: Check YNOT code
+        run: uv run --locked --no-sync ruff check ynot examples/ynot tests/ynot
+      - name: Check configured internal types
+        run: uv run --locked --no-sync ty check
+      - name: Run offline YNOT and engine contract tests
+        run: >-
+          uv run --locked --no-sync pytest -q
+          tests/ynot
+          tests/predict/test_react.py
+          tests/clients/test_custom_engine_contract.py
+          tests/clients/test_lm_engine_execution.py
+
+  installed-wheel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Build source distribution and wheel
+        run: uv build
+      - name: Test installed packages outside the checkout
+        run: |
+          uv venv --python 3.12 "$RUNNER_TEMP/ynot-wheel-venv"
+          wheels=(dist/*.whl)
+          uv pip install --python "$RUNNER_TEMP/ynot-wheel-venv/bin/python" "${wheels[0]}[deno]" pytest
+          mkdir "$RUNNER_TEMP/ynot-wheel-tests"
+          cp tests/test_vendored_lm15.py tests/ynot/test_sandbox.py "$RUNNER_TEMP/ynot-wheel-tests/"
+          cd "$RUNNER_TEMP/ynot-wheel-tests"
+          "$RUNNER_TEMP/ynot-wheel-venv/bin/python" -I -c 'from importlib.metadata import version; import dspy; from ynot import AcceptanceCase, CapabilityContract, CapabilityStore, ExecutionAllowance, PyodideExecutor, Supervisor, Allowance, WorkerSpec; assert version("ynot-ai")'
+          "$RUNNER_TEMP/ynot-wheel-venv/bin/python" -I -c 'import importlib.util; assert importlib.util.find_spec("litellm") is None'
+          "$RUNNER_TEMP/ynot-wheel-venv/bin/python" -I -m pytest -q test_vendored_lm15.py test_sandbox.py

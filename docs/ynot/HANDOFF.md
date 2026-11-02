@@ -1,4 +1,32 @@
-# YNOT continuation — 2 November 2026
+# YNOT continuation — development foundation
+
+Updated 2 November 2026. The current [mission](../../MISSION.md) is building and
+reusing capabilities during development. Yann explicitly selected this direction
+for YNOT's own launch. It supersedes the prospect-specific proposal below.
+
+The `ynot` package now owns the supervisor and a host-controlled capability
+lifecycle: qualification, persisted identity, fresh-process reuse and revocation.
+The [foundation guide](FOUNDATION.md) owns its API, reference example and limits.
+The [comparison record](2026-11-02-foundation.md) owns the live results and controls.
+The article is a private review draft in ignored `local/launch/LAUNCH-ARTICLE.md`; it has not been published on Orchestra.
+
+Repository work replaces inherited DSPy marketing, installation metadata and
+publishing automation with YNOT's own entrypoints, while retaining the engine,
+history and legal attribution. No package registry release, hosted agent service,
+prospect contact or article publication is included.
+
+Current Traction preparation:
+`orchestra-ecosystem-trust/586e7a88b3534ab694e6e6ed3e655cac`.
+Work is based on `e76cd29`; native Codex chat
+`01a19d95-055f-7713-96a6-58e04eef59f8` owns this continuation. Raw model traces
+remain in the ignored `local/` directory; the public result record is sanitised.
+
+Next: a second development consumer and independently authored transfer tasks,
+with direct and current DSPy baselines allowed equal reuse. Tenfold improvement
+is a target, not a measured result. The earlier comparisons below remain useful
+negative evidence for unnecessary orchestration.
+
+## Earlier work — 2 November 2026
 
 Checkpoint `ynot-continuity-20261102`. Taken over by Codex chat
 `01a19d95-055f-7713-96a6-58e04eef59f8` from **Plan Orchestra OSS contributions**
@@ -59,7 +87,7 @@ outstanding. Yann subsequently rejected Deputy as a commercial example because
 it had no traction. Retain the comparison as engineering evidence and stop
 using its pilot draft as the proposed prospect offer.
 
-The next [commercial hypothesis](../../YNOT.md#commercial-hypothesis-agents-configured-for-the-customers-job)
+The earlier commercial hypothesis
 is configuring and provisioning agents for a SaaS customer's actual job. The
 prototype's bounded worker configuration is implemented; persistent deployment,
 scoped connection provisioning and lifecycle operation remain proposed. Confirm

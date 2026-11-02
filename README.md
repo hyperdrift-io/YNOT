@@ -1,92 +1,51 @@
-> **YNOT** is an Orchestra offering, starting as an independent experimental DSPy fork for an AI-native organisation that contracts supervisors and routes work to capable agents. Read the [mission](MISSION.md) and [delivery plan](YNOT.md). DSPy attribution and the upstream documentation below are preserved. The proposed network is not yet operating.
+# YNOT
 
-<p align="center">
-  <img align="center" src="docs/docs/static/img/dspy_logo.png" width="460px" />
-</p>
-<p align="left">
+YNOT lets development agents build, qualify and reuse executable capabilities. A job can leave behind tested code that later jobs can use, under checks and permissions owned by the host.
 
+This is an experimental [Orchestra](https://orchestra.hyperdrift.io/) offering, developed and internally validated by Hyperdrift. The foundation example repairs an API schema compatibility failure, saves a passing implementation and reuses it on unseen inputs in a fresh process.
 
-## DSPy: _Programming_—not prompting—Foundation Models
+## What works today
 
-**Documentation:** [DSPy Docs](https://dspy.ai/)
+- A host-owned contract checks generated Python in a Deno/Pyodide interpreter. Passing code receives an identity tied to its source, contract, scope and execution policy.
+- A local store validates that identity on reuse and blocks revoked capabilities. Candidate code cannot rewrite the host's acceptance checks.
+- A supervisor creates and executes DSPy ReAct workers from approved model and tool registries when the job needs them.
+- The host validates worker configurations and enforces model-call and tool-call allowances. Findings, tool observations and stopping reasons remain inspectable.
+- The service adviser checks supplied evidence against requirements. Its examples support scripted controls, saved sources and an optional Codex research integration.
 
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/dspy?period=monthly)](https://pepy.tech/projects/dspy)
+The foundation is experimental. Its capability executor bounds time and output but does not separately meter memory. The store assumes a trusted local owner and one writer. Existing registered supervisor tools remain trusted Python callbacks. Persistent hosted customer agents and connection provisioning remain proposed work. Internal comparisons do not establish customer demand or a general quality or cost advantage.
 
+Read the [mission](MISSION.md), [direction and evidence](YNOT.md), and [continuation record](docs/ynot/HANDOFF.md) for the current boundaries and next step.
 
-----
+## Run locally
 
-DSPy is the framework for _programming—rather than prompting—language models_. It allows you to iterate fast on **building modular AI systems** and offers algorithms for **optimizing their prompts and weights**, whether you're building simple classifiers, sophisticated RAG pipelines, or Agent loops.
-
-DSPy stands for Declarative Self-improving Python. Instead of brittle prompts, you write compositional _Python code_ and use DSPy to **teach your LM to deliver high-quality outputs**. Learn more via our [official documentation site](https://dspy.ai/) or meet the community, seek help, or start contributing via this GitHub repo and our [Discord server](https://discord.gg/XCGy2WDCQB).
-
-
-## Documentation: [dspy.ai](https://dspy.ai)
-
-
-**Please go to the [DSPy Docs at dspy.ai](https://dspy.ai)**
-
-
-## Installation
-
+Use a fresh Python environment. The distribution is named `ynot-ai`; it includes the retained `dspy` engine namespace, so do not install a separate DSPy distribution in the same environment. These instructions install this checkout; there is no package-publication workflow.
 
 ```bash
-pip install dspy
+git clone https://github.com/hyperdrift-io/YNOT.git
+cd YNOT
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev,deno]'
+python -m examples.ynot.capability_lifecycle --store /tmp/ynot-capabilities
 ```
 
-To install the very latest from `main`:
+The default demonstration rejects a faulty candidate, qualifies a working one, reuses it in a new process and verifies revocation. It is a deterministic control. Add `--live` for independent YNOT and direct runs through Codex using your existing login; both can test, save and reuse code. This makes real model calls. Run examples from the checkout because they are not included in the wheel. The executor currently requires a POSIX host and the optional Deno runtime; first use may download its interpreter assets.
+
+The earlier [runtime example](examples/ynot/README.md) and [service adviser guide](examples/ynot/SERVICE-ADVISER.md) remain available, with their scripted inputs and live-research limits stated separately.
+
+The reusable API starts with `from ynot import CapabilityContract, CapabilityStore, PyodideExecutor`. The [foundation guide](docs/ynot/FOUNDATION.md) covers the full lifecycle and comparison. `Supervisor`, `Allowance` and `WorkerSpec` are also public; existing example imports remain compatible.
+
+## Develop and contribute
+
+Run the focused offline checks from the checkout:
 
 ```bash
-pip install git+https://github.com/stanfordnlp/dspy.git
+python -m pytest tests/ynot -q
+ruff check ynot examples/ynot tests/ynot
 ```
 
-The current LM integration uses bundled native lm15 engines, without a LiteLLM
-runtime dependency or fallback. See the [LM migration guide](docs/docs/community/normalized-lm-api-migration.md)
-for breaking changes to provider options, custom LMs, text completions, and embeddings.
+[Contributing](CONTRIBUTING.md) covers setup, validation and reporting a problem. Use [YNOT issues](https://github.com/hyperdrift-io/YNOT/issues) for this repository.
 
+## Built on DSPy
 
-
-## 📜 Citation & Reading More
-
-If you're looking to understand the framework, please go to the [DSPy Docs at dspy.ai](https://dspy.ai).
-
-If you're looking to understand the underlying research, this is a set of our papers:
-
-**[Jul'25] [GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning](https://arxiv.org/abs/2507.19457)**       
-**[Jun'24] [Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs](https://arxiv.org/abs/2406.11695)**       
-**[Oct'23] [DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines](https://arxiv.org/abs/2310.03714)**     
-[Jul'24] [Fine-Tuning and Prompt Optimization: Two Great Steps that Work Better Together](https://arxiv.org/abs/2407.10930)     
-[Jun'24] [Prompts as Auto-Optimized Training Hyperparameters](https://arxiv.org/abs/2406.11706)    
-[Feb'24] [Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models](https://arxiv.org/abs/2402.14207)         
-[Jan'24] [In-Context Learning for Extreme Multi-Label Classification](https://arxiv.org/abs/2401.12178)       
-[Dec'23] [DSPy Assertions: Computational Constraints for Self-Refining Language Model Pipelines](https://arxiv.org/abs/2312.13382)   
-[Dec'22] [Demonstrate-Search-Predict: Composing Retrieval & Language Models for Knowledge-Intensive NLP](https://arxiv.org/abs/2212.14024.pdf)
-
-To stay up to date or learn more, follow [@DSPyOSS](https://twitter.com/DSPyOSS) on Twitter or the DSPy page on LinkedIn.
-
-The **DSPy** logo is designed by **Chuyi Zhang**.
-
-If you use DSPy or DSP in a research paper, please cite our work as follows:
-
-```
-@inproceedings{khattab2024dspy,
-  title={DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines},
-  author={Khattab, Omar and Singhvi, Arnav and Maheshwari, Paridhi and Zhang, Zhiyuan and Santhanam, Keshav and Vardhamanan, Sri and Haq, Saiful and Sharma, Ashutosh and Joshi, Thomas T. and Moazam, Hanna and Miller, Heather and Zaharia, Matei and Potts, Christopher},
-  journal={The Twelfth International Conference on Learning Representations},
-  year={2024}
-}
-@article{khattab2022demonstrate,
-  title={Demonstrate-Search-Predict: Composing Retrieval and Language Models for Knowledge-Intensive {NLP}},
-  author={Khattab, Omar and Santhanam, Keshav and Li, Xiang Lisa and Hall, David and Liang, Percy and Potts, Christopher and Zaharia, Matei},
-  journal={arXiv preprint arXiv:2212.14024},
-  year={2022}
-}
-```
-
-<!-- You can also read more about the evolution of the framework from Demonstrate-Search-Predict to DSPy:
-
-* [**DSPy Assertions: Computational Constraints for Self-Refining Language Model Pipelines**](https://arxiv.org/abs/2312.13382)   (Academic Paper, Dec 2023) 
-* [**DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines**](https://arxiv.org/abs/2310.03714) (Academic Paper, Oct 2023) 
-* [**Releasing DSPy, the latest iteration of the framework**](https://twitter.com/lateinteraction/status/1694748401374490946) (Twitter Thread, Aug 2023)
-* [**Releasing the DSP Compiler (v0.1)**](https://twitter.com/lateinteraction/status/1625231662849073160)  (Twitter Thread, Feb 2023)
-* [**Introducing DSP**](https://twitter.com/lateinteraction/status/1617953413576425472)  (Twitter Thread, Jan 2023)
-* [**Demonstrate-Search-Predict: Composing retrieval and language models for knowledge-intensive NLP**](https://arxiv.org/abs/2212.14024.pdf) (Academic Paper, Dec 2022) -->
+YNOT retains DSPy's engine and Git history. The original MIT licence and Stanford Future Data Systems copyright remain in [LICENSE](LICENSE). [Upstream and attribution](docs/UPSTREAM.md) explains the package boundary, bundled components and retained compatibility checks. DSPy documentation describes the upstream framework; it is not YNOT product documentation.

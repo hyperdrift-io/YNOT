@@ -1,31 +1,25 @@
 # YNOT — mission
 
-Give founders the capacity to advance a business goal by assembling and adapting the expertise needed to deliver it, without managing every agent, tool and handoff.
+Give small teams the ability to develop software that becomes more capable through useful work. When a job exposes a missing capability, an agent can build it, test it against checks owned by the host, and make the accepted result available to later jobs.
 
-YNOT is an Orchestra offering built on DSPy. The supervisor remains accountable for the mission, evidence, resource use and result. Hyperdrift is developing it and will validate it internally first.
+YNOT is an experimental Orchestra offering built on DSPy. Hyperdrift develops and validates it internally. The ambition is a development system whose capabilities accumulate across tasks, with clear authority, evidence and resource limits.
 
-## First service: find the service that fits the founder's need
+## Current foundation
 
-A founder brings the outcome they need, the systems they already use and the constraints that matter. YNOT clarifies the requirements, investigates suitable services and recommends the best fit among the candidates it has actually assessed. The result includes evidence, trade-offs, unresolved questions and the smallest useful trial.
+The first reference task repairs a schema compatibility failure. A model writes a Python transformation; the host tests it in an isolated interpreter and saves only a passing candidate. A separate process reuses the accepted code on unseen schemas. Revocation prevents subsequent activation. The contract and store are independent of this example and available through `import ynot`.
 
-A missing hard requirement stays unknown. A service that violates a hard constraint is not a match. When the evidence cannot support a choice, return a focused question or a no-fit finding. Documented capability, an exercised integration and a useful customer result are different states.
+This establishes a development pattern to extend. It does not establish autonomous discovery of arbitrary skills, a complete API migration product, customer demand or an efficiency advantage. Model-generated code passes finite checks; it does not acquire general correctness by being saved.
 
-The first internal case is choosing a research capability for Orchestra. A saved comparison reviewed Apollo, Clay and Exa; the first live run used existing Codex access for public research. The corrected adviser returned a conditional trial, and a representative research mission completed with a no-fit finding. Broader account costs, private-data suitability and repeatable quality remain unverified. These comparisons support existing projects rather than replacing their capabilities.
+## What must earn the extra cost
 
-The founder can commission help testing or adopting the choice through Orchestra. The value is a service that works for their job, with less wasted setup and coordination. A recommendation alone does not establish that result.
+Compare against a competent direct developer allowed the same models, tools, tests, retries and saved-code reuse. Count acquisition, failed candidates, checking, supervision and later execution. Add workers only when observed evidence justifies different expertise. A single developer can be the right solution.
 
-## The capability that must earn its place
+Our ambitious target is ten times as many independently accepted unseen development tasks for a fixed total inference budget, without more incorrect or unsafe changes. It remains a target. One small demonstration cannot establish that result; the comparison must include current DSPy capabilities and strong direct reuse.
 
-The supervisor can configure a specialist during a running mission when the evidence reveals a need. It sets the specialist's purpose, context, allowed capabilities, model and completion check, then runs it within the remaining allocation. Findings can change the approach or call for different expertise. A replacement continues from the retained evidence when capacity changes.
+The next useful evidence is transfer across independently chosen development jobs and a second consuming application. Reuse the same contract and executor where they fit; change them when the new job supplies a reason. Do not grow a marketplace, hosted platform or billing system before the work needs one.
 
-For example, a research service may document an API but leave its permitted actions unclear. YNOT can configure a specialist for that question, preserve the finding and use it in the comparison. This is the behaviour to demonstrate, not a claim that an operating network already exists.
+## Continuity
 
-Dynamic delegation is an established capability in the ecosystem. Our proposed distinction is its application: an inspectable, adaptable way to complete a business mission using the best available services. Better quality, continuity, coordination or cost must substantiate that distinction.
+Earlier service-selection and development comparisons remain engineering evidence. They found no general benefit from extra orchestration on the bounded tasks tested. The current launch direction is building and reusing capabilities during development.
 
-## What we build and measure first
-
-Run one bounded service-selection mission for Orchestra's own research need. Start with one active worker and add expertise when justified. Demonstrate a specialist configured after an evidence gap appears, real execution of that configuration and continuation from its findings. Label scripted responses and simulated availability changes as controls.
-
-Compare with a competent existing workflow using the same services, initial evidence and resource allowance. Evaluate factual support, requirement fit, uncertainty, usefulness and cost. A founder must judge whether the proposed trial addresses the actual job. A documentation review does not establish live quality or a return on investment.
-
-The first implementation should reuse existing tools and DSPy APIs. Add an abstraction, agent or dependency only when the job supplies a reason. Keep private evidence scoped to its owner, preserve attribution and make later corrections visible. Stop when the next useful result cannot be reached within the mandate.
+See [direction](YNOT.md), [the executable foundation](docs/ynot/FOUNDATION.md) and [the continuation record](docs/ynot/HANDOFF.md).

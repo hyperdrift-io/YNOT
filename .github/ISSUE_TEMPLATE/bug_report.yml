@@ -1,38 +1,30 @@
-
-name: Bug Report
-description: Report a bug in the project
+name: YNOT bug report
+description: Report a reproducible problem in YNOT
 title: "[Bug] "
-labels: bug
+labels: [bug]
 body:
   - type: markdown
     attributes:
       value: |
-        ## 🐛 Bug Report
-        Please fill out all required fields to help us diagnose and fix the issue.
-
+        Report problems with this YNOT checkout here. Remove credentials and private customer data from examples and logs.
   - type: textarea
     id: description
     attributes:
-      label: "What happened?"
-      description: "Clearly describe the unexpected behavior."
-      placeholder: "Example: When I try to save a file, I get an error message..."
+      label: What happened?
+      description: Include the expected behaviour and the observed result.
     validations:
       required: true
-
   - type: textarea
-    id: steps-to-reproduce
+    id: reproduction
     attributes:
-      label: "Steps to reproduce"
-      description: "Tell us how to reproduce the issue."
-      placeholder: "Please provide a code snippet or a github gist for reproducing purpose."
+      label: Minimal reproduction
+      description: Provide the code or commands and any non-sensitive fixture needed to reproduce it. Distinguish scripted responses from live provider calls.
     validations:
       required: true
-
   - type: input
     id: environment
     attributes:
-      label: "DSPy version"
-      description: "Tell us your DSPy version."
+      label: YNOT revision and environment
+      description: Include the commit or ynot-ai version, Python version and operating system.
     validations:
       required: true
-

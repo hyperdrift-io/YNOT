@@ -8,7 +8,7 @@ repos:
       - id: ruff
         name: ruff (lint)
         types_or: [python, pyi]
-        files: ^(dspy|tests)/.*\.py$
+        files: ^(dspy|ynot|tests|examples/ynot)/.*\.py$
         exclude: ^(dspy/__metadata__\.py|dspy/_vendor/.*|tests/reliability/.*\.py)$
         args: [--fix-only]
 

@@ -1,14 +1,3 @@
-## 📝 Changes Description
+Describe the problem and resulting behaviour. Link the relevant YNOT issue if there is one.
 
-This MR/PR contains the following changes:
-...
-
-## ✅ Contributor Checklist
-
-- [] Pre-Commit checks are passing (locally and remotely)
-- [] Title of your PR / MR corresponds to the required format
-- [] Commit message follows required format {label}(dspy): {message}
-
-## ⚠️ Warnings
-
-Anything we should be aware of ?
+State what you verified and any remaining limitation. Distinguish scripted tests, live provider runs and customer outcomes.
