@@ -18,7 +18,7 @@ from urllib.parse import urlsplit
 import dspy
 from dspy.lm15 import Message, Response, TextPart, Usage
 from examples.ynot.runtime_specialists import Allowance
-from examples.ynot.service_adviser import EvidencePacket, FounderNeed, ServiceAdviser, render
+from examples.ynot.service_adviser import EvidencePacket, FounderNeed, ServiceAdviser, direct_research, render
 
 
 class LiveRunError(RuntimeError):
@@ -231,7 +231,7 @@ class CodexEngine:
 
 class CodexResearch:
     def __init__(self, host, need, allowed_domains, *, access_note=""):
-        self.host, self.need = host, need
+        self.host, self.need = host, need.model_copy(deep=True)
         self.allowed_domains = tuple(domain.lower() for domain in allowed_domains)
         self.access_note = access_note
         self.packets = []
@@ -245,6 +245,8 @@ class CodexResearch:
             "Use at most five web actions. Return only the EvidencePacket JSON schema. All criterion IDs must "
             "match the brief. Provide exactly one finding per criterion per service; combine subquestions in its detail, "
             "never duplicate a criterion ID. Preserve unknowns; documentation does not prove live account access or result quality. "
+            "Use the supplied founder brief and dated trial observations rather than asking for those details again. "
+            "Prior observations are context, not vendor-source evidence or permission to change requirements. "
             "Use unique source snapshot IDs prefixed with the supplied snapshot prefix. "
             "Excerpts are brief paraphrases, not long quotations. Every source.service and assessment.service must "
             "exactly equal the requested service string, including spelling and capitalisation. "
@@ -257,7 +259,7 @@ class CodexResearch:
                 {
                     "service": service,
                     "question": question,
-                    "founder_need": self.need.model_dump(),
+                    "founder_need": self.need.model_dump(mode="json"),
                     "allowed_domains": self.allowed_domains,
                     "host_access": self.access_note,
                     "snapshot_prefix": f"cli-{len(self.host.calls) + 1:02d}-",
@@ -289,15 +291,22 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--domains", required=True, help="Comma-separated approved official-source domains")
     parser.add_argument("--access-note", default="")
+    parser.add_argument(
+        "--direct-service", help="Assess this known candidate directly, without supervisor/worker calls"
+    )
     args = parser.parse_args()
     need = FounderNeed.model_validate_json(args.brief.read_text())
     host = CodexHost(args.output_dir.resolve())
+    (host.output_dir / "founder-need.json").write_text(need.model_dump_json(indent=2))
     research = CodexResearch(host, need, args.domains.split(","), access_note=args.access_note)
     lm = dspy.BaseLM("custom/codex-cli-default", engine=CodexEngine(host), cache=False, num_retries=0)
     adviser = ServiceAdviser(lm, {"research": lm}, research)
     try:
-        with dspy.context(adapter=dspy.ChatAdapter()):
-            report = adviser(need, allowance=Allowance(model_calls=16, tool_calls=4))
+        if args.direct_service:
+            report = direct_research(need, research, args.direct_service)
+        else:
+            with dspy.context(adapter=dspy.ChatAdapter()):
+                report = adviser(need, allowance=Allowance(model_calls=16, tool_calls=4))
         report["live_host"] = {
             "engine": "existing Codex CLI login; CLI default model",
             "calls": host.calls,
@@ -311,7 +320,7 @@ def main():
         (host.output_dir / "failure.json").write_text(json.dumps({"error": str(exc), "calls": host.calls}, indent=2))
         raise
     finally:
-        (host.output_dir / "accepted-packets.json").write_text(
+        (host.output_dir / "research-packets.json").write_text(
             json.dumps([packet.model_dump(mode="json") for packet in research.packets], indent=2)
         )
 

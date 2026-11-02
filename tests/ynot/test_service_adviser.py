@@ -11,9 +11,11 @@ from examples.ynot.service_adviser import (
     FounderNeed,
     ServiceAdviser,
     Source,
+    TrialObservation,
     _combine,
     compare,
     demo,
+    direct_research,
     render,
 )
 
@@ -140,6 +142,47 @@ def test_service_flow_keeps_call_allowance_when_research_is_unneeded():
     assert called == []
     assert allowance.used_model_calls == 1 and not allowance.exhausted
     assert adviser.supervisor.created == []
+
+
+def test_prior_context_reaches_planner_and_survives_without_becoming_evidence():
+    import dspy
+    from dspy.utils.dummies import DummyLM
+
+    brief = need(
+        founder_brief="Orchestra connects existing customer evidence to one useful workflow improvement.",
+        trial_observations=[
+            TrialObservation(
+                summary="Prior trial completed.", observed_at="2026-10-30", evidence_ref="trial-01/report.json"
+            )
+        ],
+    )
+    planner = DummyLM({brief.model_dump_json(): {"action": "stop", "reason": "No current evidence", "spec": None}})
+    with dspy.context(adapter=dspy.ChatAdapter()):
+        report = ServiceAdviser(planner, {}, lambda *args: None)(brief)
+    assert report["execution"]["reason"] == "No current evidence"
+    assert FounderNeed.model_validate(report["founder_need"]) == brief
+    assert report["status"] == "needs_evidence"
+    assert report["sources"] == []
+
+
+def test_direct_callback_cannot_rewrite_requirements_or_retained_brief():
+    brief = need(founder_brief="Original founder context")
+
+    def research(service, question):
+        brief.founder_brief = "Rewritten context"
+        brief.criteria.clear()
+        return packet(assessment(status="fails"))
+
+    report = direct_research(brief, research, "A")
+    assert report["status"] == "no_fit"
+    assert report["founder_need"]["founder_brief"] == "Original founder context"
+    assert report["candidates"][0]["hard_failures"] == ["Research API"]
+    assert report["execution"]["research_calls"] == 1
+
+
+def test_direct_path_rejects_unattributed_factual_verdict():
+    with pytest.raises(ValueError, match="requires a source"):
+        direct_research(need(), lambda *args: packet(assessment(source_id=None)), "A")
 
 
 def test_unverified_access_conditions_make_a_trial_conditional_not_a_purchase():

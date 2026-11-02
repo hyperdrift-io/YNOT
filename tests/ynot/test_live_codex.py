@@ -5,7 +5,7 @@ import pytest
 
 from dspy.lm15 import ImagePart, Message, Request
 from examples.ynot.live_codex import CodexEngine, CodexHost, CodexResearch, LiveRunError, _execute, _schema
-from examples.ynot.service_adviser import Criterion, EvidencePacket, FounderNeed
+from examples.ynot.service_adviser import Criterion, EvidencePacket, FounderNeed, TrialObservation
 
 
 def events(answer="hello", web=()):
@@ -126,6 +126,28 @@ def test_schema_is_strict():
         assert record["additionalProperties"] is False
         assert record["required"] == list(record["properties"])
     assert EvidencePacket.model_validate(packet())
+
+
+def test_research_receives_a_saved_snapshot_of_founder_and_trial_context(tmp_path, monkeypatch):
+    calls = fake_run(monkeypatch, events(json.dumps(packet()), web=["https://exa.ai/docs"]))
+    need = FounderNeed(
+        outcome="Research",
+        criteria=[Criterion(id="research", description="Research API")],
+        founder_brief="The founder already supplied the offer and target customer.",
+        trial_observations=[
+            TrialObservation(summary="One public trial completed.", observed_at="2026-10-30", evidence_ref="trial-01")
+        ],
+    )
+    saved = need.model_dump_json()
+    need = FounderNeed.model_validate_json(saved)
+    research = CodexResearch(CodexHost(tmp_path), need, ["exa.ai"])
+    need.founder_brief = "Later caller edit"
+    need.trial_observations[0].summary = "Later observation edit"
+    research("Exa", "Assess the retained brief")
+    assert '"founder_brief": "The founder already supplied the offer and target customer."' in calls[0][1]
+    assert '"observed_at": "2026-10-30"' in calls[0][1]
+    assert '"evidence_ref": "trial-01"' in calls[0][1]
+    assert '"summary": "One public trial completed."' in calls[0][1]
 
 
 def test_timeout_kills_process_group(monkeypatch):

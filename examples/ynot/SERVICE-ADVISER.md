@@ -22,6 +22,8 @@ The included real case compares Apollo, Clay and Exa against Orchestra's public-
 
 A case contains `need`, `sources` and `assessments`, matching the Pydantic records in `service_adviser.py`. Alternatively supply `--brief need.json --evidence evidence.json`. This path evaluates saved evidence; it does not run agents or refresh a market survey. The printed brief is deliberately shorter than the complete JSON record.
 
+The need can include `founder_brief` and `trial_observations`. Each observation carries a `summary`, `observed_at` date and `evidence_ref`. These preserve the actual job and earlier trial findings through planning and research. They are context, not vendor-source evidence, and cannot satisfy a criterion or change the permitted actions. The report retains the full `founder_need`; the live adapter also writes `founder-need.json` for the next step. Pass that file as the next run's brief, revising requirements only when the founder's job changes. Existing briefs remain valid.
+
 For a live run, construct `ServiceAdviser(planner_lm, {"research": worker_lm}, approved_research_callback)` and pass a `FounderNeed`. The callback receives a service and research question and returns an `EvidencePacket`. It is caller-approved code, not sandboxed by this example. Reuse a narrow service API where it supplies the capability. Credentials, account access, provider costs and downstream actions remain the caller's responsibility; this example activates none of them.
 
 ## Use an existing Codex CLI login
@@ -37,9 +39,11 @@ PYTHONPATH=. python -m examples.ynot.live_codex \
 
 Supply official domains relevant to the need. The inference processes have tools disabled; research processes receive public-web search. Both use a read-only sandbox, no shell, apps, hooks or subagents, and ignore user configuration. This is a local demonstration adapter, not public-agent admission.
 
+For a known candidate, add `--direct-service "Codex CLI"` to call the same research adapter and deterministic comparison without supervisor/worker inference. Use the same brief, domains, access note and host limits in both paths. This baseline tests whether supervision adds value to that follow-up; it does not compare market discovery. Keep each output in a new directory and preserve failures as well as successes.
+
 The host limits the run to 24 CLI invocations, 120 seconds per invocation and 12 minutes overall. DSPy separately limits supervisor/worker calls and research callbacks. Web-action limits are prompted, not enforced inside the CLI. Token usage includes repeated CLI startup context; completed CLI turns do not reveal every underlying provider call or retry. These controls do not cap monetary charges.
 
-The output directory retains prompts, JSONL events, accepted evidence, usage and the decision. A timeout preserves partial public events. Stderr is excluded. Use public inputs only. Source URLs must appear as explicit attempted-open targets or page-result URLs within an open action, and belong to the approved domains. Every evidence service label must exactly match the requested service; aliases are rejected. This proves an attempted page action, not successful retrieval or factual truth; inspect the source content before acting on its claims.
+The output directory retains prompts, JSONL events, research packets, usage and the decision. `research-packets.json` records callback output; the report's sources and rejected evidence show what the ledger accepted. A timeout preserves partial public events. Stderr is excluded. Use public inputs only. Source URLs must appear as explicit attempted-open targets or page-result URLs within an open action, and belong to the approved domains. Every evidence service label must exactly match the requested service; aliases are rejected. This proves an attempted page action, not successful retrieval or factual truth; inspect the source content before acting on its claims.
 
 ## First live observation
 
@@ -47,7 +51,7 @@ An internal Orchestra run on 30 October 2026 used the existing ChatGPT-authentic
 
 A separate public-research trial also completed with one dynamically configured specialist and a no-fit decision: existing capabilities weakened the proposed opportunity. The host supplied the briefs, chose the exercised capability for that trial after the first selection stalled, checked the sources independently and launched the corrected selection with those observations. This was supervised live work, not one unattended selection-to-execution transaction.
 
-The run exposed missing context between selection and execution and substantial repeated-context usage. A shared founder brief and a comparison with a simple direct workflow are the next useful checks. No matched baseline, qualified lead, client result, commercial adoption or advantage over upstream DSPy was established. The checked implementation has 59 passing tests and one optional skip.
+The run exposed missing context between selection and execution and substantial repeated-context usage. It established no matched baseline, qualified lead, client result, commercial adoption or advantage over upstream DSPy. The [2 November comparison](../../docs/ynot/2026-11-02-comparison.md) tests the subsequent context fix: both paths retained the offer, while the direct path reached the same unresolved decision with fewer invocations. Keep direct research for this known-service follow-up. The [continuation record](../../docs/ynot/HANDOFF.md) owns the next decision.
 
 ## What decides the recommendation
 

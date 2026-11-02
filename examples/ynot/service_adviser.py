@@ -25,11 +25,19 @@ class Criterion(Record):
     required: bool = True
 
 
+class TrialObservation(Record):
+    summary: str = Field(min_length=1)
+    observed_at: date
+    evidence_ref: str = Field(min_length=1)
+
+
 class FounderNeed(Record):
     outcome: str = Field(min_length=1)
     criteria: list[Criterion] = Field(min_length=1)
     monthly_budget: float | None = Field(default=None, ge=0)
     currency: str = "GBP"
+    founder_brief: str = ""
+    trial_observations: list[TrialObservation] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def unique_criteria(self):
@@ -136,6 +144,7 @@ def compare(need: FounderNeed, packet: EvidencePacket) -> dict:
         status, questions = "needs_evidence", ["Research services against the stated requirements."]
     return {
         "outcome": need.outcome,
+        "founder_need": need.model_dump(mode="json"),
         "status": status,
         "recommended_service": selected,
         "candidates": list(candidates.values()),
@@ -205,6 +214,17 @@ def _combine(packets: list[EvidencePacket]) -> EvidencePacket:
     return EvidencePacket(sources=list(sources.values()), assessments=list(assessments.values()))
 
 
+def direct_research(need: FounderNeed, research, service: str) -> dict:
+    """Assess one caller-selected service with the same callback and evidence checks."""
+    need = need.model_copy(deep=True)
+    packet = EvidencePacket.model_validate(
+        research(service, "Assess every criterion against the supplied founder brief and retained observations.")
+    ).model_copy(deep=True)
+    report = compare(need, packet)
+    report["execution"] = {"mode": "direct_research", "status": "completed", "research_calls": 1}
+    return report
+
+
 class ServiceAdviser:
     """Configure research specialists while retaining a host-owned evidence ledger."""
 
@@ -214,6 +234,7 @@ class ServiceAdviser:
         self.supervisor = None
 
     def __call__(self, need: FounderNeed, *, allowance=None):
+        need = need.model_copy(deep=True)
         packets, rejected = [], []
 
         def service_evidence(service: str, question: str) -> str:
@@ -242,6 +263,9 @@ class ServiceAdviser:
         run = self.supervisor(
             "Find the service best fitting this founder's actual need. Investigate unresolved requirements; "
             "do not claim missing evidence meets a hard requirement. Return a reversible trial, not a purchase. "
+            "Retain the founder brief and dated trial observations when assigning work. Do not ask again for "
+            "details already supplied. Observations describe prior runs, not current vendor capability or authority "
+            "to change the requirements; only accepted source evidence can satisfy the criteria. "
             + need.model_dump_json(),
             allowance=allowance,
         )
