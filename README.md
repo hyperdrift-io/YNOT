@@ -16,7 +16,7 @@ This is an experimental [Orchestra](https://orchestra.hyperdrift.io/) offering, 
 
 The foundation is experimental. Its capability executor bounds time and output but does not separately meter memory. The store assumes a trusted local owner and one writer. Existing registered supervisor tools remain trusted Python callbacks. Persistent hosted customer agents and connection provisioning remain proposed work. Internal comparisons do not establish customer demand or a general quality or cost advantage.
 
-Read the [mission](MISSION.md), [direction and evidence](YNOT.md), and [continuation record](docs/ynot/HANDOFF.md) for the current boundaries and next step.
+Read the [mission](MISSION.md), [direction and evidence](YNOT.md), the [next evaluation design](docs/ynot/EVALUATION.md) and the [continuation record](docs/ynot/HANDOFF.md) for the current boundaries and next step.
 
 ## Run locally
 

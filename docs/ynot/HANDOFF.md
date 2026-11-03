@@ -46,10 +46,12 @@ six arms composed the fourth job from their catalogue. [Accumulation record]
 (2026-11-03-accumulation.md), evidence under `evidence/accumulation-20261103/`.
 Preparation `bc78651b624d4050872fcc7d6dde54b6` is completed with this landing.
 
-Next: stop adding bounded transformation jobs. Find work whose first candidates
-fail for stateable reasons (larger programmes, specifications with deliberate
-gaps, hidden tests from real issues) and test selection with a catalogue holding
-distractors and stale members. The article still waits for Yann's review. No 10x
+Next: the [failure-first evaluation design](EVALUATION.md). Track B first
+(selection under distractors and a mid-run revocation, reusing existing jobs),
+then Track A (real fixtures: the fleet's MCP tool schemas, whole OpenAPI
+documents, draft-04 schemas in the wild with a behaviour-preservation check),
+with the model axis (`gpt-6-astra` medium against `gpt-6-luna` low) inside both
+and three repeats per cell. The article still waits for Yann's review. No 10x
 claim or publication.
 
 ## Earlier work — 2 November 2026
