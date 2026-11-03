@@ -1,5 +1,38 @@
 # YNOT continuation — development foundation
 
+## Taken over on 3 November 2026
+
+Checkpoint `ynot-transfer-20261103`. Claude Code session
+`2399db7a-ef20-498c-a958-8ad202bc99c7` (desktop title “YNOT thread continuation”,
+`claude --resume` with that ID) took over from Codex chat **Continue YNOT thread**
+(`codex://threads/01a19d95-055f-7713-96a6-58e04eef59f8`, working turns 2 November
+18:45–23:46 UTC). That chat's record is historical; its last outcome is the
+foundation commit `5675159` below. Earlier source:
+`01a0f4cc-babe-7093-9c22-5be57b45f70e`.
+
+State read at the takeover: this checkout is `main` at `5675159`, clean and equal
+to `origin/main`; GitHub run 41547358725 succeeded on that commit. The temporary
+worktree `apps/.worktrees/ynot-foundation-20261102` and its local branch were
+removed because they held nothing beyond main. `tests/ynot` passed tonight: 114
+tests in 56 s on Python 3.12 using the interpreter at
+`/Users/yannvr/Documents/ChatGPT/OSS/work/dspy-10656/.venv` with `PYTHONPATH=.`;
+this checkout has no environment of its own. The launch article draft passes the
+mechanical HD copy check and still awaits Yann's editorial review; nothing is
+published.
+
+Traction: preparation `586e7a88b3534ab694e6e6ed3e655cac` is completed. The
+follow-on preparation is `orchestra-ecosystem-trust/6dd856ba4fe14b17875c891538a5858e`,
+accepted and bound to the Claude session above.
+
+Next action: a second development consumer of the capability lifecycle, the
+strict structured-output schema normalisation that `examples/ynot/live_codex.py`
+hand-writes today and that MCP tool schemas need for strict clients. Holdout
+transfer cases are authored separately from the generating prompt. Three arms
+with equal code reuse: direct, current DSPy (`dspy.Predict` through the Codex
+engine, no optimiser) and YNOT. Count acquisition, checking and reuse; record
+failures. Done when the harness, tests and a recorded comparison are on main with
+CI green and this record updated. No 10x claim or publication.
+
 Updated 2 November 2026. The current [mission](../../MISSION.md) is building and
 reusing capabilities during development. Yann explicitly selected this direction
 for YNOT's own launch. It supersedes the prospect-specific proposal below.
