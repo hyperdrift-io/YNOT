@@ -25,10 +25,7 @@ def main():
     with PythonInterpreter(sync_files=False) as interpreter:
         interpreter.deno_command[2:2] = ["--cached-only", "--no-prompt"]
         interpreter.start()
-        interpreter.execute(
-            "import js\n"
-            "await js.Deno.permissions.revoke(js.JSON.parse('{\"name\":\"import\"}'))"
-        )
+        interpreter.execute('import js\nawait js.Deno.permissions.revoke(js.JSON.parse(\'{"name":"import"}\'))')
         if os.name == "posix":
             import resource
 

@@ -8,7 +8,8 @@ This is an experimental [Orchestra](https://orchestra.hyperdrift.io/) offering, 
 
 - A host-owned contract checks generated Python in a Deno/Pyodide interpreter. Passing code receives an identity tied to its source, contract, scope and execution policy.
 - A local store validates that identity on reuse and blocks revoked capabilities. Candidate code cannot rewrite the host's acceptance checks.
-- Two development jobs use the same lifecycle: repairing OpenAPI nullability for a JSON Schema consumer, and normalising a generated schema for a strict structured-output client. The second job's holdout cases were written separately from its prompt and control.
+- Accepted capabilities can be composed in order under a new contract without generating code; a revoked or changed member blocks the composite.
+- Four development jobs use the same lifecycle: repairing OpenAPI nullability, normalising a generated schema for a strict structured-output client, migrating draft-04 schemas to 2020-12, and a fourth that composes the first two. Holdout cases are written separately from the prompts and controls.
 - A supervisor creates and executes DSPy ReAct workers from approved model and tool registries when the job needs them.
 - The host validates worker configurations and enforces model-call and tool-call allowances. Findings, tool observations and stopping reasons remain inspectable.
 - The service adviser checks supplied evidence against requirements. Its examples support scripted controls, saved sources and an optional Codex research integration.

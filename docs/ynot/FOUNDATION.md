@@ -53,6 +53,8 @@ if result.promoted:
     store.revoke(result.capability_id, "Withdrawn by the host")
 ```
 
+`store.compose([id_a, id_b], contract, executor, budget)` qualifies a reuse of accepted capabilities in order, under a new contract, without new code; see below.
+
 `candidate_source` defines `transform(payload)`. It receives JSON data and returns JSON data. Passing every host case permits promotion; partial or failed qualification does not. Failed attempts and later execution consume the allowance. The core accepts an injected executor so another host can supply a suitable boundary, but its policy identifier must describe that executor honestly.
 
 The store canonicalises every payload, expected value and output as JSON with sorted object keys. A contract therefore cannot depend on object key order; the second consumer below found this when a rule written as "in original property order" passed qualification on alphabetically ordered fixtures and then failed every separately authored holdout on reuse. Order is significant only inside arrays.
@@ -69,6 +71,12 @@ The six holdouts in `examples/ynot/cases/strict-structured-output-holdouts.json`
 
 Run it with `--case strict-structured-output`. Each invocation still creates a fresh store under `--store`; accumulation of several capabilities in one store, and selection among them, is not exercised yet. `--arms direct,dspy,ynot` adds a current-DSPy baseline: a plain `dspy.Predict` on the same Codex engine with host feedback as an input field and the programme saved beside the candidate; no optimiser is run, and its code is reused exactly as the direct arm's.
 
+## Composition: reuse without regeneration
+
+`CapabilityStore.compose(steps, contract, executor, allowance)` qualifies an ordered list of accepted capability identities against a new host contract. No code is generated or saved: the artefact records the member identities and their contract digests under a marker that can never qualify as Python source. Every activation reloads and re-checks each member, so revoking or changing a member blocks the composite, and order is part of the identity. Intermediate values are not validated against member schemas; the composite contract's output schema is. Nested composites run every leaf.
+
+`examples/ynot/capability_accumulation.py` runs several jobs in sequence so each arm's accepted work accumulates: YNOT in one store, the direct and DSPy baselines in one library of saved files. Each job's prompt carries a catalogue of that arm's accepted work by name and task. A candidate is either new source or a composition of catalogue names; the store qualifies a composite, and the baselines chain their saved files through the same executor, so composition is available equally. The fourth job, `openapi-to-strict`, is solvable by composing the first two; the third, `schema-draft-migration`, carries several interacting rules so that first candidates may fail. Deterministic control: `python -m examples.ynot.capability_accumulation --store /tmp/ynot-accumulation`; live: add `--live --arms direct,dspy,ynot`.
+
 ## Execution boundary
 
 `PyodideExecutor` sends candidate source into the retained DSPy Deno/Pyodide interpreter, never host-side `exec`. Each call starts a fresh interpreter with no mounted host paths, registered host tools or candidate network/environment permissions. Wall time and captured output are bounded by the host, including process-group cleanup. The runtime may download its interpreter assets during trusted startup.
@@ -83,7 +91,7 @@ The direct path uses the same executor and host acceptance cases, saves its pass
 
 Count model calls, provider-reported input/output usage, every attempted execution and wall time through fresh-process reuse. The intentionally faulty candidate and post-run revocation are separate controls. They do not count as competitive safety wins against a direct implementation allowed equivalent controls. Runtime cache warm-up and provider latency can affect timing; do not infer speed from a few runs. No cash price is inferred from subscription token counts.
 
-See [the recorded results](2026-11-02-foundation.md) and the [three-arm transfer record](2026-11-03-transfer.md). Earlier research and Deputy comparisons remain in the [continuation record](HANDOFF.md).
+See [the recorded results](2026-11-02-foundation.md), the [three-arm transfer record](2026-11-03-transfer.md) and the [accumulation record](2026-11-03-accumulation.md). Earlier research and Deputy comparisons remain in the [continuation record](HANDOFF.md).
 
 ## Grow the foundation through useful work
 

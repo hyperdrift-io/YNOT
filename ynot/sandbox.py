@@ -54,9 +54,11 @@ class PyodideExecutor:
         with tempfile.TemporaryDirectory(prefix="ynot-execution-") as folder:
             base = Path(folder)
             (base / "request.json").write_bytes(request)
-            with (base / "request.json").open("rb") as stdin, (base / "stdout").open("wb") as stdout, (
-                base / "stderr"
-            ).open("wb") as stderr:
+            with (
+                (base / "request.json").open("rb") as stdin,
+                (base / "stdout").open("wb") as stdout,
+                (base / "stderr").open("wb") as stderr,
+            ):
                 process = subprocess.Popen(
                     [sys.executable, "-m", "ynot._sandbox_worker"],
                     stdin=stdin,

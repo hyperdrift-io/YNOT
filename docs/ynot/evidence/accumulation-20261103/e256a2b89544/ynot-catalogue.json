@@ -1,0 +1,26 @@
+[
+  {
+    "name": "openapi-nullability",
+    "task": "Repair this API schema compatibility failure and leave reusable Python code for later schemas.",
+    "reference": "7d4ae9ee7a159f5889e669be8d35891c704701020f01ce610c498a15f81b4643",
+    "mode": "source"
+  },
+  {
+    "name": "strict-structured-output",
+    "task": "Make generated JSON Schemas acceptable to a strict structured-output client and leave reusable Python code for later schemas.",
+    "reference": "0ee918c5ca858710b2a943548b009b545ccda1d7bbcf89bf7f607c3ecb61264f",
+    "mode": "source"
+  },
+  {
+    "name": "schema-draft-migration",
+    "task": "Migrate JSON Schema draft-04 documents to draft 2020-12 and leave reusable Python code for later documents.",
+    "reference": "5e6cc2049f28eb48c7e00e9f682e799216cbbb739ae2f4f32bb23c9d5fccd096",
+    "mode": "source"
+  },
+  {
+    "name": "openapi-to-strict",
+    "task": "Prepare OpenAPI 3.0 schemas for a strict structured-output client and leave reusable work for later schemas.",
+    "reference": "4572e8485f580c2b59b02c95a84c5a05bb467b7d8a0e523be7445b2afdfee129",
+    "mode": "compose"
+  }
+]

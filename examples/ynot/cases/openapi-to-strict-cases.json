@@ -1,0 +1,357 @@
+[
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "nullable": true
+        },
+        "count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "nullable": true,
+          "enum": [
+            "open",
+            "closed"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "a",
+            "b"
+          ]
+        }
+      },
+      "required": [
+        "state"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "open",
+            "closed"
+          ]
+        },
+        "mode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "a",
+            "b",
+            null
+          ]
+        }
+      },
+      "required": [
+        "mode",
+        "state"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "title": "Settings",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "nullable": true,
+          "default": 10,
+          "minimum": 1
+        }
+      },
+      "required": [
+        "limit"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "title": "Settings",
+      "properties": {
+        "limit": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      },
+      "required": [
+        "limit"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "note": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "note"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "owner"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "nullable": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number",
+                "nullable": true
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label"
+            ]
+          }
+        }
+      },
+      "required": [
+        "rows"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "score"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "rows"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "k": {
+          "anyOf": [
+            {
+              "type": "string",
+              "nullable": true,
+              "default": "s"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "n"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "k"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "k": {
+          "anyOf": [
+            {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "n"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "k"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "payload": {
+      "type": "object",
+      "properties": {
+        "b": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "a": {
+          "type": "string",
+          "nullable": true
+        }
+      },
+      "required": [
+        "b",
+        "a"
+      ],
+      "example": {
+        "a": null,
+        "b": true,
+        "nullable": true,
+        "default": 1
+      }
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "b": {
+          "type": "boolean"
+        },
+        "a": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "a",
+        "b"
+      ],
+      "example": {
+        "a": null,
+        "b": true,
+        "nullable": true,
+        "default": 1
+      },
+      "additionalProperties": false
+    }
+  }
+]

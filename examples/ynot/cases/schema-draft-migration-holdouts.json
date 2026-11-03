@@ -1,0 +1,241 @@
+[
+  {
+    "title": "Order API: id, definitions and internal refs",
+    "rules": [1, 2, 6, 7],
+    "payload": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "https://api.example.com/schemas/order.json",
+      "type": "object",
+      "required": ["id", "customer"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "customer": {"$ref": "#/definitions/customer"},
+        "lines": {"type": "array", "items": {"$ref": "#/definitions/line"}}
+      },
+      "definitions": {
+        "customer": {"id": "#customer", "type": "object", "properties": {"address": {"$ref": "#/definitions/address"}}},
+        "address": {"type": "object", "properties": {"postcode": {"type": "string"}}},
+        "line": {"type": "object", "properties": {"sku": {"type": "string"}, "money": {"$ref": "money.json#/definitions/amount"}}}
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://api.example.com/schemas/order.json",
+      "type": "object",
+      "required": ["id", "customer"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "customer": {"$ref": "#/$defs/customer"},
+        "lines": {"type": "array", "items": {"$ref": "#/$defs/line"}}
+      },
+      "$defs": {
+        "customer": {"$id": "#customer", "type": "object", "properties": {"address": {"$ref": "#/$defs/address"}}},
+        "address": {"type": "object", "properties": {"postcode": {"type": "string"}}},
+        "line": {"type": "object", "properties": {"sku": {"type": "string"}, "money": {"$ref": "money.json#/definitions/amount"}}}
+      }
+    },
+    "note": "The property named \"id\" is a property name, not the id keyword, so it stays; the \"id\" in \"required\" is data. \"money.json#/definitions/amount\" does not start with \"#/definitions/\", so rule 2 leaves it unchanged even though it points into another draft-04 file."
+  },
+  {
+    "title": "Sensor reading: exclusive bounds in every form",
+    "rules": [1, 3, 6],
+    "payload": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Sensor reading",
+      "type": "object",
+      "properties": {
+        "temperature": {"type": "number", "minimum": -40, "exclusiveMinimum": true, "maximum": 125, "exclusiveMaximum": false},
+        "humidity": {"type": "number", "minimum": 0, "maximum": 100, "exclusiveMaximum": true},
+        "battery": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 4.2, "maximum": 5},
+        "pressure": {"type": "number", "exclusiveMinimum": true},
+        "samples": {
+          "type": "array",
+          "items": {"type": "integer", "minimum": 0, "exclusiveMinimum": true, "maximum": 1023, "exclusiveMaximum": true}
+        }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "Sensor reading",
+      "type": "object",
+      "properties": {
+        "temperature": {"type": "number", "exclusiveMinimum": -40, "maximum": 125},
+        "humidity": {"type": "number", "minimum": 0, "exclusiveMaximum": 100},
+        "battery": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 4.2, "maximum": 5},
+        "pressure": {"type": "number"},
+        "samples": {
+          "type": "array",
+          "items": {"type": "integer", "exclusiveMinimum": 0, "exclusiveMaximum": 1023}
+        }
+      }
+    },
+    "note": "\"battery\" already uses numeric bounds alongside \"maximum\"; rule 3 leaves numeric values and the unrelated \"maximum\" untouched."
+  },
+  {
+    "title": "CSV import: tuple and single items with additionalItems",
+    "rules": [1, 3, 4, 6],
+    "payload": {
+      "type": "object",
+      "properties": {
+        "point": {"type": "array", "items": [{"type": "number"}, {"type": "number"}], "additionalItems": false},
+        "csvRow": {
+          "type": "array",
+          "items": [{"type": "string"}, {"type": "integer", "minimum": 0, "exclusiveMinimum": true}],
+          "additionalItems": {"type": "string", "id": "#extra"}
+        },
+        "header": {"type": "array", "items": [{"type": "string"}]},
+        "tags": {"type": "array", "items": {"type": "string"}, "additionalItems": false},
+        "loose": {"type": "array", "additionalItems": {"type": "string"}}
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false},
+        "csvRow": {
+          "type": "array",
+          "prefixItems": [{"type": "string"}, {"type": "integer", "exclusiveMinimum": 0}],
+          "items": {"type": "string", "$id": "#extra"}
+        },
+        "header": {"type": "array", "prefixItems": [{"type": "string"}]},
+        "tags": {"type": "array", "items": {"type": "string"}},
+        "loose": {"type": "array"}
+      }
+    },
+    "note": "The payload has no \"$schema\"; rule 1 says set, so it is added. Boolean additionalItems false is carried as items false. The additionalItems schema is in scope, so its id is renamed before it becomes \"items\"."
+  },
+  {
+    "title": "Checkout: dependencies split by kind",
+    "rules": [1, 3, 5, 6],
+    "payload": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "creditCard": {"type": "string"},
+        "billingAddress": {"type": "string"},
+        "shipping": {
+          "type": "object",
+          "properties": {"method": {"type": "string"}, "trackingId": {"type": "string"}, "carrier": {"type": "string"}},
+          "dependencies": {"trackingId": ["carrier", "method"]}
+        }
+      },
+      "dependencies": {
+        "creditCard": ["billingAddress"],
+        "billingAddress": {"properties": {"postcode": {"type": "string", "minLength": 3}}, "required": ["postcode"]},
+        "name": {"properties": {"age": {"type": "integer", "minimum": 18, "exclusiveMinimum": false}}}
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "creditCard": {"type": "string"},
+        "billingAddress": {"type": "string"},
+        "shipping": {
+          "type": "object",
+          "properties": {"method": {"type": "string"}, "trackingId": {"type": "string"}, "carrier": {"type": "string"}},
+          "dependentRequired": {"trackingId": ["carrier", "method"]}
+        }
+      },
+      "dependentRequired": {"creditCard": ["billingAddress"]},
+      "dependentSchemas": {
+        "billingAddress": {"properties": {"postcode": {"type": "string", "minLength": 3}}, "required": ["postcode"]},
+        "name": {"properties": {"age": {"type": "integer", "minimum": 18}}}
+      }
+    },
+    "note": "\"shipping\" has only list dependencies, so no empty dependentSchemas is emitted. Schema-valued dependencies are in scope, so the false exclusiveMinimum inside \"name\" is removed."
+  },
+  {
+    "title": "Service config: additionalProperties and patternProperties",
+    "rules": [1, 2, 3, 6, 7],
+    "payload": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "https://config.example.com/service.json",
+      "type": "object",
+      "properties": {
+        "env": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+        "limits": {"type": "object", "additionalProperties": {"$ref": "#/definitions/limit"}},
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {"^x-": {"type": "string"}, "^[a-z]+$": {"$ref": "#/definitions/label"}}
+        }
+      },
+      "additionalProperties": true,
+      "definitions": {
+        "limit": {"type": "integer", "minimum": 0, "exclusiveMinimum": true},
+        "label": {"type": "string", "maxLength": 63}
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://config.example.com/service.json",
+      "type": "object",
+      "properties": {
+        "env": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}},
+        "limits": {"type": "object", "additionalProperties": {"$ref": "#/$defs/limit"}},
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {"^x-": {"type": "string"}, "^[a-z]+$": {"$ref": "#/$defs/label"}}
+        }
+      },
+      "additionalProperties": true,
+      "$defs": {
+        "limit": {"type": "integer", "exclusiveMinimum": 0},
+        "label": {"type": "string", "maxLength": 63}
+      }
+    },
+    "note": "Boolean additionalProperties values are kept as they are. The \"^x-\" key is a regular expression, not an x-* extension."
+  },
+  {
+    "title": "Payment form: schema-shaped data, not and oneOf",
+    "rules": [1, 2, 3, 5, 6, 7],
+    "payload": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "x-ui-template": {"id": "form-1", "definitions": {"a": {"$ref": "#/definitions/a"}}, "minimum": 1, "exclusiveMinimum": true},
+      "properties": {
+        "payment": {"oneOf": [
+          {"$ref": "#/definitions/card"},
+          {"type": "object", "properties": {"iban": {"type": "string"}}, "dependencies": {"iban": ["bic"]}},
+          {"type": "number", "minimum": 0, "exclusiveMinimum": true}
+        ]},
+        "nickname": {"type": "string", "not": {"enum": ["admin", "root"], "id": "#reserved"}},
+        "filter": {
+          "type": "object",
+          "default": {"id": "f1", "items": [{"type": "string"}], "additionalItems": false},
+          "enum": [{"$ref": "#/definitions/card"}, {"dependencies": {"a": ["b"]}}],
+          "const": {"definitions": {}, "maximum": 3, "exclusiveMaximum": false},
+          "examples": [{"additionalProperties": {"id": "x"}}]
+        }
+      },
+      "definitions": {"card": {"type": "object", "properties": {"pan": {"type": "string"}}}}
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "x-ui-template": {"id": "form-1", "definitions": {"a": {"$ref": "#/definitions/a"}}, "minimum": 1, "exclusiveMinimum": true},
+      "properties": {
+        "payment": {"oneOf": [
+          {"$ref": "#/$defs/card"},
+          {"type": "object", "properties": {"iban": {"type": "string"}}, "dependentRequired": {"iban": ["bic"]}},
+          {"type": "number", "exclusiveMinimum": 0}
+        ]},
+        "nickname": {"type": "string", "not": {"enum": ["admin", "root"], "$id": "#reserved"}},
+        "filter": {
+          "type": "object",
+          "default": {"id": "f1", "items": [{"type": "string"}], "additionalItems": false},
+          "enum": [{"$ref": "#/definitions/card"}, {"dependencies": {"a": ["b"]}}],
+          "const": {"definitions": {}, "maximum": 3, "exclusiveMaximum": false},
+          "examples": [{"additionalProperties": {"id": "x"}}]
+        }
+      },
+      "$defs": {"card": {"type": "object", "properties": {"pan": {"type": "string"}}}}
+    },
+    "note": "Rule 2 says every \"$ref\" string; rule 6 says enum, default, const, examples and x-* values are data. This reads rule 6 as limiting rule 2, so refs inside data keep \"#/definitions/\". \"const\" and \"examples\" are not draft-04 keywords; they are preserved as data."
+  }
+]

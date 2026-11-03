@@ -1,0 +1,253 @@
+[
+  {
+    "title": "User profile: nullable required and optional, nested defaults",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.4"],
+    "payload": {
+      "type": "object",
+      "required": ["id", "email", "middleName"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "email": {"type": "string", "format": "email"},
+        "middleName": {"type": "string", "nullable": true},
+        "nickname": {"type": "string", "nullable": true, "maxLength": 32},
+        "locale": {"type": "string", "default": "en-GB"},
+        "preferences": {
+          "type": "object",
+          "required": ["theme"],
+          "properties": {
+            "theme": {"type": "string", "default": "light"},
+            "digest": {"type": "boolean", "nullable": false, "default": true}
+          }
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["email", "id", "locale", "middleName", "nickname", "preferences"],
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "email": {"type": "string", "format": "email"},
+        "middleName": {"type": ["string", "null"]},
+        "nickname": {"type": ["string", "null"], "maxLength": 32},
+        "locale": {"type": ["string", "null"]},
+        "preferences": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["digest", "theme"],
+          "properties": {
+            "theme": {"type": "string"},
+            "digest": {"type": ["boolean", "null"]}
+          }
+        }
+      }
+    },
+    "note": "Step 1 makes middleName and nickname [\"string\", \"null\"] and drops nullable false from digest. Step 2 then leaves both nullable types alone, since they already include null, and widens the optional locale, preferences and digest."
+  },
+  {
+    "title": "Order status: nullable enums",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.5"],
+    "payload": {
+      "type": "object",
+      "title": "Order",
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["pending", "paid", "shipped"], "nullable": true, "description": "Fulfilment state"},
+        "refundReason": {"type": "string", "enum": ["damaged", "late", "other"], "nullable": true},
+        "channel": {"type": "string", "enum": ["web", "phone"], "default": "web"},
+        "priority": {"type": "integer", "enum": [1, 2, 3, null], "nullable": true}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "title": "Order",
+      "additionalProperties": false,
+      "required": ["channel", "priority", "refundReason", "status"],
+      "properties": {
+        "status": {"type": ["string", "null"], "enum": ["pending", "paid", "shipped"], "description": "Fulfilment state"},
+        "refundReason": {"type": ["string", "null"], "enum": ["damaged", "late", "other", null]},
+        "channel": {"type": ["string", "null"], "enum": ["web", "phone", null]},
+        "priority": {"type": ["integer", "null"], "enum": [1, 2, 3, null]}
+      }
+    },
+    "note": "Step 1 keeps enums unchanged because the spec says enum continues to apply, so required \"status\" still rejects null through its enum. Step 2 appends null to an optional property's enum whether or not its type already includes null; the spec states the enum and type conditions separately."
+  },
+  {
+    "title": "Event log: record array, nullable items, list types",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.4"],
+    "payload": {
+      "type": "object",
+      "required": ["events"],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["at", "kind"],
+            "properties": {
+              "at": {"type": "string", "format": "date-time"},
+              "kind": {"type": "string"},
+              "payload": {"type": ["object", "string"]},
+              "score": {"type": ["number", "null"]}
+            }
+          }
+        },
+        "tags": {"type": "array", "items": {"type": "string", "nullable": true}, "default": []}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "tags"],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["at", "kind", "payload", "score"],
+            "properties": {
+              "at": {"type": "string", "format": "date-time"},
+              "kind": {"type": "string"},
+              "payload": {"type": ["object", "string", "null"]},
+              "score": {"type": ["number", "null"]}
+            }
+          }
+        },
+        "tags": {"type": ["array", "null"], "items": {"type": ["string", "null"]}}
+      }
+    },
+    "note": "Type lists are not valid OpenAPI 3.0, but the spec asks for them; step 1 leaves a list type without nullable unchanged. Step 2 rule 2 applies to properties only, so the items object of \"events\" keeps type \"object\"."
+  },
+  {
+    "title": "Contact: anyOf with a nullable branch",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.4"],
+    "payload": {
+      "type": "object",
+      "required": ["name", "reach"],
+      "properties": {
+        "name": {"type": "string"},
+        "reach": {
+          "type": "object",
+          "anyOf": [
+            {"type": "object", "properties": {"email": {"type": "string", "format": "email"}}, "required": ["email"]},
+            {"type": "object", "nullable": true, "properties": {
+              "phone": {"type": "string", "nullable": true},
+              "ext": {"type": "string", "default": "0"}
+            }}
+          ]
+        },
+        "website": {"type": "string", "anyOf": [{"type": "string", "format": "uri"}, {"type": "string", "nullable": true, "maxLength": 0}]}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "reach", "website"],
+      "properties": {
+        "name": {"type": "string"},
+        "reach": {
+          "type": "object",
+          "anyOf": [
+            {"type": "object", "additionalProperties": false, "properties": {"email": {"type": "string", "format": "email"}}, "required": ["email"]},
+            {"type": ["object", "null"], "additionalProperties": false, "required": ["ext", "phone"], "properties": {
+              "phone": {"type": ["string", "null"]},
+              "ext": {"type": ["string", "null"]}
+            }}
+          ]
+        },
+        "website": {"type": ["string", "null"], "anyOf": [{"type": "string", "format": "uri"}, {"type": ["string", "null"], "maxLength": 0}]}
+      }
+    },
+    "note": "\"reach\" has no properties of its own, so rule 1 adds nothing there; each anyOf branch with properties gets its own closed object and full required list. Branches are not properties, so rule 2 widens nothing at branch level; the nullable branch types come from step 1."
+  },
+  {
+    "title": "Address: nullable and default as data and as a name",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.4", "step2.5"],
+    "payload": {
+      "type": "object",
+      "description": "Shipping address",
+      "required": ["line1", "default"],
+      "properties": {
+        "line1": {"type": "string", "example": "1 Main St"},
+        "line2": {"type": "string", "nullable": true, "example": {"nullable": true, "default": "Flat 2"}},
+        "default": {"type": "boolean", "description": "Use as the default address", "default": false},
+        "geo": {
+          "type": "object",
+          "nullable": true,
+          "x-ui": {"nullable": false, "default": "map"},
+          "example": {"lat": 51.5, "default": null},
+          "properties": {"lat": {"type": "number"}, "lng": {"type": "number"}}
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "description": "Shipping address",
+      "additionalProperties": false,
+      "required": ["default", "geo", "line1", "line2"],
+      "properties": {
+        "line1": {"type": "string", "example": "1 Main St"},
+        "line2": {"type": ["string", "null"], "example": {"nullable": true, "default": "Flat 2"}},
+        "default": {"type": "boolean", "description": "Use as the default address"},
+        "geo": {
+          "type": ["object", "null"],
+          "x-ui": {"nullable": false, "default": "map"},
+          "example": {"lat": 51.5, "default": null},
+          "additionalProperties": false,
+          "required": ["lat", "lng"],
+          "properties": {"lat": {"type": ["number", "null"]}, "lng": {"type": ["number", "null"]}}
+        }
+      }
+    },
+    "note": "A property named \"default\" is a name in \"properties\", not the default keyword, so it stays; its own default value is removed. \"example\" and \"x-ui\" are data, so their nullable and default keys survive both steps. Step 2 rule 4 omits \"example\" from its data list, but it is not a schema position there either."
+  },
+  {
+    "title": "Invoice: stale required list and nested line items",
+    "rules": ["step1", "step2.1", "step2.2", "step2.3", "step2.4"],
+    "payload": {
+      "type": "object",
+      "default": {},
+      "required": ["number", "legacyRef", "lines"],
+      "properties": {
+        "number": {"type": "string", "pattern": "^INV-[0-9]+$"},
+        "currency": {"type": "string", "enum": ["GBP", "EUR"], "default": "GBP"},
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["sku"],
+            "properties": {
+              "sku": {"type": "string"},
+              "qty": {"type": "integer", "minimum": 1, "default": 1},
+              "taxCode": {"type": "string", "enum": ["S", "Z", "E"], "nullable": false}
+            }
+          }
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "lines", "number"],
+      "properties": {
+        "number": {"type": "string", "pattern": "^INV-[0-9]+$"},
+        "currency": {"type": ["string", "null"], "enum": ["GBP", "EUR", null]},
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["qty", "sku", "taxCode"],
+            "properties": {
+              "sku": {"type": "string"},
+              "qty": {"type": ["integer", "null"], "minimum": 1},
+              "taxCode": {"type": ["string", "null"], "enum": ["S", "Z", "E", null]}
+            }
+          }
+        }
+      }
+    },
+    "note": "\"legacyRef\" is not a property; rule 1 replaces the required list with the sorted property names, so it is dropped. Defaults go at three depths, root included. nullable false is removed in step 1, then the optional taxCode is widened in step 2."
+  }
+]

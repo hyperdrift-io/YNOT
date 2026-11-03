@@ -37,10 +37,20 @@ approaches. [Transfer record](2026-11-03-transfer.md), evidence under
 `evidence/transfer-20261103/`. Preparation `6dd856ba4fe14b17875c891538a5858e`
 carries a checkpoint and is completed with this landing.
 
-Next: jobs where first candidates fail and transfer is uncertain, run across the
-same three arms with equal reuse; exercise accumulation of several capabilities
-in one store, selection among them and repair after failed transfer. The article
-still waits for Yann's review. No 10x claim or publication.
+Later on 3 November: composition added to the store, a draft-04 to 2020-12
+migration job and a composable fourth job, and an accumulation runner that gives
+every arm one growing catalogue and equal composition. Twelve more holdouts were
+authored separately and agreed with the controls. Live: three arms, four jobs,
+both orders, thirty-six acquisitions, no first candidate failed a host case; all
+six arms composed the fourth job from their catalogue. [Accumulation record]
+(2026-11-03-accumulation.md), evidence under `evidence/accumulation-20261103/`.
+Preparation `bc78651b624d4050872fcc7d6dde54b6` is completed with this landing.
+
+Next: stop adding bounded transformation jobs. Find work whose first candidates
+fail for stateable reasons (larger programmes, specifications with deliberate
+gaps, hidden tests from real issues) and test selection with a catalogue holding
+distractors and stale members. The article still waits for Yann's review. No 10x
+claim or publication.
 
 ## Earlier work — 2 November 2026
 

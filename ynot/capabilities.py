@@ -280,6 +280,24 @@ class _Artifact(BaseModel):
     source: str
     receipt: QualificationReceipt
     revocation: _Revocation | None = None
+    kind: Literal["source", "composite"] = "source"
+
+
+COMPOSITE_MARKER = "ynot:compose:v1\n"
+_MAX_COMPOSITION_DEPTH = 16
+
+
+def _manifest(source: str) -> list[dict[str, str]]:
+    """Parse a composite's recorded steps; the marker makes it unusable as Python source."""
+    if not source.startswith(COMPOSITE_MARKER):
+        raise CapabilityError("Composite capability has no manifest")
+    try:
+        steps = json.loads(source[len(COMPOSITE_MARKER) :])["compose"]
+    except (ValueError, KeyError, TypeError) as exc:
+        raise CapabilityError("Composite manifest is invalid") from exc
+    if not isinstance(steps, list) or not steps:
+        raise CapabilityError("Composite manifest is invalid")
+    return steps
 
 
 def _identity(source_sha256: str, contract_sha256: str, scope: str, executor_policy: str) -> str:
@@ -334,9 +352,27 @@ class CapabilityStore:
             or not all(case.passed for case in receipt.cases)
             or [case.index for case in receipt.cases] != list(range(len(receipt.cases)))
             or receipt.executions != len(receipt.cases)
+            or (artifact.kind == "composite") != artifact.source.startswith(COMPOSITE_MARKER)
         ):
             raise CapabilityError("Saved capability identity or qualification is inconsistent")
         return artifact
+
+    def _activate(self, artifact: _Artifact, payload: Any, executor: Executor, allowance: ExecutionAllowance, depth=0):
+        """Execute a saved artefact; a composite runs its recorded steps in order, each re-checked."""
+        if artifact.kind == "source":
+            allowance.consume()
+            return executor(artifact.source, payload)
+        if depth >= _MAX_COMPOSITION_DEPTH:
+            raise CapabilityError("Composition is nested too deeply")
+        value = payload
+        for step in _manifest(artifact.source):
+            member = self._load(step["capability_id"])
+            if member.revocation is not None:
+                raise CapabilityError("A composed capability has been revoked")
+            if member.receipt.contract_sha256 != step["contract_sha256"]:
+                raise CapabilityError("A composed capability no longer matches its recorded contract")
+            value = self._activate(member, value, executor, allowance, depth + 1)
+        return value
 
     @staticmethod
     def _check_contract(artifact: _Artifact, contract: CapabilityContract) -> None:
@@ -446,11 +482,88 @@ class CapabilityStore:
             raise CapabilityError("Capability has been revoked")
         payload_json = _canonical(payload)
         _validator(contract.input_schema).validate(json.loads(payload_json))
-        allowance.consume()
-        output = executor(artifact.source, json.loads(payload_json))
+        output = self._activate(artifact, json.loads(payload_json), executor, allowance)
         snapshot = json.loads(_canonical(output))
         _validator(contract.output_schema).validate(snapshot)
         return snapshot
+
+    def compose(
+        self,
+        steps: list[str] | tuple[str, ...],
+        contract: CapabilityContract,
+        executor: Executor,
+        allowance: ExecutionAllowance,
+    ) -> QualificationResult:
+        """Qualify an ordered reuse of accepted capabilities against a new host contract.
+
+        No new code is generated or saved: the artefact records the member identities
+        and their contract digests. Each activation reloads and re-checks every member,
+        so revoking or changing a member blocks the composite. Intermediate values are
+        not validated against member schemas; only the composite contract's output is.
+        """
+        if not isinstance(steps, (list, tuple)) or not steps:
+            raise CapabilityError("A composition needs at least one accepted capability")
+        recorded = []
+        for capability_id in steps:
+            member = self._load(capability_id)
+            if member.revocation is not None:
+                raise CapabilityError("Cannot compose a revoked capability")
+            recorded.append({"capability_id": capability_id, "contract_sha256": member.receipt.contract_sha256})
+        source = COMPOSITE_MARKER + _canonical({"compose": recorded})
+        source_sha256 = _source_digest(source)
+        capability_id = _identity(source_sha256, contract.digest, self.scope, self.executor_policy)
+        if self._path(capability_id).exists():
+            existing = self._load(capability_id)
+            self._check_contract(existing, contract)
+            if existing.revocation is not None:
+                raise CapabilityError("This composition was revoked; it cannot be reactivated")
+        candidate = _Artifact(
+            capability_id=capability_id,
+            source=source,
+            kind="composite",
+            receipt=QualificationReceipt(
+                capability_id=capability_id,
+                source_sha256=source_sha256,
+                contract_sha256=contract.digest,
+                cases_sha256=contract.cases_digest,
+                input_schema_sha256=_digest(contract.input_schema),
+                output_schema_sha256=_digest(contract.output_schema),
+                contract_name=contract.name,
+                contract_version=contract.version,
+                scope=self.scope,
+                executor_policy=self.executor_policy,
+                cases=(CaseReceipt(index=0, passed=True, reason="pending"),),
+                executions=1,
+                qualified_at=_now(),
+            ),
+        )
+        output_validator = _validator(contract.output_schema)
+        cases: list[CaseReceipt] = []
+        for index, case in enumerate(contract.cases):
+            try:
+                output = self._activate(candidate, case.payload, executor, allowance)
+            except ExecutionLimitError:
+                raise
+            except Exception as exc:
+                cases.append(CaseReceipt(index=index, passed=False, reason=f"executor_error:{type(exc).__name__}"))
+                continue
+            try:
+                output_json = _canonical(output)
+                output_validator.validate(json.loads(output_json))
+            except Exception:
+                cases.append(CaseReceipt(index=index, passed=False, reason="invalid_output"))
+                continue
+            passed = output_json == case._expected_json
+            cases.append(CaseReceipt(index=index, passed=passed, reason="matched" if passed else "unexpected_output"))
+        receipt = candidate.receipt.model_copy(update={"cases": tuple(cases), "executions": len(cases)})
+        promoted = all(case.passed for case in cases)
+        if promoted:
+            if self._path(capability_id).exists() and self._load(capability_id).revocation is not None:
+                raise CapabilityError("Composition was revoked during qualification")
+            self._save(candidate.model_copy(update={"receipt": receipt}))
+        return QualificationResult(
+            receipt=receipt, promoted=promoted, capability_id=capability_id if promoted else None
+        )
 
     def revoke(self, capability_id: str, reason: str) -> None:
         """Prevent subsequent activation; an execution already in progress is unaffected."""
