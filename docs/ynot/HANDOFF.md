@@ -24,40 +24,23 @@ Traction: preparation `586e7a88b3534ab694e6e6ed3e655cac` is completed. The
 follow-on preparation is `orchestra-ecosystem-trust/6dd856ba4fe14b17875c891538a5858e`,
 accepted and bound to the Claude session above.
 
-Next action: a second development consumer of the capability lifecycle, the
-strict structured-output schema normalisation that `examples/ynot/live_codex.py`
-hand-writes today and that MCP tool schemas need for strict clients. Holdout
-transfer cases are authored separately from the generating prompt. Three arms
-with equal code reuse: direct, current DSPy (`dspy.Predict` through the Codex
-engine, no optimiser) and YNOT. Count acquisition, checking and reuse; record
-failures. Done when the harness, tests and a recorded comparison are on main with
-CI green and this record updated. No 10x claim or publication.
+Done on 3 November: the second consumer, strict structured-output schema
+normalisation, runs on the same lifecycle (`--case strict-structured-output`)
+with a recorded real client rejection, seven host cases and six holdouts written
+by a separate agent from the specification alone. The harness gained a
+current-DSPy arm (`--arms direct,dspy,ynot`). The real boundary exposed that
+contracts cannot depend on JSON object key order because the store canonicalises
+values; the rule was amended and the holdouts re-derived independently. Live
+three-arm runs on both jobs: every arm accepted its first candidate and passed
+every holdout with one model call, so neither job discriminates between the
+approaches. [Transfer record](2026-11-03-transfer.md), evidence under
+`evidence/transfer-20261103/`. Preparation `6dd856ba4fe14b17875c891538a5858e`
+carries a checkpoint and is completed with this landing.
 
-Updated 2 November 2026. The current [mission](../../MISSION.md) is building and
-reusing capabilities during development. Yann explicitly selected this direction
-for YNOT's own launch. It supersedes the prospect-specific proposal below.
-
-The `ynot` package now owns the supervisor and a host-controlled capability
-lifecycle: qualification, persisted identity, fresh-process reuse and revocation.
-The [foundation guide](FOUNDATION.md) owns its API, reference example and limits.
-The [comparison record](2026-11-02-foundation.md) owns the live results and controls.
-The article is a private review draft in ignored `local/launch/LAUNCH-ARTICLE.md`; it has not been published on Orchestra.
-
-Repository work replaces inherited DSPy marketing, installation metadata and
-publishing automation with YNOT's own entrypoints, while retaining the engine,
-history and legal attribution. No package registry release, hosted agent service,
-prospect contact or article publication is included.
-
-Current Traction preparation:
-`orchestra-ecosystem-trust/586e7a88b3534ab694e6e6ed3e655cac`.
-Work is based on `e76cd29`; native Codex chat
-`01a19d95-055f-7713-96a6-58e04eef59f8` owns this continuation. Raw model traces
-remain in the ignored `local/` directory; the public result record is sanitised.
-
-Next: a second development consumer and independently authored transfer tasks,
-with direct and current DSPy baselines allowed equal reuse. Tenfold improvement
-is a target, not a measured result. The earlier comparisons below remain useful
-negative evidence for unnecessary orchestration.
+Next: jobs where first candidates fail and transfer is uncertain, run across the
+same three arms with equal reuse; exercise accumulation of several capabilities
+in one store, selection among them and repair after failed transfer. The article
+still waits for Yann's review. No 10x claim or publication.
 
 ## Earlier work — 2 November 2026
 

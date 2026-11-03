@@ -1,0 +1,269 @@
+[
+  {
+    "title": "MCP search tool with defaults and an optional array",
+    "rules": [1, 2, 3, 4, 5],
+    "payload": {
+      "type": "object",
+      "description": "Search the issue tracker.",
+      "properties": {
+        "query": {"type": "string", "description": "Free-text query."},
+        "limit": {"type": "integer", "minimum": 1, "maximum": 100, "default": 20},
+        "state": {"type": "string", "enum": ["open", "closed", "all"], "default": "open"},
+        "labels": {"type": "array", "items": {"type": "string"}, "description": "Match any label."}
+      },
+      "required": ["query"]
+    },
+    "expected": {
+      "type": "object",
+      "description": "Search the issue tracker.",
+      "properties": {
+        "query": {"type": "string", "description": "Free-text query."},
+        "limit": {"type": ["integer", "null"], "minimum": 1, "maximum": 100},
+        "state": {"type": ["string", "null"], "enum": ["open", "closed", "all", null]},
+        "labels": {"type": ["array", "null"], "items": {"type": "string"}, "description": "Match any label."}
+      },
+      "required": ["labels", "limit", "query", "state"],
+      "additionalProperties": false
+    },
+    "note": "The items schema of an optional array is not itself a property, so it stays non-nullable."
+  },
+  {
+    "title": "Pydantic model with titles, list type and integer enum",
+    "rules": [1, 2, 3, 5],
+    "payload": {
+      "title": "Invoice",
+      "type": "object",
+      "properties": {
+        "number": {"title": "Number", "type": "string", "description": "Invoice number."},
+        "issued_on": {"title": "Issued On", "type": "string", "format": "date"},
+        "priority": {"title": "Priority", "type": "integer", "enum": [1, 2, 3], "default": 2},
+        "reference": {"title": "Reference", "type": ["string", "integer"], "description": "PO number or code."},
+        "notes": {"title": "Notes", "type": ["string", "null"], "default": null}
+      },
+      "required": ["issued_on", "number"]
+    },
+    "expected": {
+      "title": "Invoice",
+      "type": "object",
+      "properties": {
+        "number": {"title": "Number", "type": "string", "description": "Invoice number."},
+        "issued_on": {"title": "Issued On", "type": "string", "format": "date"},
+        "priority": {"title": "Priority", "type": ["integer", "null"], "enum": [1, 2, 3, null]},
+        "reference": {"title": "Reference", "type": ["string", "integer", "null"], "description": "PO number or code."},
+        "notes": {"title": "Notes", "type": ["string", "null"]}
+      },
+      "required": ["issued_on", "notes", "number", "priority", "reference"],
+      "additionalProperties": false
+    },
+    "note": "The new required list holds every property name in code point order, replacing the original list. A default of null is still removed."
+  },
+  {
+    "title": "Array of records with an enum that already holds null",
+    "rules": [1, 2, 3, 4, 5],
+    "payload": {
+      "type": "object",
+      "title": "BulkUpsert",
+      "properties": {
+        "records": {
+          "type": "array",
+          "description": "Rows to write.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "format": "uuid"},
+              "score": {"type": "number", "default": 0},
+              "status": {"type": "string", "enum": ["active", null, "archived"]}
+            },
+            "required": ["id"]
+          },
+          "minItems": 1
+        },
+        "dry_run": {"type": "boolean", "default": false}
+      },
+      "required": ["records"]
+    },
+    "expected": {
+      "type": "object",
+      "title": "BulkUpsert",
+      "properties": {
+        "records": {
+          "type": "array",
+          "description": "Rows to write.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string", "format": "uuid"},
+              "score": {"type": ["number", "null"]},
+              "status": {"type": ["string", "null"], "enum": ["active", null, "archived"]}
+            },
+            "required": ["id", "score", "status"],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "dry_run": {"type": ["boolean", "null"]}
+      },
+      "required": ["dry_run", "records"],
+      "additionalProperties": false
+    },
+    "note": "The items object is not a property, so its type stays \"object\". The enum already contains null, so it is left in place and in order; only the type gains null."
+  },
+  {
+    "title": "Two-level nested object with defaults deep down and no root required",
+    "rules": [1, 2, 3, 4, 5],
+    "payload": {
+      "type": "object",
+      "description": "Deployment request.",
+      "properties": {
+        "deploy": {
+          "type": "object",
+          "description": "Release settings.",
+          "properties": {
+            "target": {"type": "string", "enum": ["staging", "production"]},
+            "retry": {
+              "type": "object",
+              "default": {"attempts": 5},
+              "properties": {
+                "attempts": {"type": "integer", "minimum": 0, "default": 3},
+                "backoff": {"type": "string", "enum": ["linear", "exponential"], "default": "linear"}
+              },
+              "required": ["attempts"]
+            }
+          },
+          "required": ["target"]
+        },
+        "legacy_flag": {"type": "null", "description": "Deprecated, always null."}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "description": "Deployment request.",
+      "properties": {
+        "deploy": {
+          "type": ["object", "null"],
+          "description": "Release settings.",
+          "properties": {
+            "target": {"type": "string", "enum": ["staging", "production"]},
+            "retry": {
+              "type": ["object", "null"],
+              "properties": {
+                "attempts": {"type": "integer", "minimum": 0},
+                "backoff": {"type": ["string", "null"], "enum": ["linear", "exponential", null]}
+              },
+              "required": ["attempts", "backoff"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["retry", "target"],
+          "additionalProperties": false
+        },
+        "legacy_flag": {"type": "null", "description": "Deprecated, always null."}
+      },
+      "required": ["deploy", "legacy_flag"],
+      "additionalProperties": false
+    },
+    "note": "A root with no required list is read as an empty list, so every root property is optional. Each nested level is judged against its own parent's original required list. type \"null\" already includes null and is unchanged."
+  },
+  {
+    "title": "Schema keywords appearing as data in x-*, examples, const and a property name",
+    "rules": [1, 2, 3, 4, 5],
+    "payload": {
+      "type": "object",
+      "title": "Webhook",
+      "x-order": ["properties", "default", "required"],
+      "properties": {
+        "url": {"type": "string", "format": "uri", "examples": ["https://example.com/default"]},
+        "payload_template": {
+          "type": "object",
+          "description": "Body sent on each event; the default shape is in examples.",
+          "examples": [{"properties": {"event": "push"}, "default": true}],
+          "x-ui": {"default": "collapsed", "properties": {"event": {"widget": "select"}}},
+          "properties": {
+            "event": {"type": "string", "const": "push", "description": "Only push is supported."}
+          },
+          "required": ["event"]
+        },
+        "default": {"type": "boolean", "description": "Mark as the default webhook."}
+      },
+      "required": ["url"]
+    },
+    "expected": {
+      "type": "object",
+      "title": "Webhook",
+      "x-order": ["properties", "default", "required"],
+      "properties": {
+        "url": {"type": "string", "format": "uri", "examples": ["https://example.com/default"]},
+        "payload_template": {
+          "type": ["object", "null"],
+          "description": "Body sent on each event; the default shape is in examples.",
+          "examples": [{"properties": {"event": "push"}, "default": true}],
+          "x-ui": {"default": "collapsed", "properties": {"event": {"widget": "select"}}},
+          "properties": {
+            "event": {"type": "string", "const": "push", "description": "Only push is supported."}
+          },
+          "required": ["event"],
+          "additionalProperties": false
+        },
+        "default": {"type": ["boolean", "null"], "description": "Mark as the default webhook."}
+      },
+      "required": ["default", "payload_template", "url"],
+      "additionalProperties": false
+    },
+    "note": "The \"properties\" map is not a schema, so a property named \"default\" is a name, not the default keyword: it stays, is listed in required (sorting first) and becomes nullable. x-ui and examples hold schema-shaped data and receive no additionalProperties, required or default removal."
+  },
+  {
+    "title": "MCP tool with anyOf object branch and an already-nullable array",
+    "rules": [1, 2, 3, 4, 5],
+    "payload": {
+      "type": "object",
+      "description": "Send a notification.",
+      "properties": {
+        "recipient": {
+          "type": ["string", "object"],
+          "description": "Email address or contact record.",
+          "anyOf": [
+            {"type": "string", "format": "email"},
+            {
+              "type": "object", "default": {"name": "ops"},
+              "properties": {
+                "name": {"type": "string"},
+                "channel": {"type": "string", "enum": ["email", "sms"], "default": "email"}
+              },
+              "required": ["name"]
+            }
+          ]
+        },
+        "urgency": {"type": "integer", "enum": [0, 1, 2]},
+        "tags": {"type": ["array", "null"], "items": {"type": "string", "default": "general"}}
+      },
+      "required": ["recipient", "urgency"]
+    },
+    "expected": {
+      "type": "object",
+      "description": "Send a notification.",
+      "properties": {
+        "recipient": {
+          "type": ["string", "object"],
+          "description": "Email address or contact record.",
+          "anyOf": [
+            {"type": "string", "format": "email"},
+            {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "channel": {"type": ["string", "null"], "enum": ["email", "sms", null]}
+              },
+              "required": ["channel", "name"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "urgency": {"type": "integer", "enum": [0, 1, 2]},
+        "tags": {"type": ["array", "null"], "items": {"type": "string"}}
+      },
+      "required": ["recipient", "tags", "urgency"],
+      "additionalProperties": false
+    },
+    "note": "anyOf branches are schemas but not properties: the object branch gains additionalProperties and required, loses its default, and is not made nullable. Required properties keep their type and enum. tags already includes null, so its type is unchanged, while its items default is still removed."
+  }
+]

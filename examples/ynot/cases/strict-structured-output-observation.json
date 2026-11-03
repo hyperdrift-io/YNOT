@@ -1,0 +1,25 @@
+{
+  "observed_with": "codex exec --output-schema, 3 November 2026 (Codex CLI 0.166.0); the request was rejected before any generation",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Display name"
+      },
+      "limit": {
+        "type": "integer",
+        "default": 10
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "client_error": {
+    "status": 400,
+    "code": "invalid_json_schema",
+    "param": "text.format.schema",
+    "message": "Invalid schema for response_format 'codex_output_schema': 'schema.additionalProperties' is required to be supplied and to be false when strict is true."
+  }
+}

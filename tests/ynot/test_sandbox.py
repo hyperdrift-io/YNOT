@@ -88,10 +88,7 @@ def test_candidate_fetch_cannot_reach_loopback():
         + json.dumps(url)
         + "); return 'allowed'; } catch (e) { return e.name + ':' + e.message; } })()"
     )
-    source = (
-        f"import js\noutcome = await js.eval({expression!r})\n"
-        "def transform(payload):\n    return str(outcome)\n"
-    )
+    source = f"import js\noutcome = await js.eval({expression!r})\ndef transform(payload):\n    return str(outcome)\n"
     try:
         result = PyodideExecutor(timeout=45)(source, None)
         assert "Requires net access" in result

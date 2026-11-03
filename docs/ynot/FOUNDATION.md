@@ -55,9 +55,19 @@ if result.promoted:
 
 `candidate_source` defines `transform(payload)`. It receives JSON data and returns JSON data. Passing every host case permits promotion; partial or failed qualification does not. Failed attempts and later execution consume the allowance. The core accepts an injected executor so another host can supply a suitable boundary, but its policy identifier must describe that executor honestly.
 
+The store canonicalises every payload, expected value and output as JSON with sorted object keys. A contract therefore cannot depend on object key order; the second consumer below found this when a rule written as "in original property order" passed qualification on alphabetically ordered fixtures and then failed every separately authored holdout on reuse. Order is significant only inside arrays.
+
 Saved identity binds source, contract, scope and execution policy. Every `run` reloads and checks the artefact, contract and revocation. Changing a contract or policy requires qualification under a new identity. Revoking an existing identity cannot be undone by qualifying the same source again. Different projects have separate store scopes. Raw acceptance inputs and expected outputs are not saved in receipts, although generated source can itself contain data and needs appropriate review.
 
 A supervisor may expose qualification and execution as approved tools. The reference uses one developer because this task supplies no reason for more. It does not demonstrate autonomous skill discovery, a specialist switch, automatic capability retrieval or distributed execution. The existing supervisor remains available independently.
+
+## The second consumer
+
+`examples/ynot/strict_schema_case.py` is a different development job on the same lifecycle: normalising a generated JSON Schema for a client that enforces the strict structured-output subset. The observed failure is real and recorded in `examples/ynot/cases/strict-structured-output-observation.json`: on 3 November 2026 the Codex CLI's `--output-schema` request was rejected with HTTP 400 `invalid_json_schema` because `additionalProperties` was not supplied as `false`. The repository's own Codex adapter hand-writes this normalisation for research packets, and MCP tool schemas need the same shape. [OpenAI's strict-mode rules](https://developers.openai.com/api/docs/guides/structured-outputs) are the public source; the contract's rules on `default` and sorted `required` lists are host choices.
+
+The six holdouts in `examples/ynot/cases/strict-structured-output-holdouts.json` were written by a separate agent from the specification alone, without the control implementation, the qualification cases or any repository code, and re-derived by that agent when rule 1 changed. Its reading of the specification's silences is recorded in each pair's `note`. This separates the author of the transfer cases from the author of the prompt and control; it does not make them independent of this organisation or model family.
+
+Run it with `--case strict-structured-output`. Each invocation still creates a fresh store under `--store`; accumulation of several capabilities in one store, and selection among them, is not exercised yet. `--arms direct,dspy,ynot` adds a current-DSPy baseline: a plain `dspy.Predict` on the same Codex engine with host feedback as an input field and the programme saved beside the candidate; no optimiser is run, and its code is reused exactly as the direct arm's.
 
 ## Execution boundary
 
@@ -73,7 +83,7 @@ The direct path uses the same executor and host acceptance cases, saves its pass
 
 Count model calls, provider-reported input/output usage, every attempted execution and wall time through fresh-process reuse. The intentionally faulty candidate and post-run revocation are separate controls. They do not count as competitive safety wins against a direct implementation allowed equivalent controls. Runtime cache warm-up and provider latency can affect timing; do not infer speed from a few runs. No cash price is inferred from subscription token counts.
 
-See [the recorded results](2026-11-02-foundation.md). Earlier research and Deputy comparisons remain in the [continuation record](HANDOFF.md).
+See [the recorded results](2026-11-02-foundation.md) and the [three-arm transfer record](2026-11-03-transfer.md). Earlier research and Deputy comparisons remain in the [continuation record](HANDOFF.md).
 
 ## Grow the foundation through useful work
 

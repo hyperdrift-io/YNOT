@@ -10,6 +10,8 @@ The `ynot` package contains the existing mission supervisor and a reusable capab
 
 The reference example repairs OpenAPI nullability for a JSON Schema consumer. It includes a labelled bad-candidate control and an optional matched live comparison. Each accepted implementation runs on unseen inputs in a fresh process. The direct baseline can also save and reuse its code; zero later model calls alone is not a YNOT advantage.
 
+A second development job, normalising a generated JSON Schema for a strict structured-output client, uses the same lifecycle with a different contract. Its holdout cases were authored separately from the prompt and control, and a current-DSPy baseline runs beside the direct one. Building it exposed that contracts cannot depend on JSON object key order, because the store canonicalises values; the [foundation guide](docs/ynot/FOUNDATION.md) records the rule and the [transfer record](docs/ynot/2026-11-03-transfer.md) the results.
+
 The [foundation guide](docs/ynot/FOUNDATION.md) owns the API, reproducible commands, experiment and limits. The Orchestra launch article is being prepared separately for review.
 
 ## The advance to pursue
@@ -24,7 +26,7 @@ Tenfold improvement is a research target: independently accepted unseen developm
 
 The store is local and single-writer, with a trusted owner. Hashes detect inconsistent artefacts; they do not protect against an attacker who controls the store. The supplied executor runs candidate code in DSPy's Deno/Pyodide interpreter with bounded wall time and output. It does not separately meter memory or supply a multi-tenant service. The supervisor's existing registered Python tools remain trusted callbacks outside that executor.
 
-The next consumer should be a real development job that needs a different transformation or check, using the same lifecycle. Then evaluate selection among accumulated capabilities, stale contracts and repair after failed transfer. This is how the foundation grows beyond one demonstration. Hosted customer agents, connection provisioning, distributed scheduling, wallets and payments remain outside the current implementation.
+The second consumer exists; both bounded jobs were solved first time by every arm, so they no longer tell the approaches apart. The next jobs need failing first candidates and uncertain transfer. Then evaluate accumulation of several capabilities in one store, selection among them, stale contracts and repair after failed transfer. This is how the foundation grows beyond demonstrations. Hosted customer agents, connection provisioning, distributed scheduling, wallets and payments remain outside the current implementation.
 
 ## Earlier evidence
 

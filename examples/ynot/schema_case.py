@@ -1,6 +1,11 @@
 """Bounded OpenAPI nullability repair; host fixtures are never sent to the model."""
 
+from jsonschema import Draft202012Validator
+
 from ynot import AcceptanceCase, CapabilityContract
+
+NAME = "openapi-nullability"
+TASK = "Repair this API schema compatibility failure and leave reusable Python code for later schemas."
 
 SPECIFICATION = """
 Implement transform(payload), returning a converted schema dictionary. This is
@@ -38,6 +43,13 @@ CONTROL_SOURCE = """def transform(payload):
         return result
     return convert(payload)
 """
+
+
+def initial_observation():
+    """The failure an actual JSON Schema validator reports for a 3.0 nullable schema."""
+    schema = {"type": "string", "nullable": True, "description": "Optional display name"}
+    errors = list(Draft202012Validator(schema).iter_errors(None))
+    return {"schema": schema, "payload": None, "validator_error": errors[0].message}
 
 
 def contract():

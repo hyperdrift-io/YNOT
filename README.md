@@ -8,6 +8,7 @@ This is an experimental [Orchestra](https://orchestra.hyperdrift.io/) offering, 
 
 - A host-owned contract checks generated Python in a Deno/Pyodide interpreter. Passing code receives an identity tied to its source, contract, scope and execution policy.
 - A local store validates that identity on reuse and blocks revoked capabilities. Candidate code cannot rewrite the host's acceptance checks.
+- Two development jobs use the same lifecycle: repairing OpenAPI nullability for a JSON Schema consumer, and normalising a generated schema for a strict structured-output client. The second job's holdout cases were written separately from its prompt and control.
 - A supervisor creates and executes DSPy ReAct workers from approved model and tool registries when the job needs them.
 - The host validates worker configurations and enforces model-call and tool-call allowances. Findings, tool observations and stopping reasons remain inspectable.
 - The service adviser checks supplied evidence against requirements. Its examples support scripted controls, saved sources and an optional Codex research integration.
@@ -29,7 +30,7 @@ python -m pip install -e '.[dev,deno]'
 python -m examples.ynot.capability_lifecycle --store /tmp/ynot-capabilities
 ```
 
-The default demonstration rejects a faulty candidate, qualifies a working one, reuses it in a new process and verifies revocation. It is a deterministic control. Add `--live` for independent YNOT and direct runs through Codex using your existing login; both can test, save and reuse code. This makes real model calls. Run examples from the checkout because they are not included in the wheel. The executor currently requires a POSIX host and the optional Deno runtime; first use may download its interpreter assets.
+The default demonstration rejects a faulty candidate, qualifies a working one, reuses it in a new process and verifies revocation. It is a deterministic control. `--case strict-structured-output` runs the second job. Add `--live` for independent runs through Codex using your existing login, and `--arms direct,dspy,ynot` to include a plain current-DSPy baseline; every arm can test, save and reuse code. This makes real model calls. Run examples from the checkout because they are not included in the wheel. The executor currently requires a POSIX host and the optional Deno runtime; first use may download its interpreter assets.
 
 The earlier [runtime example](examples/ynot/README.md) and [service adviser guide](examples/ynot/SERVICE-ADVISER.md) remain available, with their scripted inputs and live-research limits stated separately.
 

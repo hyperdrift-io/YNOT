@@ -1,0 +1,30 @@
+{
+  "traces": [],
+  "train": [],
+  "demos": [],
+  "signature": {
+    "instructions": "Write standalone Python defining transform(payload) that satisfies the task.",
+    "fields": [
+      {
+        "prefix": "Task:",
+        "description": "${task}"
+      },
+      {
+        "prefix": "Feedback:",
+        "description": "Previous candidates and host feedback, or none"
+      },
+      {
+        "prefix": "Source:",
+        "description": "Standalone Python source defining transform(payload)"
+      }
+    ]
+  },
+  "lm": null,
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.4.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}
