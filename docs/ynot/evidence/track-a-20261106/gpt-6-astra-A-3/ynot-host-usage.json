@@ -1,0 +1,134 @@
+[
+  {
+    "invocation": 1,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 16904,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 447,
+        "reasoning_output_tokens": 135
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 16.782
+  },
+  {
+    "invocation": 2,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 17062,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 485,
+        "reasoning_output_tokens": 92
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 16.647
+  },
+  {
+    "invocation": 3,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 17005,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 804,
+        "reasoning_output_tokens": 131
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 21.823
+  },
+  {
+    "invocation": 4,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 17055,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 729,
+        "reasoning_output_tokens": 92
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 20.407
+  },
+  {
+    "invocation": 5,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 16835,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 354,
+        "reasoning_output_tokens": 91
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 14.551
+  },
+  {
+    "invocation": 6,
+    "kind": "inference",
+    "status": "completed",
+    "requested_model": "gpt-6-astra",
+    "requested_reasoning_effort": "medium",
+    "cli_turns": 1,
+    "web_actions": 0,
+    "web_event_items": 0,
+    "usage": [
+      {
+        "input_tokens": 17254,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 823,
+        "reasoning_output_tokens": 195
+      }
+    ],
+    "observed_urls": [],
+    "url_evidence": "attempted_open_only",
+    "elapsed_seconds": 20.846
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "arm": "dspy",
+  "job": "mcp-tool-strict",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 7,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 8,
+  "qualification_executions": 8,
+  "source_sha256": "5349163a0ad28bdfd8a2cd5a38d3f2ba4ebced32054b10f935a547b8311c7011",
+  "contract_sha256": "8cdd6cfd777be0b8818dde6ac4835b27b047943690efdd6a8b097cac959ca278",
+  "acquisition_seconds": 31.159,
+  "total_seconds": 87.143,
+  "reuse": {
+    "heldout_passes": 21,
+    "heldout_cases": 21,
+    "executions": 21,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "behaviour_passes": 21,
+    "behaviour_failures": []
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 17450,
+      "cached_input_tokens": 8704,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 335,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": null,
+  "catalogue_offered": [
+    "strict-structured-output"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

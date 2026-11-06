@@ -1,0 +1,93 @@
+{
+  "arm": "ynot",
+  "job": "openapi-components-strict",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 5,
+  "qualification_executions": 5,
+  "source_sha256": "3dd410e82a0cb8a6182ca19d6d33a3f90c69b490925c677dfc320479c9fa8a8f",
+  "contract_sha256": "c5679dda53d5eeb6c8e1ca6056feea675d5807fe9978126fbaaaf32516d43808",
+  "acquisition_seconds": 31.74,
+  "total_seconds": 81.481,
+  "reuse": {
+    "heldout_passes": 16,
+    "heldout_cases": 16,
+    "executions": 16,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "behaviour_passes": 16,
+    "behaviour_failures": []
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 16629,
+      "cached_input_tokens": 14080,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 754,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": "ff91de2eebc9085fbe419abb1bf8562db6f0c6e7a1e86869dc93944dc1afa350",
+  "catalogue_offered": [
+    "strict-structured-output",
+    "mcp-tool-strict",
+    "schema-draft-migration",
+    "draft04-suite-migration",
+    "openapi-nullability"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

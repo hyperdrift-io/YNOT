@@ -92,6 +92,19 @@ def test_dspy_program_parses_none_and_names(tmp_path):
     host.invoke = invoke
     program = demo.build_dspy_program(host)
     assert program("task", "[]", "None yet.") == (None, ["a-job", "b-job"])
+    answers = iter(
+        [
+            "[[ ## source ## ]]\ndef transform(payload):\n    return payload\n\n[[ ## compose ## ]]\nnone\n[[ ## completed ##]]"
+        ]
+    )
+
+    def misspelt(prompt, **kwargs):
+        record = {"usage": [{"input_tokens": 1, "output_tokens": 1}]}
+        host.calls.append(record)
+        return next(answers), record
+
+    host.invoke = misspelt
+    assert program("task", "[]", "None yet.") == ("def transform(payload):\n    return payload", [])
     program.save(str(tmp_path / "program.json"))
     assert json.loads((tmp_path / "program.json").read_text()).get("lm") is None
 

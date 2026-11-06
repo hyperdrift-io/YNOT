@@ -1,0 +1,93 @@
+{
+  "arm": "ynot",
+  "job": "openapi-components-strict",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 5,
+  "qualification_executions": 5,
+  "source_sha256": "4b1d19191d75cd89f5d69cf08230e773a9c08fbf7899f15a526d1723e2959a16",
+  "contract_sha256": "c5679dda53d5eeb6c8e1ca6056feea675d5807fe9978126fbaaaf32516d43808",
+  "acquisition_seconds": 34.093,
+  "total_seconds": 65.817,
+  "reuse": {
+    "heldout_passes": 16,
+    "heldout_cases": 16,
+    "executions": 16,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "behaviour_passes": 16,
+    "behaviour_failures": []
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 17240,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 845,
+      "reasoning_output_tokens": 207
+    }
+  ],
+  "capability_id": "63fea81273ed1f903a0ff37d6565aa811ce6ee605b6f7ab162512bc7d55878de",
+  "catalogue_offered": [
+    "strict-structured-output",
+    "mcp-tool-strict",
+    "schema-draft-migration",
+    "draft04-suite-migration",
+    "openapi-nullability"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

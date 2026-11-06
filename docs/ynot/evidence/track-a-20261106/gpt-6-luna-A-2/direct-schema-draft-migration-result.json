@@ -1,0 +1,88 @@
+{
+  "arm": "direct",
+  "job": "schema-draft-migration",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 7,
+  "source_sha256": "f8ae2ba908699f1dc9cb1731832ad1dca8184d0c5530c69c6238fed910bea8e7",
+  "contract_sha256": "c9f42edec8d8746900392c35a782ed719936d9f570aaeadcbebe5d4f5c18e3fb",
+  "acquisition_seconds": 36.708,
+  "total_seconds": 56.477,
+  "reuse": {
+    "heldout_passes": 3,
+    "heldout_cases": 6,
+    "executions": 6,
+    "model_calls": 0,
+    "failures": [
+      "unexpected_output",
+      null,
+      "unexpected_output",
+      null,
+      "unexpected_output",
+      null
+    ]
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 16370,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 702,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": null,
+  "catalogue_offered": [
+    "strict-structured-output",
+    "mcp-tool-strict"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

@@ -1,0 +1,74 @@
+{
+  "arm": "dspy",
+  "job": "schema-draft-migration",
+  "mode": null,
+  "compose": null,
+  "attempts": 3,
+  "accepted": false,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": [
+        "none\n[[ ## completed ##]]"
+      ],
+      "passed": false,
+      "cases": [],
+      "error": "ValueError",
+      "detail": "A candidate is either source or a composition"
+    },
+    {
+      "attempt": 2,
+      "compose": [
+        "none\n[[ ## completed ##]]"
+      ],
+      "passed": false,
+      "cases": [],
+      "error": "ValueError",
+      "detail": "A candidate is either source or a composition"
+    },
+    {
+      "attempt": 3,
+      "compose": [
+        "none\n[[ ## completed ##]]"
+      ],
+      "passed": false,
+      "cases": [],
+      "error": "ValueError",
+      "detail": "A candidate is either source or a composition"
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 0,
+  "source_sha256": "9d010937a59aec8bba26ece65cea2c4416f74e95e04992408e9e5a7fd76c498c",
+  "contract_sha256": "c9f42edec8d8746900392c35a782ed719936d9f570aaeadcbebe5d4f5c18e3fb",
+  "acquisition_seconds": 48.526,
+  "total_seconds": 48.526,
+  "reuse": null,
+  "model_calls": 3,
+  "usage": [
+    {
+      "input_tokens": 16651,
+      "cached_input_tokens": 8192,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 629,
+      "reasoning_output_tokens": 0
+    },
+    {
+      "input_tokens": 18185,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 633,
+      "reasoning_output_tokens": 0
+    },
+    {
+      "input_tokens": 19231,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 629,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": null,
+  "catalogue_offered": [],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

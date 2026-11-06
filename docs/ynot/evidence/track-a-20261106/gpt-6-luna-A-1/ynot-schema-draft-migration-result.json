@@ -1,0 +1,87 @@
+{
+  "arm": "ynot",
+  "job": "schema-draft-migration",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 7,
+  "source_sha256": "074ec309b8c1830aa1d60fc96b53e94c5f50db04ea2f895be7a4b5158da2da51",
+  "contract_sha256": "c9f42edec8d8746900392c35a782ed719936d9f570aaeadcbebe5d4f5c18e3fb",
+  "acquisition_seconds": 45.215,
+  "total_seconds": 67.373,
+  "reuse": {
+    "heldout_passes": 5,
+    "heldout_cases": 6,
+    "executions": 6,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      "unexpected_output",
+      null,
+      null,
+      null
+    ]
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 16345,
+      "cached_input_tokens": 14080,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 741,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": "7364e21563b9ef3cc523ff27c19649de9f8feea9a12a97a53f979350aa7af3f9",
+  "catalogue_offered": [
+    "mcp-tool-strict"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

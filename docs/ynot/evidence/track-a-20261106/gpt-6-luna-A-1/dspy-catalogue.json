@@ -1,0 +1,14 @@
+[
+  {
+    "name": "mcp-tool-strict",
+    "task": "Make the fleet's MCP tool input schemas acceptable to a strict structured-output client and leave reusable Python code for the remaining tools.",
+    "reference": "library/mcp-tool-strict.py",
+    "mode": "source"
+  },
+  {
+    "name": "openapi-components-strict",
+    "task": "Prepare every component schema of an OpenAPI 3.0 document for a strict structured-output client and leave reusable Python code for later documents.",
+    "reference": "library/openapi-components-strict.py",
+    "mode": "source"
+  }
+]

@@ -2,6 +2,8 @@
 
 Designed 3 November 2026 after four bounded jobs, thirty-six live acquisitions and no failed first candidate. The question has not changed: does a host-owned lifecycle of qualified, reusable, revocable capabilities produce more accepted development work per unit of inference than a competent direct developer or plain DSPy with the same reuse rights? What has changed is the understanding that bounded JSON transformations with written rules cannot answer it with a frontier model. This design states what can.
 
+**Status, 6 November 2026.** Track A has run; its [record](2026-11-06-track-a.md) holds the results and two amendments to this design: host feedback after a failed case must say more than `unexpected_output`, because a weaker model repeated the same defect three times on that alone; and the plain DSPy predictor needs a parser that tolerates a misspelt closing marker on the weaker model, or the arm measures format compliance rather than development. Track B is next.
+
 ## What the evening established
 
 - The lifecycle, composition and the three-arm harness work and are tested in the real boundary. Mechanism is not the gap.

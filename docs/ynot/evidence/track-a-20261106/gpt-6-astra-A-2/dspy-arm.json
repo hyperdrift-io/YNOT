@@ -1,0 +1,701 @@
+[
+  {
+    "arm": "dspy",
+    "job": "strict-structured-output",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 5,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 6,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 7,
+    "qualification_executions": 7,
+    "source_sha256": "14640cec82e96a37700b9a8b2ab32ab15003003deadb2562a6415b53390b2137",
+    "contract_sha256": "a0f74b75dd605ab62906c900aedc8a0b564d471db9f97c9df3a05955b07f99da",
+    "acquisition_seconds": 35.025,
+    "total_seconds": 52.453,
+    "reuse": {
+      "heldout_passes": 6,
+      "heldout_cases": 6,
+      "executions": 6,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17250,
+        "cached_input_tokens": 8704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 338,
+        "reasoning_output_tokens": 76
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  },
+  {
+    "arm": "dspy",
+    "job": "mcp-tool-strict",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 5,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 6,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 7,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 8,
+    "qualification_executions": 8,
+    "source_sha256": "c7de304a48029c465e644a2d98f455b70afe0d41a373b165caa9d2e51961e657",
+    "contract_sha256": "8cdd6cfd777be0b8818dde6ac4835b27b047943690efdd6a8b097cac959ca278",
+    "acquisition_seconds": 31.45,
+    "total_seconds": 87.039,
+    "reuse": {
+      "heldout_passes": 21,
+      "heldout_cases": 21,
+      "executions": 21,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "behaviour_passes": 21,
+      "behaviour_failures": []
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17450,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 316,
+        "reasoning_output_tokens": 0
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [
+      "strict-structured-output"
+    ],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  },
+  {
+    "arm": "dspy",
+    "job": "schema-draft-migration",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 5,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 6,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 7,
+    "qualification_executions": 7,
+    "source_sha256": "8cd35b773dc7b4b9e178dcafa7e25ab6e8ace83f8e6585bebcb6f2df4277b114",
+    "contract_sha256": "c9f42edec8d8746900392c35a782ed719936d9f570aaeadcbebe5d4f5c18e3fb",
+    "acquisition_seconds": 35.861,
+    "total_seconds": 50.665,
+    "reuse": {
+      "heldout_passes": 6,
+      "heldout_cases": 6,
+      "executions": 6,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17428,
+        "cached_input_tokens": 8704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 701,
+        "reasoning_output_tokens": 42
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [
+      "strict-structured-output",
+      "mcp-tool-strict"
+    ],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  },
+  {
+    "arm": "dspy",
+    "job": "draft04-suite-migration",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 5,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 6,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 7,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 8,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 9,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 10,
+    "qualification_executions": 10,
+    "source_sha256": "accbf421605f692f892a16135f8f43739ccaa18850a46f899f8bd68599cb978a",
+    "contract_sha256": "ea3e9ad30878cff90a3e8179dbf9d86f19ae6d54ee9745b608f131c4e9eaf215",
+    "acquisition_seconds": 40.443,
+    "total_seconds": 480.732,
+    "reuse": {
+      "heldout_passes": 136,
+      "heldout_cases": 136,
+      "executions": 136,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "behaviour_passes": 136,
+      "behaviour_failures": []
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17522,
+        "cached_input_tokens": 8704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 631,
+        "reasoning_output_tokens": 67
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [
+      "strict-structured-output",
+      "mcp-tool-strict",
+      "schema-draft-migration"
+    ],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  },
+  {
+    "arm": "dspy",
+    "job": "openapi-nullability",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 5,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 6,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 7,
+    "qualification_executions": 7,
+    "source_sha256": "b660466c029743da9fcdcbcbb57f1ca8b8c9ccda03f2a17738d444ac19130e54",
+    "contract_sha256": "2f4e0b0bf34b58958e288a1a97daf3bb28cc30b03db89fa7b3dcf6e4288bc2d2",
+    "acquisition_seconds": 33.683,
+    "total_seconds": 47.88,
+    "reuse": {
+      "heldout_passes": 4,
+      "heldout_cases": 4,
+      "executions": 4,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17337,
+        "cached_input_tokens": 8704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 202,
+        "reasoning_output_tokens": 0
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [
+      "strict-structured-output",
+      "mcp-tool-strict",
+      "schema-draft-migration",
+      "draft04-suite-migration"
+    ],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  },
+  {
+    "arm": "dspy",
+    "job": "openapi-components-strict",
+    "mode": "source",
+    "compose": null,
+    "attempts": 1,
+    "accepted": true,
+    "attempt_feedback": [
+      {
+        "attempt": 1,
+        "compose": null,
+        "passed": true,
+        "cases": [
+          {
+            "index": 0,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 1,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 2,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 3,
+            "passed": true,
+            "reason": "matched"
+          },
+          {
+            "index": 4,
+            "passed": true,
+            "reason": "matched"
+          }
+        ]
+      }
+    ],
+    "qualification_cases": 5,
+    "qualification_executions": 5,
+    "source_sha256": "6aa4a6b2deda5dd41530e31e70deb2cab476b4aa192897d6f06712d1c652124f",
+    "contract_sha256": "c5679dda53d5eeb6c8e1ca6056feea675d5807fe9978126fbaaaf32516d43808",
+    "acquisition_seconds": 35.733,
+    "total_seconds": 92.601,
+    "reuse": {
+      "heldout_passes": 16,
+      "heldout_cases": 16,
+      "executions": 16,
+      "model_calls": 0,
+      "failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "behaviour_passes": 16,
+      "behaviour_failures": []
+    },
+    "model_calls": 1,
+    "usage": [
+      {
+        "input_tokens": 17803,
+        "cached_input_tokens": 14720,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 655,
+        "reasoning_output_tokens": 73
+      }
+    ],
+    "capability_id": null,
+    "catalogue_offered": [
+      "strict-structured-output",
+      "mcp-tool-strict",
+      "schema-draft-migration",
+      "draft04-suite-migration",
+      "openapi-nullability"
+    ],
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+  }
+]

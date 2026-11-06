@@ -1,0 +1,60 @@
+{
+  "receipt": {
+    "capability_id": "22e5c2afb00675e3588ad1217ae117e1fd9a14adf83163bed674c133696f79cc",
+    "source_sha256": "5a36fa3e5143b7cca0b5c4e48ce27c7340d414a165c373f6b41431b649ebc1f8",
+    "contract_sha256": "8cdd6cfd777be0b8818dde6ac4835b27b047943690efdd6a8b097cac959ca278",
+    "cases_sha256": "174fa05583aec86ecf1fac1ffa412e11d0e4f1f2ada5bc6db09066437188d86d",
+    "input_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "output_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "contract_name": "mcp-tool-strict",
+    "contract_version": "1",
+    "scope": "orchestra-development-example",
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576",
+    "cases": [
+      {
+        "index": 0,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 1,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 2,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 3,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 4,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 5,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 6,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 7,
+        "passed": true,
+        "reason": "matched"
+      }
+    ],
+    "executions": 8,
+    "qualified_at": "2026-11-06T18:04:04.178873+00:00"
+  },
+  "promoted": true,
+  "capability_id": "22e5c2afb00675e3588ad1217ae117e1fd9a14adf83163bed674c133696f79cc"
+}

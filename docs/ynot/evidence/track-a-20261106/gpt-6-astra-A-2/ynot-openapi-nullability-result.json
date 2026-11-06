@@ -1,0 +1,88 @@
+{
+  "arm": "ynot",
+  "job": "openapi-nullability",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 7,
+  "source_sha256": "dfdcdea22301994144fde15788952d83c9611cb6afc0f73a5b18d6f2a5af964f",
+  "contract_sha256": "2f4e0b0bf34b58958e288a1a97daf3bb28cc30b03db89fa7b3dcf6e4288bc2d2",
+  "acquisition_seconds": 29.181,
+  "total_seconds": 38.461,
+  "reuse": {
+    "heldout_passes": 4,
+    "heldout_cases": 4,
+    "executions": 4,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 16835,
+      "cached_input_tokens": 14720,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 389,
+      "reasoning_output_tokens": 125
+    }
+  ],
+  "capability_id": "fd7fe9a91572ef10b053fc4f6dc1ffbc1991a609253aa8622eaeb6d33f0ac53b",
+  "catalogue_offered": [
+    "strict-structured-output",
+    "mcp-tool-strict",
+    "schema-draft-migration",
+    "draft04-suite-migration"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

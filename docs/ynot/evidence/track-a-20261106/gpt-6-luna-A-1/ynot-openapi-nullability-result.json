@@ -1,0 +1,87 @@
+{
+  "arm": "ynot",
+  "job": "openapi-nullability",
+  "mode": "source",
+  "compose": null,
+  "attempts": 1,
+  "accepted": true,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": true,
+      "cases": [
+        {
+          "index": 0,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 5,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 7,
+  "source_sha256": "e9ae92129e6a8d2d59a4af821d85841cfbfdec0437d03fe19543a046befc8db0",
+  "contract_sha256": "2f4e0b0bf34b58958e288a1a97daf3bb28cc30b03db89fa7b3dcf6e4288bc2d2",
+  "acquisition_seconds": 28.928,
+  "total_seconds": 40.351,
+  "reuse": {
+    "heldout_passes": 4,
+    "heldout_cases": 4,
+    "executions": 4,
+    "model_calls": 0,
+    "failures": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "model_calls": 1,
+  "usage": [
+    {
+      "input_tokens": 16175,
+      "cached_input_tokens": 14080,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 356,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": "674d8bae3d9d3921f5d203808eeb3071b9815c4683bcf1eed86dd276e55265da",
+  "catalogue_offered": [
+    "mcp-tool-strict",
+    "schema-draft-migration",
+    "draft04-suite-migration"
+  ],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

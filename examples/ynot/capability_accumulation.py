@@ -176,7 +176,11 @@ def fresh_reuse(folder, arm, job, capability_id):
 
 def build_dspy_program(host):
     """Current DSPy: one predictor with a source field and a composition field, no optimiser."""
+    import re
+
     import dspy
+
+    trailing_marker = re.compile(r"\s*\[\[\s*##\s*completed\s*##\s*\]\]\s*$")
     from examples.ynot.live_codex import CodexEngine
 
     class WriteOrCompose(dspy.Signature):
@@ -194,8 +198,13 @@ def build_dspy_program(host):
     def generate(task, catalogue_json, feedback):
         with dspy.context(adapter=dspy.ChatAdapter()):
             prediction = program(task=task, catalogue=catalogue_json, feedback=feedback)
-        source = prediction.source if prediction.source.strip().lower() != "none" else None
-        compose = [name.strip() for name in prediction.compose.split(",") if name.strip()]
+        # A weaker model can misspell the adapter's closing marker ("[[ ## completed ##]]"), which the
+        # adapter then leaves inside the last field. Strip that trailing marker before reading the fields.
+        source_text, compose_text = (
+            trailing_marker.sub("", text).strip() for text in (prediction.source, prediction.compose)
+        )
+        source = source_text if source_text.lower() != "none" else None
+        compose = [name.strip() for name in compose_text.split(",") if name.strip()]
         if len(compose) == 1 and compose[0].lower() == "none":
             compose = []
         return source, compose

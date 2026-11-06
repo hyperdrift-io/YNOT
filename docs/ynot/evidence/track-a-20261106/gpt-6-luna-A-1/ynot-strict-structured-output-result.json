@@ -1,0 +1,170 @@
+{
+  "arm": "ynot",
+  "job": "strict-structured-output",
+  "mode": null,
+  "compose": null,
+  "attempts": 3,
+  "accepted": false,
+  "attempt_feedback": [
+    {
+      "attempt": 1,
+      "compose": null,
+      "passed": false,
+      "cases": [
+        {
+          "index": 0,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 5,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "compose": null,
+      "passed": false,
+      "cases": [
+        {
+          "index": 0,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 5,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "compose": null,
+      "passed": false,
+      "cases": [
+        {
+          "index": 0,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 2,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 3,
+          "passed": true,
+          "reason": "matched"
+        },
+        {
+          "index": 4,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 5,
+          "passed": false,
+          "reason": "unexpected_output"
+        },
+        {
+          "index": 6,
+          "passed": true,
+          "reason": "matched"
+        }
+      ]
+    }
+  ],
+  "qualification_cases": 7,
+  "qualification_executions": 21,
+  "source_sha256": "28b30b36ab0075aed72b138e18eefe64218aaf6f2c99b296af18f38d7059a258",
+  "contract_sha256": "a0f74b75dd605ab62906c900aedc8a0b564d471db9f97c9df3a05955b07f99da",
+  "acquisition_seconds": 103.098,
+  "total_seconds": 103.098,
+  "reuse": null,
+  "model_calls": 3,
+  "usage": [
+    {
+      "input_tokens": 16279,
+      "cached_input_tokens": 14080,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 322,
+      "reasoning_output_tokens": 0
+    },
+    {
+      "input_tokens": 16674,
+      "cached_input_tokens": 8192,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 318,
+      "reasoning_output_tokens": 0
+    },
+    {
+      "input_tokens": 17064,
+      "cached_input_tokens": 14080,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 320,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "capability_id": null,
+  "catalogue_offered": [],
+  "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576"
+}

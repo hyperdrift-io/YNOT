@@ -1,0 +1,55 @@
+{
+  "receipt": {
+    "capability_id": "1fb70cb84cbae671f7e0f3ec7fb012d61bacd085cc0e4b530dd351c3618ef307",
+    "source_sha256": "66599d2c9cc05cf746e8becf7de977c9269818874e0d740a58ffd61423524afd",
+    "contract_sha256": "2f4e0b0bf34b58958e288a1a97daf3bb28cc30b03db89fa7b3dcf6e4288bc2d2",
+    "cases_sha256": "b3bca8d8d28a012499b8e1e3bb82fc3be391f3cc70fc8a5085f813a0e52878af",
+    "input_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "output_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "contract_name": "openapi-nullability",
+    "contract_version": "1",
+    "scope": "orchestra-development-example",
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576",
+    "cases": [
+      {
+        "index": 0,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 1,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 2,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 3,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 4,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 5,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 6,
+        "passed": true,
+        "reason": "matched"
+      }
+    ],
+    "executions": 7,
+    "qualified_at": "2026-11-06T18:16:56.219588+00:00"
+  },
+  "promoted": true,
+  "capability_id": "1fb70cb84cbae671f7e0f3ec7fb012d61bacd085cc0e4b530dd351c3618ef307"
+}

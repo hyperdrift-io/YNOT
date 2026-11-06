@@ -1,0 +1,38 @@
+[
+  {
+    "name": "strict-structured-output",
+    "task": "Make generated JSON Schemas acceptable to a strict structured-output client and leave reusable Python code for later schemas.",
+    "reference": "2a88ff908e8c5e21055852a1ac095beba9fb9df386e985241ef5c510988222f4",
+    "mode": "source"
+  },
+  {
+    "name": "mcp-tool-strict",
+    "task": "Make the fleet's MCP tool input schemas acceptable to a strict structured-output client and leave reusable Python code for the remaining tools.",
+    "reference": "7311a3182d2c1c439b8a6e7ad4661cc1f8adecf61ab81495244f133563c859ab",
+    "mode": "source"
+  },
+  {
+    "name": "schema-draft-migration",
+    "task": "Migrate JSON Schema draft-04 documents to draft 2020-12 and leave reusable Python code for later documents.",
+    "reference": "4c8997cfac26eb0c89ae9eef052c101bc7c5ab231a737253b096af1c252235c3",
+    "mode": "source"
+  },
+  {
+    "name": "draft04-suite-migration",
+    "task": "Migrate the official JSON Schema draft-04 test-suite schemas to draft 2020-12 so they validate and keep every instance verdict, and leave reusable Python code for the remaining schemas.",
+    "reference": "71b48824b465372e4fa47254e4179f0cced50c1b9c00286a781c3d4567ce6b0f",
+    "mode": "source"
+  },
+  {
+    "name": "openapi-nullability",
+    "task": "Repair this API schema compatibility failure and leave reusable Python code for later schemas.",
+    "reference": "5e469bb62121061c7b70a1f3a311a95a8d608804043db85ccc33ca9095b892ca",
+    "mode": "source"
+  },
+  {
+    "name": "openapi-components-strict",
+    "task": "Prepare every component schema of an OpenAPI 3.0 document for a strict structured-output client and leave reusable Python code for later documents.",
+    "reference": "545a963a9eb0afd6af061713f5c8e83d14c78959de4bc3b4e9ad28da71d63939",
+    "mode": "source"
+  }
+]

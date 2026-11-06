@@ -1,0 +1,45 @@
+{
+  "receipt": {
+    "capability_id": "97661a79bcd5641f848163894d80089eabe88ed36de9ce124a43b410015c2a68",
+    "source_sha256": "417b216c5d449b89a060fcbecefe0223774993b4ece1a3e57bb0072fb4928d19",
+    "contract_sha256": "c5679dda53d5eeb6c8e1ca6056feea675d5807fe9978126fbaaaf32516d43808",
+    "cases_sha256": "499223b7da65e134ae2252b24e424be59672e3014aaa8eda15f45de5b613bd79",
+    "input_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "output_schema_sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+    "contract_name": "openapi-components-strict",
+    "contract_version": "1",
+    "scope": "orchestra-development-example",
+    "executor_policy": "pyodide-json-v2:no-host-tools,no-mounts,no-env,no-network,cache-only,revoked-imports:timeout=30:max_bytes=1048576",
+    "cases": [
+      {
+        "index": 0,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 1,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 2,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 3,
+        "passed": true,
+        "reason": "matched"
+      },
+      {
+        "index": 4,
+        "passed": true,
+        "reason": "matched"
+      }
+    ],
+    "executions": 5,
+    "qualified_at": "2026-11-06T18:43:44.834502+00:00"
+  },
+  "promoted": true,
+  "capability_id": "97661a79bcd5641f848163894d80089eabe88ed36de9ce124a43b410015c2a68"
+}

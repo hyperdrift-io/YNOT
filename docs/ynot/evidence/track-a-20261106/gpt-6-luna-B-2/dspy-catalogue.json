@@ -1,0 +1,8 @@
+[
+  {
+    "name": "schema-draft-migration",
+    "task": "Migrate JSON Schema draft-04 documents to draft 2020-12 and leave reusable Python code for later documents.",
+    "reference": "library/schema-draft-migration.py",
+    "mode": "source"
+  }
+]

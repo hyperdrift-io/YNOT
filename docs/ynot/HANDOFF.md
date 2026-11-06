@@ -46,13 +46,25 @@ six arms composed the fourth job from their catalogue. [Accumulation record]
 (2026-11-03-accumulation.md), evidence under `evidence/accumulation-20261103/`.
 Preparation `bc78651b624d4050872fcc7d6dde54b6` is completed with this landing.
 
-Next: the [failure-first evaluation design](EVALUATION.md). Track B first
-(selection under distractors and a mid-run revocation, reusing existing jobs),
-then Track A (real fixtures: the fleet's MCP tool schemas, whole OpenAPI
-documents, draft-04 schemas in the wild with a behaviour-preservation check),
-with the model axis (`gpt-6-astra` medium against `gpt-6-luna` low) inside both
-and three repeats per cell. The article still waits for Yann's review. No 10x
-claim or publication.
+On 6 November, Track A of the [evaluation design](EVALUATION.md) was built and
+run: three jobs on real fixtures the model never sees (29 distinct input schemas
+from 36 fleet MCP tools, the 146 usable groups of the official draft-04 test
+suite with their instance verdicts, 21 public OpenAPI 3.0 documents), expected
+outputs derived twice and agreed, a second behaviour measure on holdouts, and the
+full matrix of three arms, two models (`gpt-6-astra` medium, `gpt-6-luna` low),
+two orders and three repeats. `gpt-6-astra` solved every job first time in every
+arm and passed every holdout. `gpt-6-luna` is where the first failures appeared:
+second attempts, one job never accepted, and accepted candidates that failed
+hidden holdouts; direct and YNOT stayed level, with YNOT no better. The plain
+DSPy predictor could not be parsed on `gpt-6-luna` until a misspelt closing
+marker was tolerated. [Track A record](2026-11-06-track-a.md), evidence under
+`evidence/track-a-20261106/`. The Traction bridge was unreachable from this
+machine (SSH to the host filtered), so no checkpoint landed that day.
+
+Next: Track B (selection under distractors and a mid-run revocation) on both
+models, and richer host feedback after a failed case, since a weaker model
+repeated the same defect three times on "unexpected_output" alone. The article
+still waits for Yann's review. No 10x claim or publication.
 
 ## Earlier work — 2 November 2026
 

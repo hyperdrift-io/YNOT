@@ -1,0 +1,72 @@
+from copy import deepcopy
+
+
+def transform(payload):
+    components = payload.get("components", {}).get("schemas", {})
+    prefix = "#/components/schemas/"
+
+    def visit_children(schema, visit):
+        properties = schema.get("properties")
+        if isinstance(properties, dict):
+            schema["properties"] = {
+                name: visit(value) for name, value in properties.items()
+            }
+        for key in ("items", "additionalProperties", "not"):
+            if isinstance(schema.get(key), dict):
+                schema[key] = visit(schema[key])
+        for key in ("allOf", "anyOf", "oneOf"):
+            if isinstance(schema.get(key), list):
+                schema[key] = [visit(value) for value in schema[key]]
+        return schema
+
+    def resolve(schema):
+        if not isinstance(schema, dict):
+            return deepcopy(schema)
+        ref = schema.get("$ref")
+        if isinstance(ref, str) and ref.startswith(prefix):
+            name = ref[len(prefix):].replace("~1", "/").replace("~0", "~")
+            return resolve(components[name])
+        return visit_children(deepcopy(schema), resolve)
+
+    def nullability(schema):
+        if not isinstance(schema, dict):
+            return schema
+        nullable = schema.pop("nullable", None)
+        if nullable is True and isinstance(schema.get("type"), str):
+            kind = schema["type"]
+            schema["type"] = [kind, "null"] if kind != "null" else ["null"]
+        return visit_children(schema, nullability)
+
+    def permit_null(schema):
+        if not isinstance(schema, dict):
+            return
+        kind = schema.get("type")
+        if isinstance(kind, str) and kind != "null":
+            schema["type"] = [kind, "null"]
+        elif isinstance(kind, list) and "null" not in kind:
+            schema["type"] = kind + ["null"]
+        values = schema.get("enum")
+        if isinstance(values, list) and None not in values:
+            schema["enum"] = values + [None]
+
+    def strict(schema):
+        if not isinstance(schema, dict):
+            return schema
+        schema.pop("default", None)
+        original_required = schema.get("required", [])
+        if not isinstance(original_required, list):
+            original_required = []
+        visit_children(schema, strict)
+        if "properties" in schema:
+            properties = schema["properties"]
+            for name, child in properties.items():
+                if name not in original_required:
+                    permit_null(child)
+            schema["additionalProperties"] = False
+            schema["required"] = sorted(properties)
+        return schema
+
+    return {
+        name: strict(nullability(resolve(schema)))
+        for name, schema in components.items()
+    }

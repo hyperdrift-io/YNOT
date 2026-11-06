@@ -1,0 +1,38 @@
+{
+  "traces": [],
+  "train": [],
+  "demos": [],
+  "signature": {
+    "instructions": "Solve the task with standalone Python defining transform(payload), or compose catalogued work.",
+    "fields": [
+      {
+        "prefix": "Task:",
+        "description": "${task}"
+      },
+      {
+        "prefix": "Catalogue:",
+        "description": "JSON list of accepted capabilities you may compose by name, or []"
+      },
+      {
+        "prefix": "Feedback:",
+        "description": "Previous candidates and host feedback, or none"
+      },
+      {
+        "prefix": "Source:",
+        "description": "Standalone Python source defining transform(payload), or the word none"
+      },
+      {
+        "prefix": "Compose:",
+        "description": "Comma-separated catalogue names to run in order, or the word none"
+      }
+    ]
+  },
+  "lm": null,
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.4.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}
