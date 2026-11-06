@@ -1,0 +1,35 @@
+{
+  "observed_with": "codex exec --output-schema, 6 November 2026 (Codex CLI 0.166.0); the request was rejected before any generation",
+  "client_error": {
+    "status": 400,
+    "code": "invalid_json_schema",
+    "param": "text.format.schema",
+    "message": "Invalid schema for response_format 'codex_output_schema': 'schema.additionalProperties' is required to be supplied and to be false when strict is true."
+  },
+  "tool": "crunch_list_unreconciled_payments",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "bank_account_id": {
+        "type": "string",
+        "pattern": "^[0-9]+$"
+      },
+      "page": {
+        "default": 0,
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      },
+      "size": {
+        "default": 20,
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50
+      }
+    },
+    "required": [
+      "bank_account_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+  }
+}

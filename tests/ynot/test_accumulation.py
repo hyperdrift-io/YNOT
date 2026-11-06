@@ -109,7 +109,7 @@ def test_control_runs_every_job_in_the_real_boundary_and_composes(tmp_path):
     )
     report = json.loads(completed.stdout)
     records = report["results"]["ynot"]
-    assert [record["job"] for record in records] == list(demo.JOBS)
+    assert [record["job"] for record in records] == demo.DEFAULT_JOBS.split(",")
     assert all(record["accepted"] for record in records)
     assert [record["mode"] for record in records] == ["source", "source", "source", "compose"]
     for record in records:

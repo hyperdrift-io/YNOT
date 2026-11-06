@@ -1,0 +1,2525 @@
+{
+ "source": "Hyperdrift fleet MCP servers: apps/crunch-accounting-mcp and apps/deputy-workforce-mcp (MIT, tools/list over an in-memory transport), apps/traction (WebMCP tool list); captured 6 November 2026",
+ "tools": [
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_list_bank_accounts",
+   "payload": {
+    "type": "object",
+    "properties": {},
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [],
+    "additionalProperties": false
+   },
+   "same_schema_as": [
+    "crunch-accounting-mcp:crunch_list_expense_types",
+    "crunch-accounting-mcp:crunch_list_vat_types",
+    "crunch-accounting-mcp:crunch_list_payment_methods"
+   ]
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_list_unreconciled_payments",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "page": {
+      "default": 0,
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "default": 20,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+     }
+    },
+    "required": [
+     "bank_account_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "page": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 1,
+      "maximum": 50
+     }
+    },
+    "required": [
+     "bank_account_id",
+     "page",
+     "size"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_list_suppliers",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "page": {
+      "default": 0,
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "default": 20,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+     },
+     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "page": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 1,
+      "maximum": 50
+     },
+     "name": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 200
+     }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [
+     "name",
+     "page",
+     "size"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_list_clients",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "page": {
+      "default": 0,
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "default": 20,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+     }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "page": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 9007199254740991
+     },
+     "size": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 1,
+      "maximum": 50
+     }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [
+     "page",
+     "size"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_create_supplier",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "company_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "expense_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "contact_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "country": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "vat_registration_number": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "company_name",
+     "expense_type"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "company_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "expense_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "contact_name": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "country": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "vat_registration_number": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 50
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "company_name",
+     "confirm",
+     "contact_name",
+     "country",
+     "expense_type",
+     "vat_registration_number"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_create_client",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "email": {
+      "type": "string",
+      "format": "email",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+     },
+     "payment_terms_days": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 365
+     },
+     "billing_address": {
+      "type": "object",
+      "properties": {
+       "line1": {
+        "type": "string",
+        "minLength": 1
+       },
+       "line2": {
+        "type": "string",
+        "minLength": 1
+       },
+       "line3": {
+        "type": "string",
+        "minLength": 1
+       },
+       "line4": {
+        "type": "string",
+        "minLength": 1
+       },
+       "post_code": {
+        "type": "string",
+        "minLength": 1
+       },
+       "country": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "required": [
+       "line1",
+       "line2",
+       "country"
+      ]
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "name"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "email": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "format": "email",
+      "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+     },
+     "payment_terms_days": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 365
+     },
+     "billing_address": {
+      "type": [
+       "object",
+       "null"
+      ],
+      "properties": {
+       "line1": {
+        "type": "string",
+        "minLength": 1
+       },
+       "line2": {
+        "type": "string",
+        "minLength": 1
+       },
+       "line3": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "minLength": 1
+       },
+       "line4": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "minLength": 1
+       },
+       "post_code": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "minLength": 1
+       },
+       "country": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "required": [
+       "country",
+       "line1",
+       "line2",
+       "line3",
+       "line4",
+       "post_code"
+      ],
+      "additionalProperties": false
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "billing_address",
+     "confirm",
+     "email",
+     "name",
+     "payment_terms_days"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_reconcile_supplier_expense",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "supplier_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_payment_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "statement_entry_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "amount": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+     },
+     "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "expense_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "vat_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+     },
+     "supplier_reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "supplier_id",
+     "bank_account_id",
+     "bank_payment_id",
+     "amount",
+     "date",
+     "expense_type",
+     "vat_type",
+     "description"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "supplier_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_payment_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "statement_entry_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "pattern": "^[0-9]+$"
+     },
+     "amount": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+     },
+     "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "expense_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "vat_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+     },
+     "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+     },
+     "supplier_reference": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "amount",
+     "bank_account_id",
+     "bank_payment_id",
+     "confirm",
+     "date",
+     "description",
+     "expense_type",
+     "statement_entry_id",
+     "supplier_id",
+     "supplier_reference",
+     "vat_type"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_create_draft_invoice",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "client_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "issued_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "due_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "currency": {
+      "default": "POUND_STERLING",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+     },
+     "reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "purchase_order": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "payment_terms_days": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 365
+     },
+     "lines": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "description": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quantity": {
+         "type": "string",
+         "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+        },
+        "rate": {
+         "type": "string",
+         "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+        },
+        "vat_rate": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "required": [
+        "description",
+        "quantity",
+        "rate",
+        "vat_rate"
+       ]
+      }
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "client_id",
+     "issued_date",
+     "due_date",
+     "lines"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "client_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "issued_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "due_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "currency": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 50
+     },
+     "reference": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "purchase_order": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "minLength": 1,
+      "maxLength": 200
+     },
+     "payment_terms_days": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 365
+     },
+     "lines": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "description": {
+         "type": "string",
+         "minLength": 1
+        },
+        "quantity": {
+         "type": "string",
+         "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+        },
+        "rate": {
+         "type": "string",
+         "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+        },
+        "vat_rate": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "required": [
+        "description",
+        "quantity",
+        "rate",
+        "vat_rate"
+       ],
+       "additionalProperties": false
+      }
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "client_id",
+     "confirm",
+     "currency",
+     "due_date",
+     "issued_date",
+     "lines",
+     "payment_terms_days",
+     "purchase_order",
+     "reference"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_add_invoice_payment",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "invoice_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_payment_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "statement_entry_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "amount": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+     },
+     "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "invoice_id",
+     "bank_account_id",
+     "bank_payment_id",
+     "amount",
+     "date"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "invoice_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_account_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "bank_payment_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "statement_entry_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "pattern": "^[0-9]+$"
+     },
+     "amount": {
+      "type": "string",
+      "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$"
+     },
+     "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "amount",
+     "bank_account_id",
+     "bank_payment_id",
+     "confirm",
+     "date",
+     "invoice_id",
+     "statement_entry_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "crunch-accounting-mcp",
+   "commit": "354beaf",
+   "tool": "crunch_issue_invoice",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "invoice_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "confirm": {
+      "default": false,
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "invoice_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "invoice_id": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "confirm": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     }
+    },
+    "required": [
+     "confirm",
+     "invoice_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "deputy-workforce-mcp",
+   "commit": "35214e4",
+   "tool": "find_coverage_gaps",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "minimum_people": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 100
+     }
+    },
+    "required": [
+     "start_date",
+     "end_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "minimum_people": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "exclusiveMinimum": 0,
+      "maximum": 100
+     }
+    },
+    "required": [
+     "end_date",
+     "location_ids",
+     "minimum_people",
+     "start_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "deputy-workforce-mcp",
+   "commit": "35214e4",
+   "tool": "flag_overtime_risk",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "threshold_hours": {
+      "default": 40,
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 168
+     }
+    },
+    "required": [
+     "start_date",
+     "end_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "threshold_hours": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "exclusiveMinimum": 0,
+      "maximum": 168
+     }
+    },
+    "required": [
+     "end_date",
+     "location_ids",
+     "start_date",
+     "threshold_hours",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "deputy-workforce-mcp",
+   "commit": "35214e4",
+   "tool": "list_timesheet_exceptions",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "tolerance_minutes": {
+      "default": 15,
+      "type": "number",
+      "minimum": 0,
+      "maximum": 720
+     }
+    },
+    "required": [
+     "start_date",
+     "end_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "tolerance_minutes": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 720
+     }
+    },
+    "required": [
+     "end_date",
+     "location_ids",
+     "start_date",
+     "timezone",
+     "tolerance_minutes"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "deputy-workforce-mcp",
+   "commit": "35214e4",
+   "tool": "find_availability_conflicts",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    "required": [
+     "start_date",
+     "end_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "start_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "First local calendar date, YYYY-MM-DD."
+     },
+     "end_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Last local calendar date, YYYY-MM-DD, inclusive."
+     },
+     "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "IANA timezone used to group operational days."
+     },
+     "location_ids": {
+      "maxItems": 50,
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     }
+    },
+    "required": [
+     "end_date",
+     "location_ids",
+     "start_date",
+     "timezone"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false
+   },
+   "same_schema_as": [
+    "deputy-workforce-mcp:summarise_staffing"
+   ]
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "read_gm_changes",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "after": {
+      "type": "string",
+      "description": "sync_cursor retained from a previous read_gm_conversation, or next_cursor while draining pages. Bound to app and authenticated account."
+     },
+     "through": {
+      "type": "string",
+      "description": "Use through_cursor from the first change page for all remaining pages in that batch. Omit for a new catch-up."
+     }
+    },
+    "required": [
+     "app",
+     "after"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "after": {
+      "type": "string",
+      "description": "sync_cursor retained from a previous read_gm_conversation, or next_cursor while draining pages. Bound to app and authenticated account."
+     },
+     "through": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Use through_cursor from the first change page for all remaining pages in that batch. Omit for a new catch-up."
+     }
+    },
+    "required": [
+     "after",
+     "app",
+     "through"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "share_gm_context",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID for this message, generated by the assistant. Retain it and the exact arguments across retries; a changed message needs a new key."
+     },
+     "text": {
+      "type": "string",
+      "description": "Relevant observation or agreed approach to share with this app, at most 2000 characters. Attribute model suggestions explicitly. Exclude unrelated or private chat content."
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "observation",
+       "agreement"
+      ],
+      "description": "The person\u2019s reported observation or agreement. Neither changes the accepted plan or commissions work."
+     },
+     "observed_at": {
+      "type": "string",
+      "description": "Original observation/agreement time in ISO 8601 with timezone. Do not replace an older evidence date with retrieval time."
+     },
+     "source_ref": {
+      "type": "string",
+      "description": "Origin supplied by the caller: e.g. Codex thread ID, Claude chat reference or dated report. Saved as reported provenance, not independently verified authorship."
+     }
+    },
+    "required": [
+     "app",
+     "text",
+     "key",
+     "kind",
+     "observed_at",
+     "source_ref"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID for this message, generated by the assistant. Retain it and the exact arguments across retries; a changed message needs a new key."
+     },
+     "text": {
+      "type": "string",
+      "description": "Relevant observation or agreed approach to share with this app, at most 2000 characters. Attribute model suggestions explicitly. Exclude unrelated or private chat content."
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "observation",
+       "agreement"
+      ],
+      "description": "The person\u2019s reported observation or agreement. Neither changes the accepted plan or commissions work."
+     },
+     "observed_at": {
+      "type": "string",
+      "description": "Original observation/agreement time in ISO 8601 with timezone. Do not replace an older evidence date with retrieval time."
+     },
+     "source_ref": {
+      "type": "string",
+      "description": "Origin supplied by the caller: e.g. Codex thread ID, Claude chat reference or dated report. Saved as reported provenance, not independently verified authorship."
+     }
+    },
+    "required": [
+     "app",
+     "key",
+     "kind",
+     "observed_at",
+     "source_ref",
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "list_gm_scopes",
+   "payload": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+   },
+   "same_schema_as": [
+    "traction:list_boards"
+   ]
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "read_gm_conversation",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "initiative_id": {
+      "type": "string",
+      "description": "Saved initiative or proposal ID in this app. Restores only its explicitly linked discussion and current brief; never inferred from a title."
+     },
+     "request_id": {
+      "type": "string",
+      "description": "Read this saved request and its answer/Builder progress, even outside the recent history. Exclusive with request_key and before."
+     },
+     "request_key": {
+      "type": "string",
+      "description": "Recover a possibly saved message using its original UUID key, for this authenticated account. Exclusive with request_id and before."
+     },
+     "before": {
+      "type": "string",
+      "description": "Load older history using next_before from the previous page. Exclusive with request_id and request_key."
+     },
+     "include_evidence": {
+      "type": "boolean",
+      "description": "Include saved decisions, work and measurements with source dates and coverage. Defaults to true for history, false for request progress. Never collects or runs GM."
+     }
+    },
+    "required": [
+     "app"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "initiative_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Saved initiative or proposal ID in this app. Restores only its explicitly linked discussion and current brief; never inferred from a title."
+     },
+     "request_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Read this saved request and its answer/Builder progress, even outside the recent history. Exclusive with request_key and before."
+     },
+     "request_key": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Recover a possibly saved message using its original UUID key, for this authenticated account. Exclusive with request_id and before."
+     },
+     "before": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Load older history using next_before from the previous page. Exclusive with request_id and request_key."
+     },
+     "include_evidence": {
+      "type": [
+       "boolean",
+       "null"
+      ],
+      "description": "Include saved decisions, work and measurements with source dates and coverage. Defaults to true for history, false for request progress. Never collects or runs GM."
+     }
+    },
+    "required": [
+     "app",
+     "before",
+     "include_evidence",
+     "initiative_id",
+     "request_id",
+     "request_key"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "ask_gm",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "text": {
+      "type": "string",
+      "description": "The person\u2019s request, at most 6000 characters. Include only relevant context from this chat, clearly attributed; saved app history is loaded by GM. Do not turn earlier suggestions into new authority."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID for this message, generated by the assistant. Retain it and the exact arguments across retries; a changed message needs a new key."
+     },
+     "initiative_id": {
+      "type": "string",
+      "description": "Optional saved initiative or proposal ID in this app. Retains the discussion with that work."
+     }
+    },
+    "required": [
+     "app",
+     "text",
+     "key"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes, or fleet for portfolio judgement. Never infer a new scope or fall back to fleet."
+     },
+     "text": {
+      "type": "string",
+      "description": "The person\u2019s request, at most 6000 characters. Include only relevant context from this chat, clearly attributed; saved app history is loaded by GM. Do not turn earlier suggestions into new authority."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID for this message, generated by the assistant. Retain it and the exact arguments across retries; a changed message needs a new key."
+     },
+     "initiative_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Optional saved initiative or proposal ID in this app. Retains the discussion with that work."
+     }
+    },
+    "required": [
+     "app",
+     "initiative_id",
+     "key",
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": [
+    "traction:request_gm_work"
+   ]
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "read_board",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     }
+    },
+    "required": [
+     "app"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     }
+    },
+    "required": [
+     "app"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": [
+    "traction:refresh_mailbox"
+   ]
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "reply_by_email",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "contact_id": {
+      "type": "string",
+      "description": "The contact id from read_board whose reply is answered."
+     },
+     "subject": {
+      "type": "string",
+      "description": "Usually \"Re: \" and the original subject."
+     },
+     "body": {
+      "type": "string",
+      "description": "The message, as the person wrote or confirmed it."
+     },
+     "send_at": {
+      "type": "string",
+      "description": "Optional. When to send; omitted sends now. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     }
+    },
+    "required": [
+     "app",
+     "contact_id",
+     "subject",
+     "body"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "contact_id": {
+      "type": "string",
+      "description": "The contact id from read_board whose reply is answered."
+     },
+     "subject": {
+      "type": "string",
+      "description": "Usually \"Re: \" and the original subject."
+     },
+     "body": {
+      "type": "string",
+      "description": "The message, as the person wrote or confirmed it."
+     },
+     "send_at": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Optional. When to send; omitted sends now. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     }
+    },
+    "required": [
+     "app",
+     "body",
+     "contact_id",
+     "send_at",
+     "subject"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "propose_work",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "title": {
+      "type": "string",
+      "description": "What will be done, in a few words."
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "action",
+       "follow_up",
+       "meeting"
+      ],
+      "description": "Defaults to action."
+     },
+     "when": {
+      "type": "string",
+      "description": "Due time, or the meeting start. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "duration_minutes": {
+      "type": "integer",
+      "description": "Meetings only. Defaults to 30."
+     },
+     "evidence_required": {
+      "type": "string",
+      "description": "What will show it happened (a reply, a call note, a signed form)."
+     },
+     "contact_id": {
+      "type": "string",
+      "description": "A contact id from read_board, if the work is with one."
+     },
+     "initiative_id": {
+      "type": "string",
+      "description": "An initiative id from read_board, if the work serves one."
+     }
+    },
+    "required": [
+     "app",
+     "title",
+     "when",
+     "evidence_required"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "title": {
+      "type": "string",
+      "description": "What will be done, in a few words."
+     },
+     "kind": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "action",
+       "follow_up",
+       "meeting",
+       null
+      ],
+      "description": "Defaults to action."
+     },
+     "when": {
+      "type": "string",
+      "description": "Due time, or the meeting start. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "duration_minutes": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "Meetings only. Defaults to 30."
+     },
+     "evidence_required": {
+      "type": "string",
+      "description": "What will show it happened (a reply, a call note, a signed form)."
+     },
+     "contact_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "A contact id from read_board, if the work is with one."
+     },
+     "initiative_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "An initiative id from read_board, if the work serves one."
+     }
+    },
+    "required": [
+     "app",
+     "contact_id",
+     "duration_minutes",
+     "evidence_required",
+     "initiative_id",
+     "kind",
+     "title",
+     "when"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "accept_work",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "A proposed work id from read_board."
+     }
+    },
+    "required": [
+     "app",
+     "id"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "A proposed work id from read_board."
+     }
+    },
+    "required": [
+     "app",
+     "id"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "record_result",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "A work id from read_board."
+     },
+     "state": {
+      "type": "string",
+      "enum": [
+       "completed",
+       "blocked",
+       "missed",
+       "cancelled"
+      ],
+      "description": "Defaults to completed."
+     },
+     "result": {
+      "type": "string",
+      "description": "What happened, in a sentence."
+     },
+     "outcome": {
+      "type": "string",
+      "enum": [
+       "positive",
+       "negative",
+       "inconclusive",
+       "unknown"
+      ],
+      "description": "Completed work only: how it went for the customer."
+     }
+    },
+    "required": [
+     "app",
+     "id",
+     "result"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "A work id from read_board."
+     },
+     "state": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "completed",
+       "blocked",
+       "missed",
+       "cancelled",
+       null
+      ],
+      "description": "Defaults to completed."
+     },
+     "result": {
+      "type": "string",
+      "description": "What happened, in a sentence."
+     },
+     "outcome": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "positive",
+       "negative",
+       "inconclusive",
+       "unknown",
+       null
+      ],
+      "description": "Completed work only: how it went for the customer."
+     }
+    },
+    "required": [
+     "app",
+     "id",
+     "outcome",
+     "result",
+     "state"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "review_enquiry",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "Enquiry UUID from read_board."
+     },
+     "revision": {
+      "type": "integer",
+      "description": "Enquiry review revision from read_board; zero for an unreviewed enquiry."
+     },
+     "qualification": {
+      "type": "string",
+      "enum": [
+       "unreviewed",
+       "qualified",
+       "not_qualified",
+       "needs_information"
+      ],
+      "description": "The human qualification decision."
+     },
+     "reason": {
+      "type": "string",
+      "description": "Human evidence and reason for the qualification."
+     },
+     "next_action": {
+      "type": "string",
+      "description": "The next action, required for qualified or needs_information."
+     },
+     "next_follow_up": {
+      "type": "string",
+      "description": "ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "contact_id": {
+      "type": "string",
+      "description": "Matching contact ID from read_board, when present."
+     },
+     "contact_revision": {
+      "type": "integer",
+      "description": "Current matching contact revision from read_board."
+     }
+    },
+    "required": [
+     "app",
+     "id",
+     "revision",
+     "qualification",
+     "reason",
+     "next_action"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "id": {
+      "type": "string",
+      "description": "Enquiry UUID from read_board."
+     },
+     "revision": {
+      "type": "integer",
+      "description": "Enquiry review revision from read_board; zero for an unreviewed enquiry."
+     },
+     "qualification": {
+      "type": "string",
+      "enum": [
+       "unreviewed",
+       "qualified",
+       "not_qualified",
+       "needs_information"
+      ],
+      "description": "The human qualification decision."
+     },
+     "reason": {
+      "type": "string",
+      "description": "Human evidence and reason for the qualification."
+     },
+     "next_action": {
+      "type": "string",
+      "description": "The next action, required for qualified or needs_information."
+     },
+     "next_follow_up": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "contact_id": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Matching contact ID from read_board, when present."
+     },
+     "contact_revision": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "description": "Current matching contact revision from read_board."
+     }
+    },
+    "required": [
+     "app",
+     "contact_id",
+     "contact_revision",
+     "id",
+     "next_action",
+     "next_follow_up",
+     "qualification",
+     "reason",
+     "revision"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "save_contact",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "name": {
+      "type": "string",
+      "description": "The person's name."
+     },
+     "organisation": {
+      "type": "string",
+      "description": "Where they work."
+     },
+     "contact_type": {
+      "type": "string",
+      "enum": [
+       "customer",
+       "investor",
+       "introducer",
+       "other"
+      ],
+      "description": "Who they are to the business: customer (the default), investor (funds it), introducer (brings or refers customers) or other."
+     },
+     "stage": {
+      "type": "string",
+      "enum": [
+       "prospect",
+       "contacted",
+       "qualified",
+       "customer",
+       "lost"
+      ],
+      "description": "Where the relationship stands."
+     },
+     "next_action": {
+      "type": "string",
+      "description": "The next step with them."
+     },
+     "next_follow_up": {
+      "type": "string",
+      "description": "When to follow up. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "profile": {
+      "type": "string",
+      "description": "The research behind the contact: what they run, the dated signal, the route, the entity, the risk."
+     },
+     "fit": {
+      "type": "string",
+      "enum": [
+       "",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "description": "How well they fit the offer, 5 best; empty until rated."
+     },
+     "fit_reason": {
+      "type": "string",
+      "description": "Why that rating, in one line."
+     },
+     "window": {
+      "type": "string",
+      "description": "What just happened for them, one line: a launch, a stall, a first marketing hire, a release nobody noticed. The ask is timed to it."
+     },
+     "window_at": {
+      "type": "string",
+      "description": "The day it happened, YYYY-MM-DD."
+     }
+    },
+    "required": [
+     "app",
+     "name"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "name": {
+      "type": "string",
+      "description": "The person's name."
+     },
+     "organisation": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Where they work."
+     },
+     "contact_type": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "customer",
+       "investor",
+       "introducer",
+       "other",
+       null
+      ],
+      "description": "Who they are to the business: customer (the default), investor (funds it), introducer (brings or refers customers) or other."
+     },
+     "stage": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "prospect",
+       "contacted",
+       "qualified",
+       "customer",
+       "lost",
+       null
+      ],
+      "description": "Where the relationship stands."
+     },
+     "next_action": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The next step with them."
+     },
+     "next_follow_up": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "When to follow up. ISO 8601 date-time with offset, e.g. 2026-10-14T10:00:00+01:00."
+     },
+     "profile": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The research behind the contact: what they run, the dated signal, the route, the entity, the risk."
+     },
+     "fit": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5",
+       null
+      ],
+      "description": "How well they fit the offer, 5 best; empty until rated."
+     },
+     "fit_reason": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Why that rating, in one line."
+     },
+     "window": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "What just happened for them, one line: a launch, a stall, a first marketing hire, a release nobody noticed. The ask is timed to it."
+     },
+     "window_at": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "The day it happened, YYYY-MM-DD."
+     }
+    },
+    "required": [
+     "app",
+     "contact_type",
+     "fit",
+     "fit_reason",
+     "name",
+     "next_action",
+     "next_follow_up",
+     "organisation",
+     "profile",
+     "stage",
+     "window",
+     "window_at"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "save_initiative",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes; Fleet has no app initiative proposals."
+     },
+     "title": {
+      "type": "string",
+      "description": "The proposed initiative title, up to 300 characters."
+     },
+     "outcome": {
+      "type": "string",
+      "description": "The desired outcome supplied by the person, up to 2000 characters."
+     },
+     "stage": {
+      "type": "string",
+      "enum": [
+       "reach",
+       "activation",
+       "retention",
+       "revenue"
+      ],
+      "description": "Optional proposed funnel stage; the GM reviews it with the app context."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID. Retain this key and the exact draft across retries."
+     }
+    },
+    "required": [
+     "app",
+     "title",
+     "outcome",
+     "key"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Exact permitted app ID from list_gm_scopes; Fleet has no app initiative proposals."
+     },
+     "title": {
+      "type": "string",
+      "description": "The proposed initiative title, up to 300 characters."
+     },
+     "outcome": {
+      "type": "string",
+      "description": "The desired outcome supplied by the person, up to 2000 characters."
+     },
+     "stage": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "enum": [
+       "reach",
+       "activation",
+       "retention",
+       "revenue",
+       null
+      ],
+      "description": "Optional proposed funnel stage; the GM reviews it with the app context."
+     },
+     "key": {
+      "type": "string",
+      "description": "A new lowercase UUID. Retain this key and the exact draft across retries."
+     }
+    },
+    "required": [
+     "app",
+     "key",
+     "outcome",
+     "stage",
+     "title"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "send_feedback",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "text": {
+      "type": "string",
+      "description": "The feedback, in the person's words, up to 2000 characters."
+     },
+     "app": {
+      "type": "string",
+      "description": "Optional board id from list_boards the feedback is about."
+     }
+    },
+    "required": [
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "text": {
+      "type": "string",
+      "description": "The feedback, in the person's words, up to 2000 characters."
+     },
+     "app": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Optional board id from list_boards the feedback is about."
+     }
+    },
+    "required": [
+     "app",
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  },
+  {
+   "server": "traction",
+   "commit": "bceeca5",
+   "tool": "add_note",
+   "payload": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "record_id": {
+      "type": "string",
+      "description": "A record id from read_board."
+     },
+     "text": {
+      "type": "string",
+      "description": "The note."
+     }
+    },
+    "required": [
+     "app",
+     "record_id",
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "expected": {
+    "type": "object",
+    "properties": {
+     "app": {
+      "type": "string",
+      "description": "Board id, from list_boards."
+     },
+     "record_id": {
+      "type": "string",
+      "description": "A record id from read_board."
+     },
+     "text": {
+      "type": "string",
+      "description": "The note."
+     }
+    },
+    "required": [
+     "app",
+     "record_id",
+     "text"
+    ],
+    "additionalProperties": false
+   },
+   "same_schema_as": []
+  }
+ ],
+ "distinct_note": "Tools sharing an identical input schema are kept once; same_schema_as names the others."
+}

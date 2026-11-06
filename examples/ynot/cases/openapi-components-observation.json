@@ -1,0 +1,18 @@
+{
+  "observed_with": "codex exec --output-schema, 6 November 2026 (Codex CLI 0.166.0); the request was rejected before any generation",
+  "client_error": {
+    "status": 400,
+    "code": "invalid_json_schema",
+    "param": "text.format.schema",
+    "message": "Invalid schema for response_format 'codex_output_schema': schema must be a JSON Schema of 'type: \"object\"', got 'type: \"array\"'."
+  },
+  "document": "petstore",
+  "component": "Pets",
+  "schema": {
+    "type": "array",
+    "maxItems": 100,
+    "items": {
+      "$ref": "#/components/schemas/Pet"
+    }
+  }
+}

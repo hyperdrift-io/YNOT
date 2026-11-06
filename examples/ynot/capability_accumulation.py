@@ -17,13 +17,33 @@ import time
 from pathlib import Path
 from uuid import uuid4
 
-from examples.ynot import composed_case, migration_case, schema_case, strict_schema_case
+from examples.ynot import (
+    composed_case,
+    mcp_tools_case,
+    migration_case,
+    openapi_document_case,
+    schema_case,
+    strict_schema_case,
+    suite_migration_case,
+)
 from examples.ynot.capability_lifecycle import ARMS, SCOPE, canonical, direct_check
 from ynot import CapabilityStore, ExecutionAllowance, PyodideExecutor
 from ynot.capabilities import CapabilityError
 
-JOBS = {module.NAME: module for module in (schema_case, strict_schema_case, migration_case, composed_case)}
-DEFAULT_JOBS = ",".join(JOBS)
+JOBS = {
+    module.NAME: module
+    for module in (
+        schema_case,
+        strict_schema_case,
+        migration_case,
+        composed_case,
+        mcp_tools_case,
+        suite_migration_case,
+        openapi_document_case,
+    )
+}
+DEFAULT_JOBS = ",".join(list(JOBS)[:4])
+TRACK_A_JOBS = ",".join(list(JOBS)[4:])
 RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
@@ -100,12 +120,12 @@ def reuse(folder, arm, job, capability_id):
     executor = PyodideExecutor()
     holdouts = case.later_jobs()
     allowance = ExecutionAllowance(len(holdouts) * 8)
-    results, failures = [], []
+    results, failures, behaviours = [], [], []
     if arm == "ynot":
         store = CapabilityStore(folder / "store", SCOPE, executor.policy)
     else:
         sources = library_sources(folder, [job])
-    for acceptance in holdouts:
+    for index, acceptance in enumerate(holdouts):
         try:
             if arm == "ynot":
                 output = store.run(capability_id, acceptance.payload, case.contract(), executor, allowance)
@@ -116,13 +136,21 @@ def reuse(folder, arm, job, capability_id):
         except Exception as exc:
             results.append(False)
             failures.append(type(exc).__name__)
-    return {
+            output = None
+        if hasattr(case, "behaviour"):
+            # Second measure where the job defines one: did the output behave, whatever its wording?
+            behaviours.append((False, "no_output") if output is None else case.behaviour(index, output))
+    record = {
         "heldout_passes": sum(results),
         "heldout_cases": len(results),
         "executions": allowance.used,
         "model_calls": 0,
         "failures": failures,
     }
+    if behaviours:
+        record["behaviour_passes"] = sum(ok for ok, _ in behaviours)
+        record["behaviour_failures"] = [reason for ok, reason in behaviours if not ok][:20]
+    return record
 
 
 def fresh_reuse(folder, arm, job, capability_id):
@@ -140,7 +168,7 @@ def fresh_reuse(folder, arm, job, capability_id):
         capability_id or "",
     ]
     try:
-        completed = subprocess.run(command, text=True, capture_output=True, check=True, timeout=600)
+        completed = subprocess.run(command, text=True, capture_output=True, check=True, timeout=1800)
         return json.loads(completed.stdout)
     except (subprocess.SubprocessError, ValueError) as exc:
         return {"error": type(exc).__name__, "executions": None, "model_calls": 0}
@@ -334,7 +362,7 @@ def run_arm(folder, arm, jobs, *, live, model, reasoning):
             folder / "model",
             max_invocations=3 * len(jobs),
             timeout=180,
-            mission_seconds=900 * len(jobs),
+            mission_seconds=1800 * len(jobs),
             model=model,
             reasoning_effort=reasoning,
         )
@@ -355,7 +383,9 @@ def run_arm(folder, arm, jobs, *, live, model, reasoning):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--store", type=Path, required=True)
-    parser.add_argument("--jobs", default=DEFAULT_JOBS, help="Comma-separated job names in order")
+    parser.add_argument(
+        "--jobs", default=DEFAULT_JOBS, help=f"Comma-separated job names in order; Track A is {TRACK_A_JOBS}"
+    )
     parser.add_argument("--arms", default="direct,dspy,ynot", help="Comma-separated arms in run order")
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--model", default="gpt-6-astra")
